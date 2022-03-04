@@ -1,70 +1,26 @@
-# Getting Started with Create React App
+# squid_mbti_project
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+Title : 오징어게임 MBTI
+OverView
 
-## Available Scripts
+Second Commit Content :
 
-In the project directory, you can run:
+Problem :
 
-### `npm start`
+1. Question Component에서 Question이 넘어갈 때마다 사진로딩속도가 느림
+2. Result Component에서 Result Image의 로딩속도 또한 느림
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+Solution :
+내가 생각하는 원인
+=>
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
+1. 이미지 파일 자체 용량이 크다.
+2. 이미지의 크기가 크다.
 
-### `npm test`
+따라서 이미지 파일을 엎기전에 css에서 이미지의 크기를 먼저 줄여봤다.
+다음으로는 파일 포멧이 제각각이기 때문에 파일 용량이 낮은 jpg로 포멧을 전환해봤다.
+포멧 전환이후에는 파일자체의 이미지 크기를 줄였다.
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+Result : 전체적으로 이미지 로딩 시간이 빨라졌다.
 
-### `npm run build`
-
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
-
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
-
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
-
-### `npm run eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
-
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
-
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+Benefit : 이미지 로딩이 느리다면 파일포멧을 jpg로 변경하고 파일 사이즈를 줄이고 css로 이미지 크기도 줄여보자
