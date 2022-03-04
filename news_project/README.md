@@ -1,70 +1,34 @@
-# Getting Started with Create React App
+# news_project
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+## Overview
 
-## Available Scripts
+News Api를 사용하여 각 category별로 관련 뉴스를 보여준다.
 
-In the project directory, you can run:
+## Techs
 
-### `npm start`
+- react
+- react-router
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+## react hooks
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+- useState
+- useEffect
+- useContext (state 전달이 복잡해질 경우에 대비)
 
-### `npm test`
+## Design squence
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+**1. state에 news api를 담는다.**
 
-### `npm run build`
+news api를 불러와 setState()의 인자로 data를 담는다.
+비동기 함수안에서 state에 data를 설정한다.(async/await)
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+비동기 함수의 인자는 news api의 url이다.
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+**2. params의 따라 news api를 다르게 불러온다.**
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+각 카테고리별 뉴스를 불러오기 위하여 url params를 이용한다.
 
-### `npm run eject`
+비동기 함수를 불러올 때에는 useEffect안에서 사용하도록 한다.
+dependency는 유동적으로 바뀌는 url params의 값을 할당한다.
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
-
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
-
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+비동기 함수의 인자인 news api url에 params를 할당하여 유동적으로 동작하도록 하게 한다.
