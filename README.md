@@ -2,7 +2,7 @@
 
 These are projects using react with other techs.
 
-## blog_project
+## [blog_project](https://github.com/BrightJun96/react-project/tree/main/blog_project)
 
 ## card_project
 
