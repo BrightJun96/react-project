@@ -1,0 +1,25 @@
+@font-face {
+  font-family: "twaysky";
+  src: url("https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_tway@1.0/twaysky.woff")
+    format("woff");
+  font-weight: normal;
+  font-style: normal;
+}
+
+* {
+  font-family: "twaysky";
+  scroll-behavior: smooth;
+}
+
+html,
+body {
+  width: 100%;
+  margin: 0;
+  background-color: #a2d382;
+  letter-spacing: 4px;
+  color: aliceblue;
+}
+
+#root {
+  width: 100%;
+}
