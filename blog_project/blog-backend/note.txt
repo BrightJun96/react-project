@@ -1,0 +1,104 @@
+> 명령어 실행
+
+npm start와 같은 기본 설정이 되있는 scripts 명령어는 npm start와 같이 사용하면 되지만
+
+내가 설정한 명령어를 실행하기 위해선 
+npm run "내가 정한 명령어" 
+이렇게 입력해야한다.
+
+
+> app.use()는 미들웨어 함수를 애플리케이션에서 실
+행시킬 수 있게 하는 메서드 
+
+
+> app.use()의 미들웨어 함수
+
+app.use()의 콜백함수는 미들웨어 함수이다.
+이는 request객체, response 객체에 대한 정보와 다음 미들웨어함수를 실행할 수 있도록하는 기능을 한다.
+
+app.use((ctx,next) => {
+    ctx => request객체, response 객체에 대한 정보 (request객체,request객체는 어떤 API들이 있을까?)
+    next() => 다음 미들웨어를 실행하게 할 함수 
+              프로미스를 반환한다.
+              해당 프로미스는 다음 미들웨어함수가 종료된 이후에 완료된다.
+})
+
+
+> app.listen()  
+
+port 번호를 정해 서버를 실행시켜줌.
+
+
+
+
+> 웹 브라우저에서 데이터베이스에 직접 접속하여 데이터를 변경한다면 보안상 문제가 발생 
+(내가 짠 프론트 코드는 화면상에 보이게 되니깐?)
+ 
+따라서 Rest API를 만들어 사용
+
+> 
+
+const Router = require("koa-router")
+const router = new Router()
+
+router.get("/",(ctx) => {
+    ctx.body = "Home"
+})
+
+router 모듈을 물러와 사용
+
+const router = new Router();
+ router.use("/api",api.routes())
+
+api라는 경로를 기준으로 api routes를 사용하겠다.
+
+
+
+라우별로 함수를 모아둔 곳 => controller
+
+
+bodyparser의 역할 : REST API의 request.body를 서버에서 인식할 수 있도록 json형식으로 데이터를 넣어준다.
+(서버는 문자열화된 데이터를 받고 클라이언트측은 객체화(파싱)된 데이터를 받는다.)
+
+postman 사용 이유 : get을 제외한 post,delete,put,patch는 클라이언트측(javascript)에서 보내야하기 때문에
+                    REST API를 보낼 수 있는 postman을 클라이언트으로 지정하여 이용하는것이다.
+
+
+
+
+----database
+
+
+> mongoose
+mongoose는 Node,js환경에서 사용하는 MongoDB기반 ODM(Object Data Modellong) 라이브러리이다.
+데이터베이스 문서들을 자바스크립트 객체처럼 사용할 수 있게 해줌.
+즉, mongoose는 몽고디비와 서버를 연결해주는 라이브러리이다.
+
+> dotenv
+dotenv는 환경변수들을 파일에 넣고 사용할 수 있게 하는 개발 도구이다.
+mongoose를 사용하여 몽고디비에 접속할 때, 서버에 주소나 계정 및 비밀번호가 필요할 경우도 있음.
+
+이렇게 민감하거나 환경별로 달라질 수 있는 값은 코드 안에 직접 작성하지 않고, 
+환경변수로 설정하는 것이 좋다.
+
+프로젝트를 깃헙에 올릴 경우 .gitignore를 작성하여 환경변수가 들어 있는 파일은 제외시켜 주어야함.
+
+.env 파일은 process.env로 조회할 수 있다.
+
+
+> esm library
+es moudle export/import를 사용할 수 있게 해줌.
+기존 node.js에서는 export/import 문법을 사용할 수 없음.
+
+----error
+
+Error.1
+
+```
+mongoose
+  .connect(MONGO_URI, { useNewUrlParser: true, useFindAndModify: false })
+  
+``` =>  MongoParseError: option usefindandmodify is not supported
+
+ mongoose 6버전 이상에선 더이상 useNewUrlParser, useUnifiedTopology, useFindAndModify, useCreateIndex를
+  지원하지 않기 때문에 지워주면 된다는 거였다.

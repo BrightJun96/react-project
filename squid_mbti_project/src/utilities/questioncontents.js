@@ -1,0 +1,88 @@
+// 12개의 질문을 포함한 하나의 배열!
+//export default가 아니면 이 파일을 들여올 때 객체로 묶어서 들여와야함.
+export const questioncontent = [
+  {
+    number: 1,
+    question: "더 좋아하는 영화는?",
+    answer1: "13일의 금요일",
+    answer2: "극한직업",
+    type: "e",
+  },
+  {
+    number: 2,
+    question: "더 좋아하는 음식은?",
+    answer1: "후라이드 치킨",
+    answer2: "양념 치킨",
+    type: "s",
+  },
+  {
+    number: 3,
+    question: "더 좋아하는 색깔은?",
+    answer1: "빨강",
+    answer2: "초록",
+    type: "t",
+  },
+  {
+    number: 4,
+    question: "더 좋아하는 음료는?",
+    answer1: "커피",
+    answer2: "콜라",
+    type: "j",
+  },
+  {
+    number: 5,
+    question: "더 좋아하는 영화는?",
+    answer1: "13일의 금요일",
+    answer2: "극한직업",
+    type: "e",
+  },
+  {
+    number: 6,
+    question: "더 좋아하는 음식은?",
+    answer1: "후라이드 치킨",
+    answer2: "양념 치킨",
+    type: "s",
+  },
+  {
+    number: 7,
+    question: "더 좋아하는 색깔은?",
+    answer1: "빨강",
+    answer2: "초록",
+    type: "t",
+  },
+  {
+    number: 8,
+    question: "더 좋아하는 음료는?",
+    answer1: "커피",
+    answer2: "콜라",
+    type: "j",
+  },
+  {
+    number: 9,
+    question: "더 좋아하는 영화는?",
+    answer1: "13일의 금요일",
+    answer2: "극한직업",
+    type: "e",
+  },
+  {
+    number: 10,
+    question: "더 좋아하는 음식은?",
+    answer1: "후라이드 치킨",
+    answer2: "양념 치킨",
+    type: "s",
+  },
+  {
+    number: 11,
+    question: "더 좋아하는 색깔은?",
+    answer1: "빨강",
+    answer2: "초록",
+    type: "t",
+  },
+  {
+    number: 12,
+    question: "더 좋아하는 음료는?",
+    answer1: "커피",
+    answer2: "콜라",
+    type: "j",
+  },
+];
