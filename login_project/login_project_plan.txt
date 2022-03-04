@@ -1,0 +1,106 @@
+
+로그인 페이지 구성
+
+아이디 :
+비밀번호 :
+로그인 버튼
+
+회원가입
+
+
+
+1. 회원가입
+> 내가 기록한 정보를 어딘가에 등록할 데이터베이스가 필요할 것
+> 아이디와 비밀번호를 입력하고 데이터 베이스에 등록
+ >> 내가 form으로 보낸 데이터가 나의 데이터 베이스로 가게 해야 함.
+
+2. 내가 데이터베이스에 등록한 아이디 비밀번호가 맞는지 확인하는 작업
+
+ 네이버,카카오,구글 연동
+
+3. 로그인을 성공하면 일단 간단하게 Protected Page만 보이게 구현
+
+4. 내가 입력한 아이디와 비밀번호와 데이터베이스에 등록된 정보와 비교
+
+5. 회원가입 페이지로 이동하기 위해선는 라우팅이 필요 => 리액트 라우터 사용
+
+6. 회원가입이 완료되면 로그인 페이지로 다시 이동
+
+
+
+------------- to-do 
+
+0. LayOut > clear
+
+
+
+3. 로그인 페이지 form frame 작성하기 > clear
+ 
+ >> 리액트에서는 form을 어떻게 작성하면 좋을까?
+ (https://reactjs.org/docs/forms.html)
+    일반 html 작성 form과 react에서 작성할 때의 form은 조금 다르다.
+    html form은 내부적으로 state를 가져 사용자가 value를 변경할 수 있지만
+    react form은 state를 지정해 value값을 변경해주지않으면 value를 변경할 수 없다.
+
+ >> login Form과 signup Form은 내부적으로 다른 내용이 많아 분류하여 컴포넌트를 만들었다.
+
+
+
+4. 회원가입 페이지 form frame 작성하기 > clear
+
+
+5. database로 signup한 데이터를 보내야함.
+
+    > 어떤 데이터 베이스를 선택할까
+        1. MongoDB
+        2. MySQL
+        >> 책 참조
+
+
+
+    > 어떻게 데이터 베이스에 보낼까
+
+
+
+    데이터를 서버로 보낸뒤 
+    서버와 데이터베이스를 연동
+
+
+
+6. login에서 database에 있는 signup data와 비교하여 맞으면 성공/틀리면 실패
+
+
+
+
+
+---- to study
+
+1. form 태그의 역할은 무엇인가?  >    clear
+    > 특정 서버에 데이터를 전송하기 위한 태그
+    > form태그안에서 button type submit 과 input type ='submit'의 차이는?
+        >> type submit : submit 버튼을 클릭하면 폼 데이터를 <form> 요소의 action속성에 정의된 웹페이지 에 전송된다.
+        >> 기본적으로 button type default는 submit이다.
+        >> 둘의 기능적인 부분은 비슷하다.
+        >> 하지만 input은 버튼안에 text만 담을 수 있지만 button은 다른 컨텐츠(이미지 등)를 담을 수 있다. 
+
+    > 회원가입에서 데이터베이스로 데이터를 보내기위해 form태그 action 속성에 데이터베이스 url을 입력해줘야함.
+    > 또한 protected 페이지로 데이터를 보내 이를 확인하여 authentication을 실행한다.
+    (즉 login 페이지에서도 form 태그를 사용하자.)
+
+    > form에서 action의 주소로 보낸 데이터는 해당 주소에서 어떻게 전달받을 수 있나?
+    input에 name 속성을 할당하여서 서버에서 해당 name으로 input value를 조회할 수 있다.
+
+    또는 protected 컴포넌트에서 query string 값으로도 받을 수 있다.
+
+
+2. label 태그의 역할은? label이 input태그와 무슨 연관이 있는가? >    clear
+
+    > label을 input과 연결하면 생기는 이점?
+    - label을 누르면 input에 자동 포커스됨.
+    - screen reader는 label에 따라 input text를 찾는다.
+    (screen reader: 불편한 사람들을 위해 웹을 인식할 수 있도록 해주는 기능) 
+    
+    > label을 붙여주는 것이 좋다.
+
+
+

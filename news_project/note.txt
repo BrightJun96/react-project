@@ -1,0 +1,47 @@
+Design
+ 각 카테고리별로 맞는 뉴스 보여주기
+
+기본 경로에는 전체적인 뉴스를 보여준다
+
+그리고 각 카테고리에 들어가면 그에 맞는 뉴스를 보여준다.
+
+그리고 context api 사용하기
+
+
+
+1. 레이아웃 페이지와 함께 링크 만들기
+
+2. 기본 경로에는 모든 뉴스를 보여준다.
+
+3. 각 카테고리별로 맞는 뉴스를 보여준다.
+
+4. NavLink 활성화
+
+
+5. NewsList에서 mapping할 떄  key값으로 고유한 값 주기      clear
+
+url을 key값으로 줌.
+
+6. 컨텐츠 정리
+
+
+---Error
+
+1 .
+다른 카테고리를 들어가려할 때 불러올 데이터가 바로 조회가 안됨.
+useEffect에서 처음 렌더링 될 때만 fetchData가 되게 했다.
+data가 바뀔 때마다 fetchData가 되도록 하자.
+
+=> param을 dependency로 설정해줌.
+
+
+
+2.
+
+
+
+-----다음 할 거
+
+- News Component content 구성 및 css
+
+- NavLink
