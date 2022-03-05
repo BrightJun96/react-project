@@ -38,6 +38,10 @@ const Layout = () => {
           </li>
         </ul>
       </nav>
+      <form>
+        <input />
+        <button>Search</button>
+      </form>
       <Outlet />
     </div>
   );
