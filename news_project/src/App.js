@@ -3,10 +3,6 @@ import { Route, Routes } from "react-router-dom";
 import NewsList from "./components/NewsList";
 import Layout from "./routes/Layout";
 const App = () => {
-  /*
-
-  */
-
   return (
     <div>
       <Routes>
