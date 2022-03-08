@@ -1,6 +1,7 @@
 import React from "react";
 import { Route, Routes } from "react-router-dom";
 import NewsList from "./components/NewsList";
+import Test from "./components/Test";
 import Layout from "./routes/Layout";
 const App = () => {
   return (
@@ -17,6 +18,7 @@ const App = () => {
             }
           />
           <Route path=":category" element={<NewsList />} />
+          <Route path=":test" element={<Test />} />
         </Route>
         <Route path="*" element={<h1>No match!</h1>} />
       </Routes>
