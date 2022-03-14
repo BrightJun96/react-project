@@ -40,7 +40,7 @@ node.js는 자바스크립트로 서버를 구현할 수 있다.
 ## To study
 
 ```js
-const Koa = require("koa");
+const Koa = require('koa');
 const app = new Koa();
 
 app.use((ctx, next) => {});
@@ -55,22 +55,22 @@ app.use((ctx, next) => {});
 ### Basic usage
 
 ```js
-var Koa = require("koa");
-var Router = require("koa-router");
+var Koa = require('koa');
+var Router = require('koa-router');
 
 var app = new Koa();
 var router = new Router();
 
-router.get("/", (ctx, next) => {
+router.get('/', (ctx, next) => {
   // ctx.router available
 });
 
 app.use(router.routes()).use(router.allowedMethods());
 ```
 
-### [koa-router API](https://github.com/ZijianHe/koa-router)
+## [koa-router API](https://github.com/ZijianHe/koa-router)
 
-#### **router.routes()**
+### **router.routes()**
 
 router.routes ⇒ function
 
@@ -80,7 +80,7 @@ router.routes ⇒ function
 
 <br>
 
-#### **router.use([path],middleware)**
+### **router.use([path],middleware)**
 
 router.use() => Router
 
@@ -92,10 +92,10 @@ router.use() => Router
 router.use(session()).use(authorize());
 
 // use middleware only with given path
-router.use("/users", userAuth());
+router.use('/users', userAuth());
 
 // or with an array of paths
-router.use(["/users", "/admin"], userAuth());
+router.use(['/users', '/admin'], userAuth());
 
 app.use(router.routes());
 ```
@@ -106,6 +106,71 @@ app.use(router.routes());
 > Returns separate middleware for responding to OPTIONS requests with an Allow header containing the allowed methods, as well as responding with 405 Method Not Allowed and 501 Not Implemented as appropriate.
 
 지정되있는 요청 메서드가 아닌 다른 요청메서드가 들어왔을 때 throw error를 해주는 것
+
+<br><br>
+
+### **router.get|put|post|patch|delete|del ⇒ Router**
+
+- 경로에 맞는 Http request를 해준다.
+
+```js
+router
+  .get('/', (ctx, next) => {
+    ctx.body = 'Hello World!';
+  })
+  .post('/users', (ctx, next) => {
+    // ...
+  })
+  .put('/users/:id', (ctx, next) => {
+    // ...
+  })
+  .del('/users/:id', (ctx, next) => {
+    // ...
+  })
+  .all('/users/:id', (ctx, next) => {
+    // ...
+  });
+```
+
+<br>
+
+#### Multiple middleware
+
+- 미들웨어를 적용할 수 있다.
+
+```js
+router.get(
+  '/users/:id',
+  (ctx, next) => {
+    return User.findOne(ctx.params.id).then(function (user) {
+      ctx.user = user;
+      next();
+    });
+  },
+  (ctx) => {
+    console.log(ctx.user);
+    // => { id: 17, name: "Alex" }
+  },
+);
+```
+
+<br>
+
+#### Nested routers
+
+- route를 중첩할 수 있다.
+
+```js
+var forums = new Router();
+var posts = new Router();
+
+posts.get('/', (ctx, next) => {...});
+posts.get('/:pid', (ctx, next) => {...});
+forums.use('/forums/:fid/posts', posts.routes(), posts.allowedMethods());
+
+// responds to "/forums/123/posts" and "/forums/123/posts/123"
+app.use(forums.routes());
+```
 
 <hr>
 
@@ -168,7 +233,7 @@ app.listen은 서버의 특정포트에 연결하게 해준다.
 ### ctx.params
 
 ```js
-router.get("about/:test", (ctx) => {
+router.get('about/:test', (ctx) => {
   const { test } = ctx.params;
   ctx.body = test;
 });
@@ -179,11 +244,35 @@ router.get("about/:test", (ctx) => {
 ### ctx.query
 
 ```js
-router.get("about", (ctx) => {
+router.get('about', (ctx) => {
   const { item } = ctx.query;
   ctx.body = item;
 });
 ```
+
+### [ctx.state](https://medium.com/swlh/introduction-to-backend-development-with-koa-139a6b7a14d)
+
+- 전달하고 싶은 상태가 있을 때 사용한다.
+
+```js
+const app = new Koa();
+app.use(async (ctx, next) => {
+  ctx.state.foo = 'foo';
+  await next();
+});
+app.use(async (ctx) => {
+  ctx.body = ctx.state.foo;
+});
+app.listen(3000);
+```
+
+#### **ctx.cookies.set**
+
+- cookie 설정을 해주는 메서드
+
+#### **ctx.cookies.get**
+
+- cookie를 가져오는 메서드
 
 ## library
 

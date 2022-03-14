@@ -38,34 +38,75 @@ export const register = async (ctx) => {
     await user.save(); //save도 promise이기 때문에 register함수는 비동기함수
 
     ctx.body = user.serialize();
+
+    //회원가입 토큰 발급하여 cookie에 등록
+    const token = user.generateToken();
+    ctx.cookies.set('access_token', token, {
+      maxAge: 1000 * 60 * 60 * 24 * 7,
+      httpOnly: true,
+    });
   } catch (e) {
     throw (500, e);
   }
 };
 
-//로그인
+/*
+POST /api/auth/login
+{
+  username: "jev123",
+  password : "mypass"
+}
+*/
 export const login = async (ctx) => {
   const { username, password } = ctx.request.body;
-  const user = await User.findByUsername(username);
+  //username, password가 없으면 에러 처리
 
-  if (!user) {
-    ctx.status = 401;
+  if (!username || !password) {
+    ctx.status = 401; // unauthorized
     return;
   }
 
-  const valid = await user.checkPassword(password);
-  if (!valid) {
-    ctx.status = 401;
-    return;
-  }
+  try {
+    const user = await User.findByUsername(username);
+    // 계정이 없다면 에러 처리
+    if (!user) {
+      ctx.status = 401;
+      return;
+    }
+    //  잘못된 비밀번호면 에러 처리
+    const valid = await user.checkPassword(password);
+    if (!valid) {
+      ctx.status = 401;
+      return;
+    }
 
-  ctx.body = user.serialize();
+    ctx.body = user.serialize();
+
+    const token = user.generateToken();
+
+    ctx.cookies.set('access_token', token, {
+      maxAge: 1000 * 60 * 60 * 24 * 7,
+      httpOnly: true,
+    });
+  } catch (e) {
+    ctx.throw(500, e);
+  }
 };
 
 export const check = async (ctx) => {
   // 로그인 상태 확인
+
+  const { user } = ctx.state;
+  if (!user) {
+    ctx.status = 401;
+    return;
+  }
+  ctx.body = user;
 };
 
 export const logout = async (ctx) => {
   // 로그아웃
+
+  ctx.cookies.set('access_token'); // cookie에 이름만 짓고 token은 할당안함.
+  ctx.status = 204;
 };

@@ -196,6 +196,8 @@ export default auth;
 
 3-1. 회원가입 구현하기
 
+객체를 검증할 때 편리하게 하기 위해 joi 라이브러리를 활용한다.
+
 **[Joi](https://joi.dev/api/?v=17.6.0)**  
 `npm i joi`
 
@@ -203,11 +205,48 @@ export default auth;
 
 - 객체를 검증할 때 편리하게 해주는 라이브러리
 
+### register API 만들기
+
 **src/api/auth/auth.ctrl.js**
 
 ```js
 import Joi from 'joi';
 import User from '../../models/user';
+
+export const register = async (ctx) => {
+  //Request body 검증하기
+  const schema = Joi.object().keys({
+    username: Joi.string().alphanum().min(3).max(20).required(),
+    password: Joi.string().required(),
+  });
+
+  const result = schema.validate(ctx.request.body);
+
+  if (result.error) {
+    ctx.status = 400; // Bad Request
+    ctx.body = result.error;
+    return;
+  }
+
+  const { username, password } = ctx.request.body;
+
+  try {
+    // username이 이미 존재하는지 확인
+    const exists = await User.findByUsername(username);
+    if (exists) {
+      ctx.status = 409; // Conflict
+      return;
+    }
+
+    const user = new User({ username });
+    await user.setPassword(password); // setPassword는 promise를 반환
+    await user.save(); //save도 promise이기 때문에 register함수는 비동기함수
+
+    ctx.body = user.serialize();
+  } catch (e) {
+    throw (500, e);
+  }
+};
 ```
 
 - object.key([schema])
@@ -232,6 +271,220 @@ const extended = base.keys({
 const schema = Joi.string().alphanum();
 ```
 
+### login API 만들기
+
+**src/api/auth/login**
+
+```js
+export const login = async (ctx) => {
+  const { username, password } = ctx.request.body;
+  //username, password가 없으면 에러 처리
+
+  if (!username || !password) {
+    ctx.status = 401; // unauthorized
+    return;
+  }
+
+  try {
+    const user = await User.findByUsername(username);
+    // 계정이 없다면 에러 처리
+    if (!user) {
+      ctx.status = 401;
+      return;
+    }
+    //  잘못된 비밀번호면 에러 처리
+    const valid = await user.checkPassword(password);
+    if (!valid) {
+      ctx.status = 401;
+      return;
+    }
+
+    ctx.body = user.serialize();
+  } catch (e) {
+    ctx.throw(500, e);
+  }
+};
+```
+
+4. 토큰 발급 및 검증하기
+
+- 클라이언트에서 사용자 로그인 정보를 지니고 있을 수 있도록 서버에서 토큰을 발급해주어야함.
+
+- JWT 토큰을 만들기 위해서는 jsonwebtoken이라는 모듈을 설치해줘야함.
+
+`npm i jsonwebtoken`
+
+### 4-1. 비밀키 설정하기
+
+- .env파일을 열어서 JWT 토큰을 만들 때 사용할 비밀키를 만든다.  
+  이 비밀키는 문자열로 아무거나 입력해도 된다.
+
+**.env**
+
+```
+JWT_SECRET = jev123
+```
+
+- 해당 비밀키는 나중에 JWT 토큰의 서명을 만드는 과정에서 사용된다.  
+  비밀키가 외부로 공개되는 경우 누구든 마음대로 JWT 토큰을 발급받을 수 있다.
+
+### 4-2. 토큰 발급하기
+
+토큰을 발급하는 API를 만들어보자.
+
+#### [**jwt.sign(payload, secretOrPrivateKey, [options, callback])** ](https://www.npmjs.com/package/jsonwebtoken#jwtsignpayload-secretorprivatekey-options-callback)
+
+> In JSON Web Tokens, the payload is a set of fields that you want to include in the token being generated; Things your API will need to, say, get the right data for a particular user.
+
+- (Asynchronous) If a callback is supplied, the callback is called with the err or the JWT.
+
+- (Synchronous) Returns the JsonWebToken as string
+
+- payload could be an object literal, buffer or string representing valid JSON.
+
+- payload는 사용자별 발급되는 토큰을 구분하기 위해서 할당하는 객체이다.
+
+```js
+UserSchema.methods.generateToken = function () {
+  const token = jwt.sign(
+    // 첫 번째 파라미터에는 집어넣고 싶은 데이터를 넣는다.
+    {
+      _id: this.id,
+      username: this.username,
+    },
+    // 두 번째 파라미터에는 JWT 암호를 넣는다.
+    process.env.JWT_SECRET,
+    {
+      expiresIn: '7d', // 7일동안 유효함.
+    },
+  );
+  return token;
+};
+```
+
+- 회원가입과 로그인했을 때 토큰을 사용자에게 전달
+
+- 사용자가 브라우저에게 토큰을 사용할 때는 두 가지 방법을 사용한다.  
+  a. 브라우저의 localStorage or sessionStorage  
+  b. 브라우저의 쿠키
+
+> 브라우저의 localStorage 혹은 sessionStorage에 토큰을 담으면 사용하기 매우 편리하고 구현하기 쉽다.  
+>  하지만 **누군가가 페이지에 악성 스크립트를 삽입한다면** 쉽게 토큰을 탈취할 수 있다.(이러한 공격을 XSS(cross Site Scripting)이라 한다.)
+
+> 쿠키에 담아도 같은 문제가 발생할 수 있지만, httpOnly라는 속성을 활성화한다면 자바스크립트를 통해 쿠키를 조회할 수 없으므로 악성 스크립트로부터 안전한다.
+
+> 그 대신 CSRF(Cross Site Request Forgery)라는 공격에 취약할 수 있다.  
+> 이 공격은 토큰을 쿠키에 담으면 사용자가 서버로 요청할 때마다 무조건 토큰이 함께 전달되는 점을 이용해서 사용자가 모르게 원하지 않는 API 요청을 하게 만든다.  
+> 예를 들어, 사용자가 자신도 모르는 상황에서 어떠한 글을 작성하거나 삭제하거나, 혹은 탈퇴하게 만들수도 있다.
+
+> 단, CSRF는 CSRF 토큰 사용 및 Referer 검증 등의 방식으로 제대로 막을 수 있는 반면, XSS는 보안장치를 적용해놓아도 개발자가 놓칠 수 있는 다양한 취약점을 통해 공격을 받을 수 있다.
+
+### 4-3. 토큰 등록하기
+
+auth.ctrl.js에서 register와 login함수에 토큰을 등록하자.
+
+**src/api/auth/auth.ctrl.js**
+
+```js
+export const register = async (ctx) => {
+  //Request body 검증하기
+  const schema = Joi.object().keys({
+    username: Joi.string().alphanum().min(3).max(20).required(),
+    password: Joi.string().required(),
+  });
+
+  const result = schema.validate(ctx.request.body);
+
+  if (result.error) {
+    ctx.status = 400; // Bad Request
+    ctx.body = result.error;
+    return;
+  }
+
+  const { username, password } = ctx.request.body;
+
+  try {
+    // username이 이미 존재하는지 확인
+    const exists = await User.findByUsername(username);
+    if (exists) {
+      ctx.status = 409; // Conflict
+      return;
+    }
+
+    const user = new User({ username });
+    await user.setPassword(password); // setPassword는 promise를 반환
+    await user.save(); //save도 promise이기 때문에 register함수는 비동기함수
+
+    ctx.body = user.serialize();
+
+    //회원가입 토큰 발급하여 cookie에 등록
+    const token = user.generateToken();
+    ctx.cookies.set('access_token', token, {
+      maxAge: 1000 * 60 * 60 * 24 * 7,
+      httpOnly: true,
+    });
+  } catch (e) {
+    throw (500, e);
+  }
+};
+
+export const login = async (ctx) => {
+  const { username, password } = ctx.request.body;
+  //username, password가 없으면 에러 처리
+
+  if (!username || !password) {
+    ctx.status = 401; // unauthorized
+    return;
+  }
+
+  try {
+    const user = await User.findByUsername(username);
+    // 계정이 없다면 에러 처리
+    if (!user) {
+      ctx.status = 401;
+      return;
+    }
+    //  잘못된 비밀번호면 에러 처리
+    const valid = await user.checkPassword(password);
+    if (!valid) {
+      ctx.status = 401;
+      return;
+    }
+
+    ctx.body = user.serialize();
+    const token = user.generateToken();
+    ctx.cookies.set('access_token', token, {
+      maxAge: 1000 * 60 * 60 * 24 * 7,
+      httpOnly: true,
+    });
+  } catch (e) {
+    ctx.throw(500, e);
+  }
+};
+```
+
+### API
+
+`import jwt from "jsonwebtoken"`
+
+#### [jwt.verify((token, secretOrPublicKey, [options, callback]))](https://github.com/auth0/node-jsonwebtoken#jwtverifytoken-secretorpublickey-options-callback)
+
+- (Asynchronous) If a callback is supplied, function acts asynchronously. The callback is called with the decoded payload if the signature is valid and optional expiration, audience, or issuer are valid. If not, it will be called with the error.
+
+- (Synchronous) If a callback is not supplied, function acts synchronously. Returns the payload decoded if the signature is valid and optional expiration, audience, or issuer are valid. If not, it will throw the error.
+
+> - token is the JsonWebToken string
+
+- secretOrPublicKey is a string or buffer containing either the secret for HMAC algorithms, or the PEM encoded public key for RSA and ECDSA. If jwt.verify is called asynchronous, secretOrPublicKey can be a function that should fetch the secret or public key. See below for a detailed example
+
+#### **ctx.cookies.set**
+
+- cookie 설정을 해주는 메서드
+
+#### **ctx.cookies.get**
+
+- cookie를 가져오는 메서드
+
 ## Quest
 
 1. Token이란 뭘까?
@@ -249,6 +502,10 @@ const schema = Joi.string().alphanum();
    bcrypt.hash/compare이 promise를 반환하기 때문에??
    그러면 findOne메서드는 promise를 반환하지 않나?? yes
    그렇기 때문에 findbyusername 메서드는 async 함수로 써줄 필요가 없다.
+
+5. 쿠키가 설정이 안되는 이유?
+
+안되는 것이 아니라 postman에서 안 나타났던 것일뿐
 
 ```
 

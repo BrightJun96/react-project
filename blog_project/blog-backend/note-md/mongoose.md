@@ -39,7 +39,7 @@ mongoose.connect('mongodb://localhost:27017');
 > - mongodb default port
 > - 몽고디비와 연결하기 위한 URI
 
- <br>
+<br><br>
 
 ### **mongoose.Schema**
 
@@ -53,7 +53,7 @@ const TestSchema = new mongoose.Schema({ name: String });
 
 - 컬렉션에 들어가는 문서 내부의 각 필드가 어떤 형식으로 되어 있는지 정의하는 객체
 
-<br>
+<br><br>
 
 ### **mongoose.model**
 
@@ -73,7 +73,15 @@ const Test = mongoose.model('Test', TestSchema);
 
 - 스키마를 사용하여 만드는 인스턴스로, 데이터베이스에서 실제 작업을 처리할 수 있는 함수들을 지니고 있는 객체
 
-<br>
+<br><br>
+
+### **mongoose.Types.ObjectId.isValid**
+
+- ObjectId가 유효한지 검사해주는 메서드
+
+migrate to **mongoose.isValidObjectId()** and **mongoose.isObjectIdOrHexString()**
+
+<br><br>
 
 ### **Document.prototype.save()**
 
@@ -114,9 +122,10 @@ async function generate(ctx) {
 
 <br>
 
-### Model.find
+### Model.find()
 
 - Model 인스턴스들을 모두 조회해준다.
+- promise를 반환한다.
 
 ```js
 async function arrange(ctx) {

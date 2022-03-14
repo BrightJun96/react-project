@@ -1,10 +1,6 @@
 import mongoose, { Schema } from 'mongoose';
 import bcrypt from 'bcrypt';
-
-// 모델 인스턴스 메서드를 설정할 때에는 비동기 함수로 설정한다. (bcrypt를 사용해서 그런것인가?)
-// 스키마의 methods를 사용하여 정의한다.
-
-// 모델 스태틱 메서드를 설정할 때는 비동기 함수로 설정하지 않아도 된다.
+import jwt from 'jsonwebtoken';
 
 const UserSchema = new Schema({
   username: String,
@@ -30,6 +26,22 @@ UserSchema.methods.serialize = function () {
 
   delete data.hashedPassword;
   return data;
+};
+
+UserSchema.methods.generateToken = function () {
+  const token = jwt.sign(
+    // 첫 번째 파라미터에는 집어넣고 싶은 데이터를 넣는다.
+    {
+      _id: this.id,
+      username: this.username,
+    },
+    // 두 번째 파라미터에는 JWT 암호를 넣는다.
+    process.env.JWT_SECRET,
+    {
+      expiresIn: '7d', // 7일동안 유효함.
+    },
+  );
+  return token;
 };
 
 const User = mongoose.model('User', UserSchema);
