@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import styled from "styled-components";
 import Button from "./../common/Button";
 import palette from "./../../lib/styles/palette";
+import client from "./../../lib/api/client";
 
 /* 회원가입 또는 로그인 폼을 보여준다. */
 
@@ -48,22 +49,28 @@ const Footer = styled.div`
 
 const textMap = { login: "로그인", register: "회원가입" };
 
-const AuthForm = ({ type }) => {
+const AuthForm = ({ type, form, onChange, onSubmit }) => {
   const text = textMap[type];
+  console.log(client);
+
   return (
     <AuthFormBlock>
       <h3>{text}</h3>
-      <form>
+      <form onSubmit={onSubmit}>
         <StyledInput
           autoComplete="username"
           name="username"
           placeholder="아이디"
+          value={form.username}
+          onChange={onChange}
         />
         <StyledInput
           autoComplete="new-password"
           name="password"
           placeholder="비밀번호"
           type="password"
+          value={form.password}
+          onChange={onChange}
         />
         {type === "register" && (
           <StyledInput
@@ -71,6 +78,8 @@ const AuthForm = ({ type }) => {
             name="passwordConfirm"
             placeholder="비밀번호 확인"
             type="password"
+            value={form.passwordConfirm}
+            onChange={onChange}
           />
         )}
         <Button fullWidth cyan>
