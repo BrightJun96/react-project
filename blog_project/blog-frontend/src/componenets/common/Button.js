@@ -4,7 +4,6 @@ import styled from "styled-components";
 import { css } from "styled-components";
 
 const StyledButton = styled.button`
-  margin-top: 1rem;
   border: none;
   border-radius: 4px;
   font-size: 1rem;

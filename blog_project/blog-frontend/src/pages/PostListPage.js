@@ -1,11 +1,10 @@
 import React from "react";
-import { useParams } from "react-router-dom";
-import Button from "../componenets/common/Button";
+import HeaderContainer from "../containers/common/HeaderContainer";
 
 const PostListPage = () => {
   return (
     <div>
-      <Button>버튼</Button>
+      <HeaderContainer />
     </div>
   );
 };
