@@ -7,10 +7,9 @@ import {
   changePasswordConfirmInput,
   initInput,
 } from "./../module/input";
-import * as authAPI from "./../lib/authAPI";
-import { checkUserSuccess, checkUserFailure } from "./../module/user";
-import { registerUserSuccess, registerUserFailure } from "./../module/register";
+import { checkUser } from "./../module/user";
 import { useNavigate } from "react-router";
+import { registerUser } from "./../module/register";
 
 const RegisterForm = () => {
   const dispatch = useDispatch();
@@ -57,25 +56,15 @@ const RegisterForm = () => {
       console.log("비밀번호가 다릅니다! 다시 한번 확인해주세요!");
       return; // 뒤에 코드가 진행되지 않도록 끝내줌.
     }
-
-    authAPI
-      .register({ username, password })
-      .then((response) => {
-        dispatch(registerUserSuccess(response.data));
-      })
-      .catch((e) => dispatch(registerUserFailure(e)));
+    dispatch(registerUser({ username, password }));
   };
 
   // 회원가입 성공 및 실패시 메시지
   useEffect(() => {
     if (auth) {
       //auth가 있으면 해당 user를 check해주자
-      authAPI
-        .check()
-        .then((response) => {
-          dispatch(checkUserSuccess(response.data));
-        })
-        .catch((e) => dispatch(checkUserFailure(e)));
+
+      dispatch(checkUser());
 
       console.log("회원가입 성공!");
       console.log(auth);

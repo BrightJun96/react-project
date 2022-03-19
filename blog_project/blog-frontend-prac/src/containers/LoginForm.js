@@ -7,10 +7,9 @@ import {
   changePasswordConfirmInput,
   initInput,
 } from "./../module/input";
-import * as authAPI from "./../lib/authAPI";
-import { registerUserSuccess, registerUserFailure } from "./../module/register";
-import { checkUserFailure, checkUserSuccess } from "../module/user";
+import { checkUser } from "../module/user";
 import { useNavigate } from "react-router";
+import { loginUser } from "../module/register";
 
 const LoginForm = () => {
   const dispatch = useDispatch();
@@ -52,20 +51,15 @@ const LoginForm = () => {
   const onSubmit = (e) => {
     e.preventDefault();
     dispatch(initInput());
-    authAPI
-      .login({ username, password })
-      .then((response) => dispatch(registerUserSuccess(response.data))) // auth
-      .catch((e) => dispatch(registerUserFailure(e))); // authError
+    dispatch(loginUser({ username, password }));
   };
 
   useEffect(() => {
     if (auth) {
       console.log("로그인 성공!");
       console.log(auth);
-      authAPI
-        .check()
-        .then((response) => dispatch(checkUserSuccess(response.data))) //user
-        .catch((e) => dispatch(checkUserFailure(e))); //userError
+
+      dispatch(checkUser());
     }
 
     if (authError) {

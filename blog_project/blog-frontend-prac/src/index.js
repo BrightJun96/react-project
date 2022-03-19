@@ -3,11 +3,21 @@ import ReactDOM from "react-dom";
 import { BrowserRouter } from "react-router-dom";
 import App from "./App";
 import "./index.css";
-import { createStore } from "redux";
+import { applyMiddleware, createStore } from "redux";
 import rootReducer from "./module/index";
 import { Provider } from "react-redux";
 import { composeWithDevTools } from "redux-devtools-extension";
-const store = createStore(rootReducer, composeWithDevTools());
+import createSagaMiddleware from "redux-saga/";
+import rootSaga from "./module/saga/rootSaga";
+
+const sagaMiddleware = createSagaMiddleware();
+
+const store = createStore(
+  rootReducer,
+  composeWithDevTools(applyMiddleware(sagaMiddleware))
+);
+
+sagaMiddleware.run(rootSaga);
 
 ReactDOM.render(
   <React.StrictMode>

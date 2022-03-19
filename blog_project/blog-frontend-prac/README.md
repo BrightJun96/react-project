@@ -170,3 +170,32 @@ check의 응답값을 dispatch 액션 인자로 할당했다.
 
 4. middleware
    dispatch한뒤에 state값을 가공하여 reducer에게 전달한다.
+
+## TODO
+
+1. redux saga를 이용해서 비동기 처리를 해보자.
+   **blog-project는 redux saga를 쓰기 적절한가?**
+
+### First : Learn Redux-saga
+
+- middleware란 무엇인가?  
+  dispatch => 이 사이에서 action 상태를 조작해 줄 수 있다. => reducer
+
+(https://redux-saga.js.org/)[https://redux-saga.js.org/]
+
+### redux-saga를 사용하는 이유는 뭘까?
+
+- 기존 요청을 취소 처리해야할 때(불필요한 중복 요청 방지)
+- 특정 액션이 발생했을 때 다른 액션을 발생시키거나 , API 요청등 리덕스와 관계없는 코드를 실행할 때
+- 웹소켓을 사용할 때
+- API 요청 실패시 재요청해야할 때
+
+  > middleware를 쓰지 않으면 Container에서 API를 호출하여 그 안에서 dispatch(actionGenerateFun(param)) 이런식으로 state값을 변경하여 관리를 할 수 있다.
+
+saga 작동원리
+
+ㄱ. register이라는 액션 생성 함수가 실행된다.
+ㄴ. registerSaga가 실행이 된다.
+정리. 액션 생성 함수가 실행되면 액션 타입이 같은 saga함수가 실행이된다.
+
+2. redux thunk로는 어떻게 할수 있을까 생각해보기
