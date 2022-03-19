@@ -1,4 +1,6 @@
-// 액션
+/*
+input
+*/
 
 const USER_INPUT = "auth/LOGIN_INPUT";
 const PASSWORD_INPUT = " auth/PASSWORD_INPUT";
@@ -20,7 +22,11 @@ export const changePasswordConfirmInput = (value) => ({
 
 export const initInput = () => ({ type: INIT_INPUT });
 
-const initialState = { username: "", password: "", passwordConfirm: "" };
+const initialState = {
+  username: "",
+  password: "",
+  passwordConfirm: "",
+};
 
 // reducer
 function inputReducer(state = initialState, action) {
@@ -35,8 +41,9 @@ function inputReducer(state = initialState, action) {
       return { ...state, passwordConfirm: action.payload };
     }
     case INIT_INPUT: {
-      return initialState;
+      return { ...state, username: "", password: "", passwordConfirm: "" };
     }
+
     default:
       return state;
   }

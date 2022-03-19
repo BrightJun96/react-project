@@ -6,8 +6,8 @@ import "./index.css";
 import { createStore } from "redux";
 import rootReducer from "./module/index";
 import { Provider } from "react-redux";
-
-const store = createStore(rootReducer);
+import { composeWithDevTools } from "redux-devtools-extension";
+const store = createStore(rootReducer, composeWithDevTools());
 
 ReactDOM.render(
   <React.StrictMode>
