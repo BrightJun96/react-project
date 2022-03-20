@@ -72,3 +72,17 @@ params와 location을 컴포넌트내에서 사용하면 컴포넌트가 리렌�
 ### conclusion
 
 **두번 리렌더링되는 것은 필수적인 렌더링이므로 더 이상 최적화할 필요가 없다.**
+
+## Features that I wanna add
+
+### 데이터를 가져오는 동안에 Loading중이라는 것을 표시하는 UI
+
+### 뉴스 필터링
+
+## To study next time
+
+- Reason that I have to catch in async function
+
+### Suspense 적용
+
+[React.lazy and Suspense](https://ko.reactjs.org/docs/code-splitting.html#route-based-code-splitting)

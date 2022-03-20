@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { useLocation, useParams } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import News from "./NewsItem";
 
 const NewsList = () => {
@@ -24,6 +24,7 @@ const NewsList = () => {
   }, [result]);
 
   console.log(value);
+
   return (
     <div
       style={{
