@@ -2,11 +2,14 @@
 input
 */
 
+//action
 const USER_INPUT = "auth/LOGIN_INPUT";
 const PASSWORD_INPUT = " auth/PASSWORD_INPUT";
 const PASSWORD_CONFIRM_INPUT = "auth/PASSWORD_CONFIRM_INPUT";
 const INIT_INPUT = "auth/INIT_INPUT";
+const ERROR_TEXT = "auth/ERROR_TEXT";
 
+// action function
 export const changeUserInput = (value) => ({
   type: USER_INPUT,
   payload: value,
@@ -22,10 +25,13 @@ export const changePasswordConfirmInput = (value) => ({
 
 export const initInput = () => ({ type: INIT_INPUT });
 
+export const changeErrorText = (text) => ({ type: ERROR_TEXT, payload: text });
+
 const initialState = {
   username: "",
   password: "",
   passwordConfirm: "",
+  errorText: "",
 };
 
 // reducer
@@ -42,6 +48,9 @@ function inputReducer(state = initialState, action) {
     }
     case INIT_INPUT: {
       return { ...state, username: "", password: "", passwordConfirm: "" };
+    }
+    case ERROR_TEXT: {
+      return { ...state, errorText: action.payload };
     }
 
     default:

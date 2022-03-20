@@ -66,7 +66,7 @@ function* registerAssistSaga(action) {
   }
 }
 
-function* loginAssistSage(action) {
+function* loginAssistSaga(action) {
   try {
     const response = yield call(authAPI.login, action.payload);
     yield put({ type: LOGIN_SUCCESS, payload: response.data });
@@ -83,7 +83,7 @@ export function* registerSaga() {
   yield takeLatest(REGISTER, registerAssistSaga);
   // RESISTER ACTION이 발생했을 때 registerAssistSaga가 호출
   // registerSaga내에서 API요청 처리를 하고 응답값과 에러값을 새로운 state값으로 설정해준다.
-  yield takeLatest(LOGIN, loginAssistSage);
+  yield takeLatest(LOGIN, loginAssistSaga);
 }
 
 const initialState = {
@@ -110,6 +110,7 @@ const registerReducer = (state = initialState, action) => {
 export default registerReducer;
 /*
 
+redux-thunk랑 redux-saga를 사용하지 않았을 때
 
 // 액션 생성 함수
 export const registerUserSuccess = (data) => ({

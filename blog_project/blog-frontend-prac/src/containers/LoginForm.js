@@ -6,6 +6,7 @@ import {
   changeUserInput,
   changePasswordConfirmInput,
   initInput,
+  changeErrorText,
 } from "./../module/input";
 import { checkUser } from "../module/user";
 import { useNavigate } from "react-router";
@@ -15,12 +16,13 @@ const LoginForm = () => {
   const dispatch = useDispatch();
 
   // input state
-  const { username, password, passwordConfirm } = useSelector(
+  const { username, password, passwordConfirm, errorText } = useSelector(
     ({ inputReducer }) => ({
       // 해당 state는 reducer의 이름 조회해야한다.
       username: inputReducer.username,
       password: inputReducer.password,
       passwordConfirm: inputReducer.passwordConfirm,
+      errorText: inputReducer.errorText,
     })
   );
 
@@ -51,6 +53,12 @@ const LoginForm = () => {
   const onSubmit = (e) => {
     e.preventDefault();
     dispatch(initInput());
+    const emptyInput = [username, password].includes("");
+    if (emptyInput) {
+      dispatch(changeErrorText("모든 정보를 입력해주세요."));
+      return;
+    }
+
     dispatch(loginUser({ username, password }));
   };
 
@@ -66,11 +74,22 @@ const LoginForm = () => {
       console.log("로그인 실패");
       console.log(authError);
     }
+
+    if (authError && authError.response.status === 400) {
+      dispatch(changeErrorText("존재하지 않는 계정입니다."));
+    }
+
+    if (authError && authError.response.status === 401) {
+      dispatch(changeErrorText("비밀번호가 틀립니다."));
+    }
   }, [auth, authError, dispatch]);
 
   const navigate = useNavigate();
   useEffect(() => {
     if (user) {
+      // 문자열이라 문자열화 안하고 보냄.
+      localStorage.setItem("username", user.username);
+      alert("환영합니다!");
       navigate("/");
     }
   }, [user, navigate]);
@@ -89,6 +108,8 @@ const LoginForm = () => {
       passwordConfirmChange={passwordConfirmChange}
       type="login"
       onSubmit={onSubmit}
+      authError={authError}
+      errorText={errorText}
     />
   );
 };

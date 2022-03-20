@@ -70,7 +70,7 @@ export const login = async (ctx) => {
     const user = await User.findByUsername(username);
     // 계정이 없다면 에러 처리
     if (!user) {
-      ctx.status = 401;
+      ctx.status = 400; // password error.status와 다르게 설정해주기위해
       return;
     }
     //  잘못된 비밀번호면 에러 처리

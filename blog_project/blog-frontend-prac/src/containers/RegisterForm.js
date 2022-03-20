@@ -6,6 +6,7 @@ import {
   changeUserInput,
   changePasswordConfirmInput,
   initInput,
+  changeErrorText,
 } from "./../module/input";
 import { checkUser } from "./../module/user";
 import { useNavigate } from "react-router";
@@ -15,11 +16,12 @@ const RegisterForm = () => {
   const dispatch = useDispatch();
 
   // input state
-  const { username, password, passwordConfirm } = useSelector(
+  const { username, password, passwordConfirm, errorText } = useSelector(
     ({ inputReducer }) => ({
       username: inputReducer.username,
       password: inputReducer.password,
       passwordConfirm: inputReducer.passwordConfirm,
+      errorText: inputReducer.errorText,
     })
   );
 
@@ -37,6 +39,8 @@ const RegisterForm = () => {
     userError: userReducer.user,
   }));
 
+  // errortext state
+
   function usernameChange(e) {
     dispatch(changeUserInput(e.target.value));
   }
@@ -52,10 +56,17 @@ const RegisterForm = () => {
     e.preventDefault();
     dispatch(initInput());
 
+    const inputEmpty = [username, password, passwordConfirm].includes("");
+    if (inputEmpty) {
+      dispatch(changeErrorText("모든 정보를 입력해주세요."));
+      return;
+    }
+
     if (password !== passwordConfirm) {
-      console.log("비밀번호가 다릅니다! 다시 한번 확인해주세요!");
+      dispatch(changeErrorText("비밀번호가 다릅니다."));
       return; // 뒤에 코드가 진행되지 않도록 끝내줌.
     }
+
     dispatch(registerUser({ username, password }));
   };
 
@@ -73,6 +84,11 @@ const RegisterForm = () => {
       console.log("회원가입 실패ㅠㅠ");
       console.log(authError);
     }
+
+    if (authError && authError.response.status === 409) {
+      // 이때는 authError가 없으니깐 안됨.
+      dispatch(changeErrorText("이미 있는 계정입니다"));
+    }
   }, [auth, authError, dispatch]);
 
   // user check
@@ -83,6 +99,9 @@ const RegisterForm = () => {
     if (user) {
       console.log("Check user!");
       console.log(user);
+      localStorage.setItem("username", user.username);
+
+      alert("환영합니다!");
       naviagte("/");
     }
   }, [user, naviagte]);
@@ -98,6 +117,8 @@ const RegisterForm = () => {
       type="register"
       onSubmit={onSubmit}
       auth={auth}
+      authError={authError}
+      errorText={errorText}
     />
   );
 };

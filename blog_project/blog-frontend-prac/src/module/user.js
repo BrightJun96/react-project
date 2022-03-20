@@ -10,10 +10,14 @@ import { put } from "redux-saga/effects";
 const CHECK = "user/CHECK";
 const CHECK_SUCCESS = "user/CHECK_SUCCESS";
 const CHECK_FAILURE = "user/CHECK_FAILURE";
+const INIT_USER = "user/INIT_USER";
 
 export const checkUser = () => ({
   type: CHECK,
 });
+
+export const initUser = () => ({ type: INIT_USER });
+
 /*
 THUNK 사용시
 */
@@ -28,7 +32,7 @@ const checkUserThunk = () => async (dispatch) => {
   }
 };
 
-const initialState = { user: null, userError: null };
+const initialState = { user: "", userError: "" };
 
 export const userReducer = (state = initialState, action) => {
   switch (action.type) {
@@ -36,6 +40,9 @@ export const userReducer = (state = initialState, action) => {
       return { ...state, user: action.payload };
     case CHECK_FAILURE:
       return { ...state, userError: action.payload };
+    case INIT_USER: {
+      return initialState;
+    }
     default:
       return state;
   }

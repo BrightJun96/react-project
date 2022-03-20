@@ -64,7 +64,7 @@ const InputBlock = styled.input`
 `;
 
 // Button
-const Button = styled.button`
+export const Button = styled.button`
   text-align: center;
   width: 400px;
   height: 50px;
@@ -81,6 +81,14 @@ const Button = styled.button`
   }
 `;
 
+const ErrorBox = styled.div`
+  color: red;
+  text-align: center;
+  margin-bottom: 1rem;
+  font-weight: 600;
+  letter-spacing: 2px;
+`;
+
 const AuthForm = ({
   type,
   username,
@@ -90,6 +98,8 @@ const AuthForm = ({
   passwordChange,
   passwordConfirmChange,
   onSubmit,
+  authError,
+  errorText,
 }) => {
   return (
     <AuthContainer>
@@ -127,6 +137,7 @@ const AuthForm = ({
               />
             </div>
           ) : null}
+          <ErrorBox>{errorText}</ErrorBox>
           <Button>{type === "register" ? "회원가입" : "로그인"}</Button>
         </FormBlock>
         {type === "register" ? (
