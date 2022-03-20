@@ -5,6 +5,8 @@ import { Button } from "./AuthForm";
 import { Link } from "react-router-dom";
 import { logout } from "../lib/authAPI";
 
+// 202203221 errorUI generating & put login state on localStorage & implement logout
+
 const HeaderContainer = styled.div`
   position: fixed;
   top: 0;
