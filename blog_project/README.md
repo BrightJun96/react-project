@@ -1,9 +1,23 @@
 # Blog_project
 
-Techs : 
+Techs : (MKRN stack) mongoDB,koa,react,node.js
 
-Front-end:
+## Front-end:
+
 react,react-router
 
-Back-end:
-monogoDB,KOA
+### library
+
+- react-router
+- axios
+-
+
+### react API
+
+- React.memo
+- react hook : useState,useCallback
+- redux hook : useSelector , useDispatch
+
+## Back-end:
+
+Tech: monogoDB,,KOA
