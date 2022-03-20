@@ -4,7 +4,7 @@ import { logout } from "../lib/authAPI";
 import { initUser } from "../module/user";
 import { useNavigate } from "react-router";
 import { useSelector, useDispatch } from "react-redux";
-
+// test
 const HomeContainer = () => {
   const username = useSelector(({ userReducer }) => userReducer.user.username);
 
