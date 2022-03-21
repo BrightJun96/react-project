@@ -8,7 +8,7 @@ const StyledButton = styled.button`
   border-radius: 4px;
   font-size: 1rem;
   font-weight: bold;
-  padding: 0.25rem 1rem;
+  padding: 0.5rem 1rem;
   color: white;
   outline: none;
   cursor: pointer;
@@ -28,11 +28,11 @@ const StyledButton = styled.button`
     `}
   // 선택적 스타일링
   ${(props) =>
-    props.cyan &&
+    props.violet &&
     css`
-      background: ${palette.cyan[5]};
+      background: ${palette.violet[4]};
       &:hover {
-        background: ${palette.cyan[4]};
+        background: ${palette.violet[3]};
       }
     `}
 `;
