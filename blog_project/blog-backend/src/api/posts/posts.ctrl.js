@@ -44,9 +44,9 @@ POST /api/posts
 
 export const write = async (ctx) => {
   const schema = Joi.object().keys({
-    title: Joi.string().required(),
-    body: Joi.string().required(),
-    tags: Joi.array().items(Joi.string()).required(),
+    title: Joi.string().required().min(2), //최소 2글자이상 입력해야함.
+    body: Joi.string().required().min(2), //최소 2글자이상 입력해야함.
+    tags: Joi.array().items(Joi.string().min(2)).required(), //최소 2글자이상 입력해야함.
   });
 
   const result = schema.validate(ctx.request.body);

@@ -92,13 +92,15 @@ const TagBox = ({ tagText, tags, tagTextChange, onAddTag, onRemoveTag }) => {
         />
         <button>추가</button>
       </TagForm>
-      <TagList>
-        {tags.map((tag, index) => (
-          <TagItem key={index} onClick={onRemoveTag}>
-            {tag}
-          </TagItem>
-        ))}
-      </TagList>
+      {tags && (
+        <TagList>
+          {tags.map((tag, index) => (
+            <TagItem key={index} onClick={onRemoveTag}>
+              {tag}
+            </TagItem>
+          ))}
+        </TagList>
+      )}
     </TagBoxBlock>
   );
 };

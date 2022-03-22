@@ -9,11 +9,11 @@ import rootReducer, { rootSaga } from "./modules/index";
 import { composeWithDevTools } from "redux-devtools-extension";
 import createSagaMiddleware from "redux-saga";
 import { check, tempSetUser } from "./modules/user";
-
+import thunk from "redux-thunk";
 const sagaMiddleware = createSagaMiddleware();
 const store = createStore(
   rootReducer,
-  composeWithDevTools(applyMiddleware(sagaMiddleware))
+  composeWithDevTools(applyMiddleware(sagaMiddleware, thunk))
 );
 
 function loadUser() {
