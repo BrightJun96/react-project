@@ -1,20 +1,10 @@
 import React from "react";
-import styled from "styled-components";
-import Button from "./../common/Button";
+import {
+  WriteActionButtonBlock,
+  StyledButton,
+  ErrorBox,
+} from "./styled-component/styledWriteActionButton";
 
-const WriteActionButtonBlock = styled.div`
-  padding-bottom: 4rem;
-`;
-
-const StyledButton = styled(Button)`
-  margin-left: 1rem;
-`;
-
-const ErrorBox = styled.h4`
-  color: red;
-  text-align: center;
-`;
-// WriteActionButton
 const WriteActionButton = ({ onPublish, onCancel, error }) => {
   return (
     <WriteActionButtonBlock>
