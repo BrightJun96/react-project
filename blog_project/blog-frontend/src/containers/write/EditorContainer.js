@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useCallback } from "react";
 import Editor from "../../componenets/write/Editor";
 import { useSelector, useDispatch } from "react-redux";
 import { changeTitle, changeBody } from "../../modules/write";
@@ -11,10 +11,24 @@ const EditorContainer = () => {
 
   const dispatch = useDispatch();
 
-  const onChangeTitle = (e) => dispatch(changeTitle(e.target.value));
-  const onChangeBody = (e) => {
-    dispatch(changeBody(e));
-  };
+  // 처음 한번만 함수 생성
+  const onChangeTitle = useCallback(
+    (e) => {
+      console.log(e.target.value);
+      dispatch(changeTitle(e.target.value));
+    },
+    [dispatch]
+  );
+
+  // 처음 한번만 함수 생성
+  const onChangeBody = useCallback(
+    (e) => {
+      console.log(e);
+      dispatch(changeBody(e));
+    },
+    [dispatch]
+  );
+
   return (
     <Editor
       title={title}

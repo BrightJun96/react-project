@@ -58,13 +58,13 @@ export const changeTagText = (text) => ({
 
 export const changeTags = (tags) => ({ type: CHANGE_TAGS, payload: tags });
 
-export const initText = () => ({ type: INIT_TAGTEXT });
-
-export const initEntire = () => ({ type: INIT_ENTIRE });
-
 export const changeTitle = (text) => ({ type: CHANGE_TITLE, payload: text });
 
 export const changeBody = (text) => ({ type: CHANGE_BODY, payload: text });
+
+export const initText = () => ({ type: INIT_TAGTEXT });
+
+export const initEntire = () => ({ type: INIT_ENTIRE });
 
 export const changeText = (type, text) => ({
   type: CHANGE_TEXT,
