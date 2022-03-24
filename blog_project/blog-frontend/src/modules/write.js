@@ -21,6 +21,22 @@ const WRITE = "write/WRITE";
 const WRITE_FAILURE = "write/WRITE_FAILURE";
 const WRITE_SUCCESS = "write/WRITE_SUCCESS";
 
+const SET_ORIGINAL_POST = "write/SET_ORIGINAL_POST";
+
+const UPDATE_POST = "write/UPDATE_POST";
+const UPDATE_POST_SUCCESS = "write/UPDATE_POST_SUCCESS";
+const UPDATE_POST_FAILURE = "write/UPDATE_POST_FAILURE";
+
+export const updatePost = ({ id, title, body, tags }) => ({
+  type: UPDATE_POST,
+  payload: { id, title, body, tags },
+});
+
+export const setOriginalPost = (post) => ({
+  type: SET_ORIGINAL_POST,
+  payload: post,
+});
+
 export const onWrite = ({ title, body, tags }) => ({
   type: WRITE,
   payload: { title, body, tags },
@@ -35,8 +51,18 @@ function* createWriteSaga(action) {
   }
 }
 
+function* updatePostSaga(action) {
+  try {
+    const response = yield call(writeAPI.write, action.payload);
+    yield put({ type: WRITE_SUCCESS, payload: response.data, meta: response });
+  } catch (e) {
+    yield put({ type: WRITE_FAILURE, payload: e });
+  }
+}
+
 export const writeSaga = function* () {
   yield takeLatest(WRITE, createWriteSaga);
+  yield takeLatest(UPDATE_POST, updatePostSaga);
 };
 /*
 thunk
@@ -77,6 +103,7 @@ const initialState = {
   body: "",
   error: "",
   response: "",
+  originalPostId: "",
 };
 
 const write = (state = initialState, action) => {
@@ -113,6 +140,27 @@ const write = (state = initialState, action) => {
       return {
         ...state,
         response: action.payload,
+      };
+
+    case SET_ORIGINAL_POST:
+      return {
+        ...state,
+        title: action.payload.title,
+        body: action.payload.body,
+        tags: action.payload.tags,
+        originalPostId: action.payload._id,
+      };
+
+    case UPDATE_POST_SUCCESS:
+      return {
+        ...state,
+        post: action.payload,
+      };
+
+    case UPDATE_POST_FAILURE:
+      return {
+        ...state,
+        postError: action.payload,
       };
     default:
       return state;

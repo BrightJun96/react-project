@@ -35,6 +35,13 @@ const StyledButton = styled.button`
         background: ${palette.violet[3]};
       }
     `}
+
+
+    &:disabled {
+    background-color: ${palette.gray[3]};
+    color: ${palette.gray[5]};
+    cursor: not-allowed;
+  }
 `;
 
 const Button = (props) => <StyledButton {...props} />;

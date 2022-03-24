@@ -17,7 +17,7 @@ posts.post('/', checkLoggedIn, write);
 const post = new Router();
 posts.get('/', read);
 posts.delete('/', checkLoggedIn, checkOwnPost, remove);
-posts.patch('/:id', checkLoggedIn, checkOwnPost, update);
+posts.patch('/', checkLoggedIn, checkOwnPost, update);
 
 posts.use('/:id', getPostById, post.routes());
 export default posts;

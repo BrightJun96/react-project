@@ -1,7 +1,40 @@
 import Post from '../../models/post';
 import mongoose from 'mongoose';
 import Joi from 'joi';
+import sanitizeHtml from 'sanitize-html';
+
 const { ObjectId } = mongoose.Types;
+
+const sanitizeOption = {
+  allowedTags: [
+    'h1',
+    'h2',
+    'b',
+    'i',
+    'u',
+    's',
+    'p',
+    'ul',
+    'li',
+    'ol',
+    'blockquote',
+    'a',
+    'img',
+  ],
+  allowedAttributes: {
+    a: ['href', 'name', 'target'],
+    img: ['src'],
+    li: ['class'],
+  },
+  allowedSchemes: ['data', 'http'],
+};
+
+const removeHtmlAndShorten = (body) => {
+  const filtered = sanitizeHtml(body, {
+    allowedTags: [],
+  });
+  return filtered.length < 200 ? filtered : `${filtered.slice(0, 200)}...`;
+};
 
 export const getPostById = async (ctx, next) => {
   const { id } = ctx.params;
@@ -21,7 +54,6 @@ export const getPostById = async (ctx, next) => {
   } catch (e) {
     ctx.throw(500, e);
   }
-  return next();
 };
 
 export const checkOwnPost = (ctx, next) => {
@@ -40,6 +72,8 @@ POST /api/posts
     body : '내용',
     tags : ['태그1','태그2']
 }
+로그인하지 않으면 write할 수 없음.
+로그인 하지 않으면 401(unauthorized)
 */
 
 export const write = async (ctx) => {
@@ -58,7 +92,12 @@ export const write = async (ctx) => {
   }
 
   const { title, body, tags } = ctx.request.body;
-  const post = new Post({ title, body, tags, user: ctx.state.user }); // 인스턴스
+  const post = new Post({
+    title,
+    body: sanitizeHtml(body, sanitizeOption),
+    tags,
+    user: ctx.state.user,
+  }); // 인스턴스
   try {
     await post.save();
     // 인스턴스 데이터베이스에 저장
@@ -72,6 +111,7 @@ export const write = async (ctx) => {
 
 /*
 GET /api/posts
+FrontEnd <PostListPage/> path='/'
 */
 export const list = async (ctx) => {
   // query는 문자열이기 때문에 숫자로 변환해 주어야 한다.
@@ -101,7 +141,7 @@ export const list = async (ctx) => {
     ctx.set('Last-Page', Math.ceil(postCount / 10));
     ctx.body = posts.map((post) => ({
       ...post,
-      body: post.body.length < 200 ? post.body : `${post.body.slice(0, 200)}`,
+      body: removeHtmlAndShorten(post.body),
     }));
   } catch (e) {
     ctx.throw(500, e);
@@ -110,10 +150,11 @@ export const list = async (ctx) => {
 
 /*
 GET /api/posts/:id
+FrontEnd <PostPage/> path='/@:username/:postId' 
 */
 
-export const read = (ctx) => {
-  ctx.body = ctx.status.post;
+export const read = async (ctx) => {
+  ctx.body = ctx.state.post;
 };
 
 /*
@@ -149,9 +190,12 @@ export const update = async (ctx) => {
     ctx.body = result.error;
     return;
   }
-
+  const nextData = { ...ctx.request.body };
+  if (nextData.body) {
+    nextData.body = sanitizeHtml(nextData.body, sanitizeOption);
+  }
   try {
-    const post = await Post.findByIdAndUpdate(id, ctx.request.body, {
+    const post = await Post.findByIdAndUpdate(id, nextData, {
       new: true,
     }).exec();
     if (!post) {
