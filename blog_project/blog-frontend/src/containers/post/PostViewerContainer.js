@@ -12,13 +12,14 @@ const PostViewerContainer = () => {
   const navigate = useNavigate();
   const { postId } = params;
   const dispatch = useDispatch();
-  const { post, error, user } = useSelector(({ post, user }) => ({
-    post: post.post,
-    error: post.error,
+  const { post, error, user } = useSelector(({ postsReducer, user }) => ({
+    post: postsReducer.post,
+    error: postsReducer.error,
     user: user.user,
   }));
 
   useEffect(() => {
+    console.log(postId);
     dispatch(readPost(postId));
   }, [dispatch, postId]);
 

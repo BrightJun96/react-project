@@ -36,8 +36,11 @@ const removeHtmlAndShorten = (body) => {
   return filtered.length < 200 ? filtered : `${filtered.slice(0, 200)}...`;
 };
 
+// Posting Id로 해당 포스팅 찾게 해주는 미들웨어
+// 이 미들웨어가 적용되지 않은건 아닌지 확인.
 export const getPostById = async (ctx, next) => {
   const { id } = ctx.params;
+
   if (!ObjectId.isValid(id)) {
     ctx.status = 400; //Bad Request
     return;
