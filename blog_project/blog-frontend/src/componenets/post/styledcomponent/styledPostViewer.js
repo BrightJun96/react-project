@@ -22,10 +22,8 @@ export const SubInfo = styled.div`
   margin-top: 1rem;
   color: ${palette.gray[6]};
 
-  span + span :before {
-    color: ${palette.gray[5]};
-    padding: 0 0.25rem;
-    content: "\\B7";
+  span {
+    margin-right: 1rem;
   }
 `;
 
@@ -33,11 +31,12 @@ export const Tags = styled.div`
   margin-top: 0.5rem;
   .tag {
     display: inline-block;
-    color: ${palette.violet[6]};
+    color: ${palette.violet[7]};
     text-decoration: none;
     margin-right: 0.5rem;
+    cursor: pointer;
     &:hover {
-      opacity: 0.5;
+      opacity: 0.7;
     }
   }
 `;

@@ -1,7 +1,7 @@
 import React, { useEffect } from "react";
 import WriteActionButton from "./../../componenets/write/WriteActionButton";
 import { useSelector, useDispatch } from "react-redux";
-import { onWrite, updatePost } from "./../../modules/write";
+import { onWrite, updatePost, initEntire } from "./../../modules/write";
 import { useNavigate } from "react-router-dom";
 
 const WriteActionButtonContainer = () => {
@@ -20,11 +20,12 @@ const WriteActionButtonContainer = () => {
 
   const dispatch = useDispatch();
   const onPublish = () => {
+    //originalPostId가 있으면 update
     if (originalPostId) {
       dispatch(updatePost({ title, body, tags, id: originalPostId }));
       return;
     }
-
+    // 없으면 그냥 새로운 posting 쓰기
     dispatch(onWrite({ title, body, tags }));
   };
 
@@ -39,16 +40,20 @@ const WriteActionButtonContainer = () => {
   useEffect(() => {
     const { _id, user } = response;
     if (user) {
+      console.log("writepage");
+
       navigate(`/@${user.username}/${_id}`);
+      // 여기서 response state를 공백값으로 만들어줘야하나?
+      dispatch(initEntire());
     }
-  }, [navigate, response]);
+  }, [navigate, response, dispatch]);
 
   return (
     <WriteActionButton
       onPublish={onPublish}
       onCancel={onCancel}
       error={error}
-      idEdit={!!originalPostId}
+      originalPostId={originalPostId}
     />
   );
 };

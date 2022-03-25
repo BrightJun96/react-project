@@ -28,8 +28,8 @@ const TagBoxContainer = () => {
       if (tagText === "") return;
 
       // 이미 존재하는 것이면 추가안함.
-      if (tags.includes(`#${tagText}`)) return;
-      const newTag = tags.concat(`#${tagText}`);
+      if (tags.includes(`${tagText}`)) return;
+      const newTag = tags.concat(`${tagText}`);
       dispatch(changeTags(newTag));
       dispatch(initText());
     },
@@ -39,7 +39,11 @@ const TagBoxContainer = () => {
   const onRemoveTag = useCallback(
     (e) => {
       const clickedText = e.target.textContent;
-      const filteringTag = tags.filter((tag) => tag !== clickedText); // 내가 클릭한 태그를
+      const filteringTag = tags.filter((tag) => {
+        console.log(clickedText);
+        console.log(tag);
+        return `#${tag}` !== clickedText;
+      }); // 내가 클릭한 태그를
       dispatch(changeTags(filteringTag));
     },
     [tags, dispatch]

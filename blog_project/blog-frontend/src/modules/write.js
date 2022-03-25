@@ -2,12 +2,11 @@
 import * as writeAPI from "./../lib/api/write";
 import { takeLatest } from "redux-saga/effects";
 import { call, put } from "redux-saga/effects";
+import * as postAPI from "./../lib/api/post";
 
 // 두 개의 state관리해주고 있음.
 // 하나는 태그 input state이고
 // 하나는 tag들이 들어간 state임.
-
-const CHANGE_TEXT = "write/CHANGE_TEXT";
 
 const CHANGE_TAGTEXT = "write/CHANGE_TEXT";
 const CHANGE_TAGS = "write/CHANGE_TAGS";
@@ -27,9 +26,9 @@ const UPDATE_POST = "write/UPDATE_POST";
 const UPDATE_POST_SUCCESS = "write/UPDATE_POST_SUCCESS";
 const UPDATE_POST_FAILURE = "write/UPDATE_POST_FAILURE";
 
-export const updatePost = ({ id, title, body, tags }) => ({
+export const updatePost = ({ title, body, tags, id }) => ({
   type: UPDATE_POST,
-  payload: { id, title, body, tags },
+  payload: { title, body, tags, id },
 });
 
 export const setOriginalPost = (post) => ({
@@ -53,7 +52,7 @@ function* createWriteSaga(action) {
 
 function* updatePostSaga(action) {
   try {
-    const response = yield call(writeAPI.write, action.payload);
+    const response = yield call(postAPI.updatePost, action.payload);
     yield put({ type: WRITE_SUCCESS, payload: response.data, meta: response });
   } catch (e) {
     yield put({ type: WRITE_FAILURE, payload: e });
@@ -92,10 +91,6 @@ export const initText = () => ({ type: INIT_TAGTEXT });
 
 export const initEntire = () => ({ type: INIT_ENTIRE });
 
-export const changeText = (type, text) => ({
-  type: CHANGE_TEXT,
-  payload: { type, text },
-});
 const initialState = {
   tagText: "",
   tags: [],
@@ -117,12 +112,6 @@ const write = (state = initialState, action) => {
       return { ...state, title: action.payload };
     case CHANGE_BODY:
       return { ...state, body: action.payload };
-    case CHANGE_TEXT:
-      return {
-        ...state,
-        //tagtext
-        [action.payload.type]: action.payload.text,
-      };
 
     case INIT_TAGTEXT:
       return { ...state, tagText: "" };

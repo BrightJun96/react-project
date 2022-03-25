@@ -5,11 +5,11 @@ import {
   ErrorBox,
 } from "./styled-component/styledWriteActionButton";
 
-const WriteActionButton = ({ onPublish, onCancel, error, isEdit }) => {
+const WriteActionButton = ({ onPublish, onCancel, error, originalPostId }) => {
   return (
     <WriteActionButtonBlock>
       <StyledButton violet onClick={onPublish}>
-        포스트 {isEdit ? "수정" : "등록"}
+        포스트 {originalPostId ? "수정" : "등록"}
       </StyledButton>
       <StyledButton onClick={onCancel}>취소</StyledButton>
       {error && <ErrorBox>모든 요소를 2글자이상 입력하세요.</ErrorBox>}

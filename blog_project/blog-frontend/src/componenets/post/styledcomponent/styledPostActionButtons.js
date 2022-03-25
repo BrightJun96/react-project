@@ -14,13 +14,12 @@ export const ActionButton = styled.button`
   color: ${palette.gray[6]};
   font-weight: bold;
   border: none;
-
   outline: none;
   font-size: 0.875rem;
   cursor: pointer;
   &:hover {
     opacity: 0.5;
-    color: ${palette.violet[6]};
+    color: ${palette.violet[7]};
   }
 
   & + & {

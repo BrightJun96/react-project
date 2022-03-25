@@ -18,7 +18,7 @@ const PostActionButtons = ({ onEdit, onRemove }) => {
   return (
     <PostActionButtonBlock>
       <ActionButton onClick={onEdit}>수정</ActionButton>
-      <ActionButton>삭제</ActionButton>
+      <ActionButton onClick={onRemoveClick}>삭제</ActionButton>
       <AskRemoveModal
         visible={modal}
         onConfirm={onConfirm}

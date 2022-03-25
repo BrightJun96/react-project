@@ -1,5 +1,5 @@
 import { takeLatest, call, put } from "redux-saga/effects";
-import { read } from "./../lib/api/write";
+import * as postAPI from "./../lib/api/post";
 
 const READ_POST = "post/READ_POST";
 const READ_POST_SUCCESS = "post/READ_POST_SUCCESS";
@@ -12,7 +12,7 @@ export const unloadPost = () => ({ type: UNLOAD_POST });
 
 function* readPostSaga(action) {
   try {
-    const response = yield call(read, action.payload);
+    const response = yield call(postAPI.read, action.payload);
     console.log(response);
     yield put({
       type: READ_POST_SUCCESS,

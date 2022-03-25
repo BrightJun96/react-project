@@ -1,5 +1,5 @@
 import { takeLatest, call, put } from "redux-saga/effects";
-import { listPosts } from "../lib/api/write";
+import * as postAPI from "../lib/api/post";
 
 const LIST_POSTS = "posts/LIST_POSTS";
 const LIST_POSTS_SUCCESS = "posts/LIST_POSTS_SUCCESS";
@@ -9,10 +9,9 @@ export const listPost = ({ tag, username, page }) => ({
   type: LIST_POSTS,
   payload: { tag, username, page },
 });
-
 function* listPostsSaga(action) {
   try {
-    const response = yield call(listPosts, action.payload);
+    const response = yield call(postAPI.listPosts, action.payload);
     yield put({
       type: LIST_POSTS_SUCCESS,
       payload: response.data,

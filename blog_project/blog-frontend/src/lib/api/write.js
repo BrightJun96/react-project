@@ -11,18 +11,4 @@ export const write = ({ title, body, tags }) =>
 
 export const list = () => client.get("/api/posts");
 
-export const read = (id) => client.get(`/api/posts/${id}`);
-
-export const listPosts = ({ page, username, tag }) => {
-  const queryString = qs.stringify({
-    page,
-    username,
-    tag,
-  });
-  return client.get(`/api/posts?${queryString}`);
-};
-
-export const updatePosts = ({ id, title, body, tag }) =>
-  client.patch(`/api/posts/${id}`, { title, body, tag });
-
 export const removePost = (id) => client.delete(`/api/posts/${id}`);

@@ -38,10 +38,8 @@ export const PostItemBlock = styled.div`
 export const SubInfo = styled.div`
   color: ${palette.gray[6]};
 
-  span + span:before {
-    color: ${palette.gray[4]};
-    padding: 0 0.25rem;
-    content: "\\B7";
+  span {
+    margin-right: 0.5rem;
   }
 `;
 
@@ -49,7 +47,7 @@ export const TagsBlock = styled.div`
   margin-top: 0.5rem;
   .tag {
     display: inline-block;
-    color: ${palette.violet[6]};
+    color: ${palette.violet[7]};
     text-decoration: none;
     margin-right: 0.5rem;
     &:hover {

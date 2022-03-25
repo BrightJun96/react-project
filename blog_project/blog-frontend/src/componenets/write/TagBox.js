@@ -8,8 +8,7 @@ import {
 } from "./styled-component/styledTagBox";
 // Tag memoized
 const Tag = ({ tag, onRemoveTag }) => {
-  console.log("Tag Render");
-  return <TagItem onClick={onRemoveTag}>{tag}</TagItem>;
+  return <TagItem onClick={onRemoveTag}>{`#${tag}`}</TagItem>;
 };
 
 const MemoizedTag = memo(Tag);
@@ -17,7 +16,6 @@ const MemoizedTag = memo(Tag);
 // memo를 해줌으로써 input이 바뀌어도 Tags 컴포넌트는 리렌더링되지않는다.
 // Tags memoized
 const Tags = ({ tags, onRemoveTag }) => {
-  console.log("Tags Render");
   return (
     <TagList>
       {tags.map((tag, index) => (

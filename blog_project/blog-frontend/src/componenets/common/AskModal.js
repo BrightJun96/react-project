@@ -44,8 +44,8 @@ const AskModal = ({
   visible,
   title,
   description,
-  confirmText = "확인",
-  cancelText = "취소",
+  confirmText,
+  cancelText,
   onConfirm,
   onCancel,
 }) => {
@@ -58,10 +58,10 @@ const AskModal = ({
         <h2>{title}</h2>
         <p>{description}</p>
         <div className="buttons">
-          <StyledButton onClick={onCancel}>{cancelText}</StyledButton>
           <StyledButton onClick={onConfirm} violet>
             {confirmText}
           </StyledButton>
+          <StyledButton onClick={onCancel}>{cancelText}</StyledButton>
         </div>
       </AskModalBlock>
     </FullScreen>
