@@ -36,6 +36,12 @@ const StyledButton = styled.button`
       }
     `}
 
+${(props) =>
+    props.hasTopMargin &&
+    css`
+      margin-top: 1.5rem;
+    `}
+
 
     &:disabled {
     background-color: ${palette.gray[3]};

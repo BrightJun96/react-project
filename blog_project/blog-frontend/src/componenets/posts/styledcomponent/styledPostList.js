@@ -36,6 +36,7 @@ export const PostItemBlock = styled.div`
 `;
 
 export const SubInfo = styled.div`
+  margin-top: 1rem;
   color: ${palette.gray[6]};
 
   span {

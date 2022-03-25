@@ -3,18 +3,24 @@ import { useDispatch, useSelector } from "react-redux";
 import { useLocation, useNavigate } from "react-router-dom";
 import AuthForm from "../../componenets/auth/AuthForm";
 import { check } from "../../modules/user";
-import { changeField, initializeForm, register } from "./../../modules/auth";
+import {
+  changeErrorText,
+  changeField,
+  initializeForm,
+  register,
+} from "./../../modules/auth";
 
 const RegisterForm = () => {
-  const [error, setError] = useState(null);
-
   const dispatch = useDispatch();
-  const { form, auth, authError, user } = useSelector(({ auth, user }) => ({
-    form: auth.register,
-    auth: auth.auth,
-    authError: auth.authError,
-    user: user.user,
-  }));
+  const { form, auth, authError, user, errorText } = useSelector(
+    ({ auth, user }) => ({
+      form: auth.register,
+      auth: auth.auth,
+      authError: auth.authError,
+      user: user.user,
+      errorText: auth.errorText,
+    })
+  );
 
   // 인풋 변경 핸들러
   const onChange = (e) => {
@@ -27,14 +33,15 @@ const RegisterForm = () => {
     e.preventDefault();
 
     const { username, password, passwordConfirm } = form;
-
     if ([username, password, passwordConfirm].includes("")) {
-      setError("빈 칸을 모두 입력하세요.");
+      dispatch(changeErrorText("빈 칸을 모두 입력하세요."));
+
       return;
     }
 
     if (password !== passwordConfirm) {
-      setError("비밀번호가 일치하지 않습니다.");
+      dispatch(changeErrorText("비밀번호가 일치하지 않습니다."));
+
       dispatch(changeField({ form: "register", key: "password", value: "" }));
       dispatch(
         changeField({ form: "register", key: "passwordConfirm", value: "" })
@@ -53,14 +60,12 @@ const RegisterForm = () => {
   // 회원가입 성공/실패
   useEffect(() => {
     if (authError) {
+      console.log(authError);
+
       if (authError.response.status === 409) {
-        setError("이미 존재하는 계정입니다.");
+        dispatch(changeErrorText("이미 존재하는 계정입니다."));
         return;
       }
-
-      // 기타 이유
-      setError("회원가입 실패");
-      return;
     }
     if (auth) {
       console.log("회원가입 성공");
@@ -90,13 +95,18 @@ const RegisterForm = () => {
       console.log("localStorage is not working");
     }
   }, [user, navigate]);
+
+  // 처음 페이지 mount됬을 때 errortext init
+  useEffect(() => {
+    dispatch(changeErrorText(""));
+  }, []);
   return (
     <AuthForm
       type="register"
       form={form}
       onChange={onChange}
       onSubmit={onSubmit}
-      error={error}
+      errorText={errorText}
     />
   );
 };

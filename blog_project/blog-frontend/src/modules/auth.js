@@ -9,6 +9,7 @@ import createRequestSaga, {
 // action
 const CHANGE_FIELD = "auth/CHANGE_FIELD";
 const INITIALIZE_FORM = "auth/INITIALIZE_FORM";
+const CHANGE_ERRORTEXT = "auth/CHANGE_ERRORTEXT";
 
 const [REGISTER, REGISTER_SUCCESS, REGISTER_FAILURE] =
   createRequestActionTypes("auth/REGISTER");
@@ -20,6 +21,8 @@ export const changeField = createAction(
   CHANGE_FIELD,
   ({ form, key, value }) => ({ form, key, value })
 );
+
+export const changeErrorText = createAction(CHANGE_ERRORTEXT, (text) => text);
 
 export const initializeForm = createAction(INITIALIZE_FORM, (form) => form);
 
@@ -36,16 +39,17 @@ export const login = createAction(LOGIN, ({ username, password }) => ({
 }));
 
 // 사가 생성 for 비동기 요청
-const registerSaga = createRequestSaga(REGISTER, authAPI.register); // 여기서 어떤 액션이 디스패치된것일까?
+const registerSaga = createRequestSaga(REGISTER, authAPI.register);
 const loginSaga = createRequestSaga(LOGIN, authAPI.login);
 
 export function* authSaga() {
-  yield takeLatest(REGISTER, registerSaga); // REGISTER을 만든 액션(register)이 실행되면 registersaga실행
-  yield takeLatest(LOGIN, loginSaga); // LOGIN을 만든 액션(login)이 실행되면 loginSaga가 실행
+  yield takeLatest(REGISTER, registerSaga);
+  yield takeLatest(LOGIN, loginSaga);
 }
 
 // 5개의 input state를 관리해줘야함. 그러기 위해 객체로서 정리
 const initialState = {
+  errorText: "",
   register: {
     username: "",
     password: "",
@@ -83,6 +87,10 @@ const auth = handleActions(
     [LOGIN_FAILURE]: (state, { payload: error }) => ({
       ...state,
       authError: error,
+    }),
+    [CHANGE_ERRORTEXT]: (state, { payload: text }) => ({
+      ...state,
+      errorText: text,
     }),
   },
   initialState

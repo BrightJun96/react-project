@@ -7,8 +7,7 @@ import api from './api/index';
 import jwtMiddleware from './lib/jwtMiddleware';
 import serve from 'koa-static';
 import path from 'path';
-import send from 'send';
-
+import send from 'koa-send';
 const { PORT, MONGO_URI } = process.env;
 
 mongoose
