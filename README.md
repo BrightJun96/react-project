@@ -1,6 +1,6 @@
 # react-project
 
-These are projects using react with other techs.
+리액트 프로젝트를 모아둔 Repository입니다.
 
 ## [blog_project](https://github.com/BrightJun96/react-project/tree/main/blog_project)
 

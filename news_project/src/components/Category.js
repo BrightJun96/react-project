@@ -27,27 +27,6 @@ const Category = () => {
             <ActiveLink to={category}>{category}</ActiveLink>
           </li>
         ))}
-        {/* <li>
-          <ActiveLink to="all">All</ActiveLink>
-        </li>
-        <li>
-          <ActiveLink to="business">Business</ActiveLink>
-        </li>
-        <li>
-          <ActiveLink to="entertainment">Entertainment</ActiveLink>
-        </li>
-        <li>
-          <ActiveLink to="health">Health</ActiveLink>
-        </li>
-        <li>
-          <ActiveLink to="science">Science</ActiveLink>
-        </li>
-        <li>
-          <ActiveLink to="sports">Sports</ActiveLink>
-        </li>
-        <li>
-          <ActiveLink to="technology">Technology</ActiveLink>
-        </li> */}
       </ul>
     </nav>
   );
