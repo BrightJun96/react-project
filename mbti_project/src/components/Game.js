@@ -3,42 +3,47 @@ import Question from "./Question";
 import Result from "./Result";
 
 const Game = ({ goToHome }) => {
-  //답변 끝낸 문항 수
-  //답변이 12면 리절트 아니면 퀘스천
-  //카운트가 증가하는 기능을 퀘스천에서 해줘야하기 때문에 퀘스천으로 넘김
   const [count, setCount] = useState(0);
-  const [e, setE] = useState(0);
-  const [s, setS] = useState(0);
-  const [t, setT] = useState(0);
-  const [j, setJ] = useState(0);
 
-  //count 증가 + 점수합산
+  const [mbti, setMbti] = useState({ e: 0, s: 0, t: 0, j: 0 });
+  const { e, s, t, j } = mbti;
+
+  console.log(mbti);
   const selectAnswer = (btnNum, type) => {
+    // switch case 문
     if (btnNum === 1) {
-      if (type === "e") {
-        setE(e + 1);
-      }
-      if (type === "s") {
-        setS(s + 1);
-      }
-      if (type === "t") {
-        setT(t + 1);
-      }
-      if (type === "j") {
-        setJ(j + 1);
+      switch (type) {
+        case "e":
+          setMbti((state) => ({ ...state, e: e + 1 }));
+          break;
+        case "s":
+          setMbti((state) => ({ ...state, s: s + 1 }));
+          break;
+        case "t":
+          setMbti((state) => ({ ...state, t: t + 1 }));
+          break;
+        case "j":
+          setMbti((state) => ({ ...state, j: j + 1 }));
+          break;
+        default:
+          console.log("no match");
       }
     } else {
-      if (type === "e") {
-        setE(e - 1);
-      }
-      if (type === "s") {
-        setS(s - 1);
-      }
-      if (type === "t") {
-        setT(t - 1);
-      }
-      if (type === "j") {
-        setJ(j - 1);
+      switch (type) {
+        case "e":
+          setMbti((state) => ({ ...state, e: e - 1 }));
+          break;
+        case "s":
+          setMbti((state) => ({ ...state, s: s - 1 }));
+          break;
+        case "t":
+          setMbti((state) => ({ ...state, t: t - 1 }));
+          break;
+        case "j":
+          setMbti((state) => ({ ...state, j: j - 1 }));
+          break;
+        default:
+          console.log("no match");
       }
     }
 
