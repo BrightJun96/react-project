@@ -1,16 +1,15 @@
 import React from "react";
-import { Link } from "react-router-dom";
-import { Item, Image } from "./styledComp";
+import { useNavigate } from "react-router-dom";
+import { CardBox } from "../styles/styledCards";
+import { Image } from "./../styles/styledCards";
 const Card = ({ content }) => {
+  const navigate = useNavigate();
   return (
-    <Item>
-      <Link to={content.path}>
-        {/*<Image imagePath={content.imagePath}></Image>*/}
-        <Image imagePath={content.imagePath} />
-      </Link>
-      <h1 style={{ textAlign: "center", fontSize: "28px" }}>{content.title}</h1>
-      <h2 style={{ padding: 10, textAlign: "center" }}> {content.character}</h2>
-    </Item>
+    <CardBox onClick={() => navigate(content.path)}>
+      <Image imagePath={content.imagePath} />
+      <h1>{content.title}</h1>
+      <h2>{content.character}</h2>
+    </CardBox>
   );
 };
 

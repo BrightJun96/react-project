@@ -13,13 +13,8 @@
 
 html,
 body {
-  width: 100%;
   margin: 0;
   background-color: #a2d382;
   letter-spacing: 4px;
   color: aliceblue;
-}
-
-#root {
-  width: 100%;
 }

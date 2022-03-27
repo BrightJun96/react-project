@@ -1,49 +1,6 @@
 import styled from "styled-components";
 
-export const Menu = styled.div`
-  position: sticky;
-  top: 0;
-  width: 100%;
-  height: 15vh;
-  box-sizing: border-box;
-  padding: 0 2rem;
-  font-size: 18px;
-  color: #ffffff;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  background-color: #50c700;
-  z-index: 100;
-  font-weight: bold;
-  h2 {
-    @media (max-width: 350px) {
-      font-size: 18px;
-    }
-  }
-  ul {
-    font-size: 20px;
-    width: 30%;
-    display: flex;
-    justify-content: space-around;
-    align-items: center;
-    &:hover {
-      cursor: pointer;
-    }
-    @media (max-width: 350px) {
-      font-size: 16px;
-    }
-  }
-
-  ul li {
-    writing-mode: vertical-rl;
-
-    list-style: none;
-
-    padding: 0 3px;
-  }
-`;
-
-export const Items = styled.div`
+export const CardsBox = styled.div`
   display: flex;
   flex-wrap: wrap;
   width: 85%;
@@ -58,7 +15,7 @@ export const Items = styled.div`
   }
 `;
 
-export const Item = styled.div`
+export const CardBox = styled.div`
   cursor: pointer;
   width: 21%;
   height: 400px;
@@ -71,6 +28,16 @@ export const Item = styled.div`
   &:hover {
     transform: translate(0, -10px);
     opacity: 0.6;
+  }
+
+  h1 {
+    text-align: center;
+    font-size: 28px;
+  }
+
+  h2 {
+    padding: 10;
+    text-align: center;
   }
 
   @media all and (max-width: 1000px) {
