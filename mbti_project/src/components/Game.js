@@ -46,7 +46,7 @@ const Game = ({ goToHome }) => {
   };
 
   return (
-    <div className="gameContainer">
+    <div>
       {count === 12 ? (
         <Result points={{ e, s, t, j }} goToHome={goToHome} />
       ) : (

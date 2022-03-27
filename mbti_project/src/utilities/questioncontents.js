@@ -12,7 +12,7 @@ export const questioncontent = [
     img: "./questionImage/two.jpg",
     number: 2,
     question:
-      "딱지치기 게임 이후, 오징어 게임 참가를 제안받았다. >명함부터 수상한데...과연 나라면?",
+      "딱지치기 게임 이후, 오징어 게임 참가를 제안받았다. 명함부터 수상한데...과연 나라면?",
     answer1: "인생 뭐 있어, 바로 명함에 적힌 번호로 전화를 건다.",
     answer2: "에잇, 요즘 사기꾼들이 얼마나 많은데! 좀 더 고민해보고 결정한다!",
     type: "e",

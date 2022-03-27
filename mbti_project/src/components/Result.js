@@ -26,9 +26,9 @@ const Result = ({ points, goToHome }) => {
     resultCharacter !== null && (
       <div className="resultContainer">
         <h1>{resultCharacter.description.name}</h1>
-        <h2 className="resultSignature">
+        <p className="resultSignature">
           {resultCharacter.description.signature}
-        </h2>
+        </p>
         <img
           className="resultImg"
           src={resultCharacter.description.img}

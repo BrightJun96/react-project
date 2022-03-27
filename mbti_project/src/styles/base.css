@@ -21,19 +21,6 @@ body {
 }
 */
 .container {
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-box-orient: vertical;
-  -webkit-box-direction: normal;
-      -ms-flex-direction: column;
-          flex-direction: column;
-  -webkit-box-pack: center;
-      -ms-flex-pack: center;
-          justify-content: center;
-  -webkit-box-align: center;
-      -ms-flex-align: center;
-          align-items: center;
   background-image: url(./styleImage/squid-background.jpg);
   height: 100%;
   background-repeat: no-repeat;
@@ -42,7 +29,6 @@ body {
 }
 
 .homeContainer {
-  width: 100%;
   height: 100vh;
   display: -webkit-box;
   display: -ms-flexbox;
@@ -61,13 +47,8 @@ body {
 }
 
 .homeContainer .title {
-  position: relative;
-  top: 10%;
-  font-size: 3rem;
-}
-
-.homeContainer .bottom-box {
-  width: 100%;
+  padding-top: 3.5rem;
+  font-size: 2.5rem;
 }
 
 .homeContainer .bottom-box .writer {
@@ -81,14 +62,10 @@ body {
   }
 }
 
-@media (max-width: 400px) {
+@media (max-width: 450px) {
   .homeContainer .title {
     font-size: 1.5rem;
   }
-}
-
-.gameContainer {
-  width: 100%;
 }
 
 .questionContainer {
@@ -114,15 +91,9 @@ body {
 }
 
 .questionContainer .title {
-  width: 600px;
-  font-size: 1.3rem;
+  width: 500px;
+  font-size: 1rem;
   line-height: 150%;
-}
-
-@media (max-width: 850px) {
-  .questionContainer .title {
-    font-size: 1rem;
-  }
 }
 
 @media (max-width: 450px) {
@@ -133,7 +104,6 @@ body {
 }
 
 .resultContainer {
-  width: 100%;
   min-height: 100vh;
   display: -webkit-box;
   display: -ms-flexbox;
@@ -152,6 +122,7 @@ body {
 .resultContainer .resultSignature {
   width: 650px;
   text-align: center;
+  font-size: 1.3rem;
 }
 
 .resultContainer .resultImg {
