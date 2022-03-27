@@ -7,21 +7,20 @@
 
 * {
   letter-spacing: 7px;
+  font-family: "twaysky";
+  color: #dad6d6;
 }
 
+/*
 html,
 body {
   width: 100%;
 }
-
 #root {
   width: 100%;
 }
-
+*/
 .container {
-  height: 100%;
-  min-height: 100vh;
-  width: 100%;
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -35,10 +34,11 @@ body {
   -webkit-box-align: center;
       -ms-flex-align: center;
           align-items: center;
-  background-image: url(./styleImage/squadBackground.png);
-  background-size: 100% 100%;
+  background-image: url(./styleImage/squid-background.jpg);
+  height: 100%;
   background-repeat: no-repeat;
-  font-family: "twaysky";
+  background-position: center;
+  background-size: cover;
 }
 
 .homeContainer {
@@ -93,7 +93,6 @@ body {
 
 .questionContainer {
   min-height: 100vh;
-  width: 100%;
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -114,21 +113,22 @@ body {
   border-radius: 10px;
 }
 
-.questionContainer h2 {
+.questionContainer .title {
   width: 600px;
   font-size: 1.3rem;
   line-height: 150%;
 }
 
 @media (max-width: 850px) {
-  .questionContainer h2 {
+  .questionContainer .title {
     font-size: 1rem;
   }
 }
 
-@media (max-width: 400px) {
-  .questionContainer h2 {
-    width: 85%;
+@media (max-width: 450px) {
+  .questionContainer .title {
+    font-size: 14px;
+    width: 300px;
   }
 }
 
@@ -155,18 +155,12 @@ body {
 }
 
 .resultContainer .resultImg {
-  width: 350px;
-  height: 300px;
+  width: 370px;
+  height: 370px;
   border-radius: 10px;
-}
-
-.resultContainer .mbtiType {
-  color: black;
 }
 
 .resultContainer .description {
-  border: 2px solid black;
-  border-radius: 10px;
   padding: 10px;
   width: 600px;
   font-size: 16px;
@@ -179,6 +173,15 @@ body {
   }
   .resultContainer .mbtiType {
     font-size: 1.2rem;
+  }
+}
+
+@media (max-width: 450px) {
+  .resultContainer .resultSignature {
+    width: 300px;
+  }
+  .resultContainer .description {
+    width: 320px;
   }
 }
 /*# sourceMappingURL=base.css.map */

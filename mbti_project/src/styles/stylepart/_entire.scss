@@ -8,8 +8,11 @@
 
 * {
   letter-spacing: 7px;
+  font-family: "twaysky";
+  color: rgb(218, 214, 214);
 }
 
+/*
 html,
 body {
   width: 100%;
@@ -17,17 +20,16 @@ body {
 #root {
   width: 100%;
 }
+*/
 
 .container {
-  height: 100%;
-  min-height: 100vh;
-  width: 100%;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  background-image: url(./styleImage/squadBackground.png);
-  background-size: 100% 100%;
+  background-image: url(./styleImage/squid-background.jpg);
+  height: 100%;
   background-repeat: no-repeat;
-  font-family: "twaysky";
+  background-position: center;
+  background-size: cover;
 }

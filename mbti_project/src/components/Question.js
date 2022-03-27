@@ -11,7 +11,7 @@ const Question = ({ count, selectAnswer }) => {
   return (
     <div className="questionContainer">
       <h3>{questioncontent[count].number}</h3>
-      <h2 ref={h2Ref}></h2>
+      <p className="title" ref={h2Ref}></p>
       <img src={questioncontent[count].img} alt="" />
       <br />
       <Button onClick={() => selectAnswer(1, questioncontent[count].type)}>

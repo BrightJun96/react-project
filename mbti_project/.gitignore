@@ -24,3 +24,6 @@ note3.txt
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
+
+# etc file
+refactorying.md

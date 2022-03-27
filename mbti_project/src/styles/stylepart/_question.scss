@@ -1,6 +1,5 @@
 .questionContainer {
   min-height: 100vh;
-  width: 100%;
   display: flex;
   flex-direction: column;
   justify-content: space-around;
@@ -11,7 +10,7 @@
     border-radius: 10px;
   }
 
-  h2 {
+  .title {
     width: 600px;
     font-size: 1.3rem;
     line-height: 150%;
@@ -20,16 +19,17 @@
 
 @media (max-width: 850px) {
   .questionContainer {
-    h2 {
+    .title {
       font-size: 1rem;
     }
   }
 }
 
-@media (max-width: 400px) {
+@media (max-width: 450px) {
   .questionContainer {
-    h2 {
-      width: 85%;
+    .title {
+      font-size: 14px;
+      width: 300px;
     }
   }
 }
