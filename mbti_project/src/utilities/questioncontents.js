@@ -1,5 +1,5 @@
 // 12개의 질문을 포함한 하나의 배열!
-export const questioncontent = [
+const contents = [
   {
     img: "./questionImage/one.jpg",
     number: 1,
@@ -111,3 +111,5 @@ export const questioncontent = [
     type: "j",
   },
 ];
+
+export default contents;

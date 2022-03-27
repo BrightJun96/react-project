@@ -8,9 +8,7 @@ const Game = ({ goToHome }) => {
   const [mbti, setMbti] = useState({ e: 0, s: 0, t: 0, j: 0 });
   const { e, s, t, j } = mbti;
 
-  console.log(mbti);
   const selectAnswer = (btnNum, type) => {
-    // switch case 문
     if (btnNum === 1) {
       switch (type) {
         case "e":
@@ -46,14 +44,13 @@ const Game = ({ goToHome }) => {
           console.log("no match");
       }
     }
-
     setCount(count + 1);
   };
 
   return (
     <div>
       {count === 12 ? (
-        <Result points={{ e, s, t, j }} goToHome={goToHome} />
+        <Result mbti={mbti} goToHome={goToHome} />
       ) : (
         <Question count={count} selectAnswer={selectAnswer} />
       )}
