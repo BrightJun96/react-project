@@ -1,4 +1,4 @@
-import React, { useState, useCallback } from "react";
+import React, { useState } from "react";
 import { contents } from "../utilities/contents";
 import { filterContents } from "../utilities/filterContents";
 import { BiCaretUpCircle } from "react-icons/bi";
@@ -14,7 +14,7 @@ const Collection = () => {
     window.scrollTo(0, 0);
   };
 
-  const filtering = useCallback((menuName) => {
+  const filtering = (menuName) => {
     if (menuName === "전체") {
       setContent(contents);
     } else {
@@ -23,7 +23,7 @@ const Collection = () => {
       });
       setContent(filteredMenu);
     }
-  }, []);
+  };
 
   return (
     <div>
