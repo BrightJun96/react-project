@@ -17,6 +17,7 @@ function createRequestSaga(type, request) {
       const response = yield call(request, action.payload); //request(action.payload)  {username,password}
       yield put({ type: SUCCESS, payload: response.data });
     } catch (e) {
+      console.log(e);
       yield put({ type: FAILURE, payload: e, error: true });
     }
     yield put(finishLoading(type));

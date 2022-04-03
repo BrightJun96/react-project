@@ -18,6 +18,7 @@ function* listPostsSaga(action) {
       meta: response,
     });
   } catch (e) {
+    console.log(e);
     put({ type: LIST_POSTS_FAILURE, payload: e });
   }
 }

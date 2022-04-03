@@ -62,11 +62,17 @@ const auth = handleActions(
   {
     [CHANGE_FIELD]: (state, { payload: { form, key, value } }) =>
       produce(state, (draft) => {
-        draft[form][key] = value; // 예 : state.register.username을 바꾼다.
+        // 같은 state logic으로 접근함으로써
+        // 여러개의 input state를 한번에 관리해줄 수 있다.
+        //( 여러개의 action, action function,reducer logic을 구성할 필요없음.)
+        // 객체 프로퍼티를 대괄호로 접근(유동적으로 사용 가능)
+        // form => "register" or  "login"
+        // key => "username" or  "password" or "passwordConfirm"
+        draft[form][key] = value;
       }),
     [INITIALIZE_FORM]: (state, { payload: form }) => ({
       ...state,
-      [form]: initialState[form],
+      [form]: initialState[form], // "register" or "login"관련 input만 초기화해준다.
       authError: null,
     }),
     [REGISTER_SUCCESS]: (state, { payload: auth }) => ({

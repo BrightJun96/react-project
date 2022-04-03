@@ -10,7 +10,6 @@ import {
 } from "./../../modules/auth";
 import { useNavigate } from "react-router-dom";
 
-// check => server state에 담긴 로그인 정보와 비교
 const LoginForm = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -39,47 +38,43 @@ const LoginForm = () => {
     }
     dispatch(login({ username, password }));
   };
-  // 컴포넌트가 처음 렌더링될 때 form을 초기화함.
+
+  // 컴포넌트가 처음 렌더링될 때 form과 errortext를 초기화함.
   useEffect(() => {
     dispatch(initializeForm("login"));
+    dispatch(changeErrorText(""));
   }, [dispatch]);
 
+  // 로그인 성공 및 실패시 처리
   useEffect(() => {
     if (auth) {
       console.log("로그인 성공!");
       console.log(auth);
-      dispatch(check());
-    }
-    if (authError) {
-      console.log("오류발생!");
-      console.log(authError);
+      dispatch(check()); // check => server state에 담긴 로그인 정보와 비교
     }
 
-    if (authError && authError.response.status === 400) {
+    if (authError?.response.status === 400) {
+      console.log(authError);
       dispatch(changeErrorText("존재하지 않는 계정입니다."));
     }
 
-    if (authError && authError.response.status === 401) {
+    if (authError?.response.status === 401) {
+      console.log(authError);
       dispatch(changeErrorText("비밀번호가 틀립니다."));
     }
   }, [authError, auth, dispatch]);
 
+  // 로그인 성공한뒤 확인된 유저가 있다면 메인페이지로 이동
   useEffect(() => {
     if (user) {
       navigate("/");
-    }
-
-    try {
-      localStorage.setItem("user", JSON.stringify(user));
-    } catch (e) {
-      console.log("localStorage is not working");
+      try {
+        localStorage.setItem("user", JSON.stringify(user));
+      } catch (e) {
+        console.log("localStorage is not working");
+      }
     }
   }, [user, navigate]);
-
-  // 처음 페이지 mount됬을 때 errortext init
-  useEffect(() => {
-    dispatch(changeErrorText(""));
-  }, []);
 
   return (
     <AuthForm

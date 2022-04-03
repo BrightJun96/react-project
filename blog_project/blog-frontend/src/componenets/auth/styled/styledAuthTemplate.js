@@ -6,11 +6,20 @@ import palette from "../../../lib/styles/palette";
 
 // 화면 전체를 채움
 export const AuthTemplateBlock = styled.div`
+  /*
+  컴포넌트를 화면에 꽉 채우는 방법
+  방법1.
   position: absolute;
   left: 0;
   top: 0;
   bottom: 0;
   right: 0;
+
+  방법2.
+  min-height: 100vh;
+  */
+
+  min-height: 100vh;
   background: ${palette.gray[2]};
   display: flex;
   flex-direction: column;
