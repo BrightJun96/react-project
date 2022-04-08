@@ -1,12 +1,11 @@
 import React from "react";
-import "quill/dist/quill.bubble.css";
 import {
   EditorBlock,
   QuillWrapper,
   TitleInput,
 } from "./styled-component/styledEditor";
 import ReactQuill from "react-quill";
-import "react-quill/dist/quill.bubble.css";
+import "react-quill/dist/quill.snow.css";
 
 const Editor = ({ onChangeTitle, onChangeBody, title, body }) => {
   return (
@@ -18,10 +17,10 @@ const Editor = ({ onChangeTitle, onChangeBody, title, body }) => {
       />
       <QuillWrapper>
         <ReactQuill
-          theme="bubble"
-          value={body}
-          onChange={onChangeBody}
+          theme="snow"
           placeholder="내용을 입력하세요.."
+          onChange={onChangeBody}
+          value={body}
         />
       </QuillWrapper>
     </EditorBlock>

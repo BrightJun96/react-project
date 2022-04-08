@@ -46,7 +46,7 @@ const Header = ({ user, onLogout }) => {
       <HeaderBlock>
         <Wrapper>
           <Link to="/" className="logo">
-            REACTERS
+            Jevelog
           </Link>
           {user ? (
             <div className="right">

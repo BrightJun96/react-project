@@ -2,6 +2,25 @@
 
 - 개별 포스팅부분에서 전체목록으로 돌아갈수 있는 버튼 UI만들기
 
+# Main logo name 변경
+
+clear
+
+# 포스팅 수정시 버그 발생
+
+# 텍스트 에디터
+
+- 폰트 키우기 => clear
+- bg color 바꾸기 => clear
+
+solve
+
+- className을 선택해 바꿈
+- title input만 배경이 바뀌지 않았음.(input은 상위 bg color가 적용이 안됨)
+  **ref**
+
+- https://codepen.io/ahutch1211/pen/OzWeqm?editors=0100
+
 # Routing
 
 App 컴포넌트는 Routing을 담당하는 컴포넌트이며 각 페이지별 메인 컴포넌트를 담당하고 있다.
