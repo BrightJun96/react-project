@@ -7,7 +7,6 @@ import palette from "../../../lib/styles/palette";
 export const EditorBlock = styled(Responsive)`
   // 너비를 Responsive 에게 상속받는다.
   padding: 5rem 0;
-  border-radius: 3rem;
 `;
 
 export const TitleInput = styled.input`

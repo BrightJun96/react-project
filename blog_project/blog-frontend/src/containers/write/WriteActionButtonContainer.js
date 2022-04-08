@@ -1,11 +1,10 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import WriteActionButton from "./../../componenets/write/WriteActionButton";
 import { useSelector, useDispatch } from "react-redux";
 import { onWrite, updatePost, initEntire } from "./../../modules/write";
 import { useNavigate } from "react-router-dom";
 
 const WriteActionButtonContainer = () => {
-  // 상태값 title,body,tags 가져와야지
   const { title, body, tags, error, response, originalPostId } = useSelector(
     ({ write }) => ({
       title: write.title,
@@ -16,7 +15,6 @@ const WriteActionButtonContainer = () => {
       originalPostId: write.originalPostId,
     })
   );
-  //API 요청
 
   const dispatch = useDispatch();
   const onPublish = () => {
@@ -48,11 +46,24 @@ const WriteActionButtonContainer = () => {
     }
   }, [navigate, response, dispatch]);
 
+  const [errorText, setErrorText] = useState("");
+
+  useEffect(() => {
+    if (error?.response.status === 400) {
+      setErrorText("모든 요소를 2글자이상 입력하세요.");
+    }
+
+    if (error?.response.status === 403) {
+      setErrorText("작성한 유저만 포스팅을 수정할 수 있습니다.");
+    }
+  }, [error]);
+
   return (
     <WriteActionButton
       onPublish={onPublish}
       onCancel={onCancel}
       error={error}
+      errorText={errorText}
       originalPostId={originalPostId}
     />
   );

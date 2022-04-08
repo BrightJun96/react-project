@@ -55,6 +55,7 @@ function* updatePostSaga(action) {
     const response = yield call(postAPI.updatePost, action.payload);
     yield put({ type: WRITE_SUCCESS, payload: response.data, meta: response });
   } catch (e) {
+    console.log(e);
     yield put({ type: WRITE_FAILURE, payload: e });
   }
 }
@@ -96,7 +97,7 @@ const initialState = {
   tags: [],
   title: "",
   body: "",
-  error: "",
+  error: undefined,
   response: "",
   originalPostId: "",
 };
