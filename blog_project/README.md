@@ -92,6 +92,14 @@
 
 # Description
 
+- 포스팅 작성은 회원가입을 한뒤 **로그인을 해야 작성**할 수 있다.
+
+- 로그인과 회원가입은 비슷한 구조를 가지고 있어 **같은 컴포넌트를 사용하고 차이가 있는 부분은 props를 사용**해 변화를 주었다.
+
+- 여러 개의 input state를 관리하기 위해 **객체 프로퍼티를 대괄호 접근법**으로 접근하였다.
+
+- redux reducer안에서 불변성을 간편하게 유지하기 위하여 **immer** 라이브러리를 사용하였다.
+
 - 여러 상태값이 필요하며 이를 각 페이지 및 컴포넌트별로 구분하기 위하여 **redux로 상태관리**를 하였다.
 
 - 로그인 및 회원가입에 대한 **validation 및 Error Message**를 백엔드와 프론트에서 둘 다 구현하였다.
@@ -104,7 +112,7 @@
 
 - Text-editor 기능을 사용하기 위해 **React-quill library**를 사용하였다.
 
-- CORS 오류를 해결하기 위해 client측 package.json에서 **proxy(localhost:4000)를 설정**했다.  
+- **CORS 오류를 해결**하기 위해 client측 package.json에서 **proxy(localhost:4000)를 설정**했다.  
   (client:localhost3000 \ server:localhost:4000)
 
 - **koa-static**을 이용하여 **서버에서 프론트측 정적 파일을 사용**할 수 있도록 하였다.

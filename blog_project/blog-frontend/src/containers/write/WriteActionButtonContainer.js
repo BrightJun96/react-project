@@ -52,7 +52,9 @@ const WriteActionButtonContainer = () => {
     if (error?.response.status === 400) {
       setErrorText("모든 요소를 2글자이상 입력하세요.");
     }
-
+    if (error?.response.status === 401) {
+      setErrorText("로그인을 하셔야합니다.");
+    }
     if (error?.response.status === 403) {
       setErrorText("작성한 유저만 포스팅을 수정할 수 있습니다.");
     }
