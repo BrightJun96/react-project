@@ -1,26 +1,25 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { useLocation, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import AuthForm from "../../componenets/auth/AuthForm";
-import { check } from "../../modules/user";
+import { authAuthSelector, register } from "../../modules/auth/authAuth";
 import {
-  changeErrorText,
+  authRegisterTextSelector,
   changeField,
   initializeForm,
-  register,
-} from "./../../modules/auth";
+  changeErrorText,
+} from "../../modules/auth/authText";
+import { check } from "../../modules/user";
 
 const RegisterForm = () => {
   const dispatch = useDispatch();
-  const { form, auth, authError, user, errorText } = useSelector(
-    ({ auth, user }) => ({
-      form: auth.register,
-      auth: auth.auth,
-      authError: auth.authError,
-      user: user.user,
-      errorText: auth.errorText,
-    })
-  );
+  const { user } = useSelector(({ user }) => ({
+    user: user.user,
+  }));
+
+  const { auth, authError } = useSelector(authAuthSelector);
+
+  const { form, errorText } = useSelector(authRegisterTextSelector);
 
   // 인풋 변경 핸들러
   const onChange = (e) => {

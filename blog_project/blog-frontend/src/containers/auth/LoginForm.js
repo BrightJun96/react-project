@@ -2,26 +2,30 @@ import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import AuthForm from "../../componenets/auth/AuthForm";
 import { check } from "../../modules/user";
-import {
-  changeErrorText,
-  changeField,
-  initializeForm,
-  login,
-} from "./../../modules/auth";
 import { useNavigate } from "react-router-dom";
+import {
+  changeField,
+  changeErrorText,
+  initializeForm,
+  authLoginTextSelector,
+} from "./../../modules/auth/authText";
+
+import { authAuthSelector, login } from "../../modules/auth/authAuth";
 
 const LoginForm = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const { form, auth, authError, user, errorText } = useSelector(
-    ({ auth, user }) => ({
-      form: auth.login,
-      auth: auth.auth,
-      authError: auth.authError,
-      user: user.user,
-      errorText: auth.errorText,
-    })
-  );
+  const { user } = useSelector(({ auth, user }) => ({
+    user: user.user,
+  }));
+
+  const { auth, authError } = useSelector(authAuthSelector);
+
+  const { errorText, form } = useSelector(authLoginTextSelector);
+
+  /*
+  const { form,errorText}=useSelector(authTextSelector)
+*/
 
   // 인풋 변경 핸들러
   const onChange = (e) => {
