@@ -34,11 +34,14 @@
 
 1. Question Component에서 Question이 넘어갈 때마다 사진로딩속도가 느림
 2. Result Component에서 Result Image의 로딩속도 또한 느림
+3. 질문이 바뀔 때마다 이미지를 서버에 새로 요청함.
 
 ## cause
 
 1. 이미지 파일 자체 용량이 크다.
 2. 이미지의 크기가 크다.
+3. 해당 이미지는 html,css,js가 아닌 이미지폴더에 따로 위치해 있다.  
+   때문에 새로운 이미지를 불러올 때마다 서버에 이미지를 새로 요청하여 해당 이미지를 불러와야한다.
 
 ## solution
 
@@ -56,20 +59,13 @@
 
 # Development
 
-1. Clone the repository(or download through the top's Code Button)
-
-```
-git clone https://github.com/RaulB-masai/react-image-compressor.git
-cd react-image-compressor
-```
-
-2. Install npm dependecies
+1. Install npm dependecies
 
 ```
 npm install
 ```
 
-3. Run the app locally
+2. Run the app locally
 
 ```
 npm start

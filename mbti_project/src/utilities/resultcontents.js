@@ -3,7 +3,7 @@ export const resultcontent = [
   {
     type: "ISTJ",
     description: {
-      img: "./image/hwang.jpg",
+      img: "./resultImage/hwang.jpg",
       name: "황준호",
       signature: "우리 형은 어딨지? 차근차근 잠입해보자!",
       about: "청렴결백한 논리주의자",
@@ -14,7 +14,7 @@ export const resultcontent = [
   {
     type: "ISFJ",
     description: {
-      img: "./image/dawn.jpg",
+      img: "./resultImage/dawn.jpg",
       name: "강새벽",
       signature: "좋아..끝까지 남을 해치지 않고 이 게임에서 살아남겠어!",
       about: "용감한 수호자",
@@ -25,7 +25,7 @@ export const resultcontent = [
   {
     type: "INFJ",
     description: {
-      img: "./image/aleeambdul.jpg",
+      img: "./resultImage/aleeambdul.jpg",
       name: "알리",
       signature: "우리 같이 열심히 해봐요! 사장님~ 고마워요~",
       about: "선의의 옹호자",
@@ -36,7 +36,7 @@ export const resultcontent = [
   {
     type: "INTJ",
     description: {
-      img: "./image/josangwu.jpg",
+      img: "./resultImage/josangwu.jpg",
       name: "조상우",
       signature: "내 전략으로 가보자. 우리 협동해서 구슬치기를 해볼래?",
       about: "용의주도한 전략가",
@@ -47,7 +47,7 @@ export const resultcontent = [
   {
     type: "ISTP",
     description: {
-      img: "./image/circle.jpg",
+      img: "./resultImage/circle.jpg",
       name: "동그라미진행요원",
       signature: "나는 평범한 일꾼이지만 다재다능~",
       about: "만능 재주꾼",
@@ -58,7 +58,7 @@ export const resultcontent = [
   {
     type: "ISFP",
     description: {
-      img: "./image/mathTeacher.jpg",
+      img: "./resultImage/mathTeacher.jpg",
       name: "수학선생",
       signature: "오케이 이 확률로 저 다리로 다 건너가보겠어! 으악~!",
       about: "호기심 많은 예술가",
@@ -69,7 +69,7 @@ export const resultcontent = [
   {
     type: "INFP",
     description: {
-      img: "./image/gohun.jpg",
+      img: "./resultImage/gohun.jpg",
       name: "성기훈",
       signature: "그럼 우리 다같이 힘모아서 잘해보면 되겠네?!",
       about: "열정적인 중재자",
@@ -80,7 +80,7 @@ export const resultcontent = [
   {
     type: "INTP",
     description: {
-      img: "./image/square.jpg",
+      img: "./resultImage/square.jpg",
       name: "네모진행요원",
       signature: "내가 진행요원 중엔 탑이다! 너네들 내가 다 보고 있다~",
       about: "논리적인 사색가",
@@ -91,7 +91,7 @@ export const resultcontent = [
   {
     type: "ESTP",
     description: {
-      img: "./image/glassexpert.jpg",
+      img: "./resultImage/glassexpert.jpg",
       name: "도정수 유리전문가",
       signature: "이 유리는 빛을 안 받는 거보니 강화유립니다! 으악!!",
       about: "모험을 즐기는 사업가",
@@ -102,7 +102,7 @@ export const resultcontent = [
   {
     type: "ESFP",
     description: {
-      img: "./image/hanlady.jpg",
+      img: "./resultImage/hanlady.jpg",
       name: "한미녀",
       signature:
         "워후~ 내가 바로 한미녀~ 어디가든 날 받아주지 나는야 분위기 메이커~",
@@ -114,7 +114,7 @@ export const resultcontent = [
   {
     type: "ENFP",
     description: {
-      img: "./image/jiyoung.jpg",
+      img: "./resultImage/jiyoung.jpg",
       name: "지영",
       signature: "새벽아 난 너와 함께 게임해서 좋았어 고마워",
       about: "재기발랄한 활동가",
@@ -125,7 +125,7 @@ export const resultcontent = [
   {
     type: "ENTP",
     description: {
-      img: "./image/crazyDoctor.jpg",
+      img: "./resultImage/crazyDoctor.jpg",
       name: "돌파리 의사",
       signature: "이 사람 작업해줄테니까 다음 게임 알려달란 말이야..!",
       about: "뜨거운 논쟁을 즐기는 변론가",
@@ -136,7 +136,7 @@ export const resultcontent = [
   {
     type: "ESTJ",
     description: {
-      img: "./image/frontman.jpg",
+      img: "./resultImage/frontman.jpg",
       name: "프론트맨",
       signature:
         "내 눈에서 벗어날 수는 없습니다. 나는야 실질적인 게임의 관리자",
@@ -148,7 +148,7 @@ export const resultcontent = [
   {
     type: "ESFJ",
     description: {
-      img: "./image/gongu.jpg",
+      img: "./resultImage/gongu.jpg",
       name: "딱지맨 공유",
       signature:
         "저랑 딱지치기 하실래요? 이기면 10만원을 드리겠습니다^^ 대신 지면 뺨따구~",
@@ -160,7 +160,7 @@ export const resultcontent = [
   {
     type: "ENFJ",
     description: {
-      img: "./image/jangduksu.jpg",
+      img: "./resultImage/jangduksu.jpg",
       name: "덕수",
       signature: "나만 따라와~ 그럼 여기서 살아남게 해줄게",
       about: "정의로운 사회운동가",
@@ -171,7 +171,7 @@ export const resultcontent = [
   {
     type: "ENTJ",
     description: {
-      img: "./image/oillnam.jpg",
+      img: "./resultImage/oillnam.jpg",
       name: "오일남",
       signature: "이러다가 다~죽어! 제발~ 그만해잇!",
       about: "대담한 통솔자",

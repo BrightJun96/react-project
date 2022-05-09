@@ -1,7 +1,6 @@
-// 12개의 질문을 포함한 하나의 배열!
 const contents = [
   {
-    img: "./questionImage/one.jpg",
+    img: "/questionImage/one.jpg",
     number: 1,
     question: `집으로 가는 길, 우연히 한 남성이 다가와 10만 원을 걸고 '딱지치기' 게임을 제안한다. 나의 반응은?`,
     answer1: "10만원 이면 완전 땡큐지' 바로 게임에 응한다.",
