@@ -4,9 +4,8 @@ import { useDispatch } from "react-redux";
 import { useSelector } from "react-redux";
 import { readPost, unloadPost } from "../../modules/post";
 import PostViewer from "../../componenets/post/PostViewer";
-import PostActionButtons from "../../componenets/post/PostActionButtons";
 import { setOriginalPost } from "../../modules/write";
-import { removePost } from "../../lib/api/write";
+import * as postAPI from "../../lib/api/post";
 const PostViewerContainer = () => {
   const params = useParams();
   const navigate = useNavigate();
@@ -32,7 +31,7 @@ const PostViewerContainer = () => {
   // 간단한 비동기 처리는 container내에서 해결해도 됨.
   const onRemove = async () => {
     try {
-      await removePost(postId);
+      await postAPI.removePost(postId);
       navigate("/");
     } catch (e) {
       console.log(e);

@@ -23,7 +23,7 @@ const PostListContainer = () => {
       ignoreQueryPrefix: true, // 앞에 ?를 제외하고 parsing해서 가져옴.
     });
 
-    dispatch(listPost({ tag, username, page }));
+    dispatch(listPost({ page, username, tag }));
   }, [dispatch, location.search, username]);
   return <PostList error={error} posts={posts} showWriteButton={user} />;
 };

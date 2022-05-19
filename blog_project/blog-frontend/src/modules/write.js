@@ -1,5 +1,4 @@
 // write state 관리
-import * as writeAPI from "./../lib/api/write";
 import { takeLatest } from "redux-saga/effects";
 import { call, put } from "redux-saga/effects";
 import * as postAPI from "./../lib/api/post";
@@ -43,7 +42,7 @@ export const onWrite = ({ title, body, tags }) => ({
 
 function* createWriteSaga(action) {
   try {
-    const response = yield call(writeAPI.write, action.payload);
+    const response = yield call(postAPI.writePost, action.payload);
     yield put({ type: WRITE_SUCCESS, payload: response.data });
   } catch (e) {
     yield put({ type: WRITE_FAILURE, payload: e });

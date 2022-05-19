@@ -12,7 +12,7 @@ export const unloadPost = () => ({ type: UNLOAD_POST });
 
 function* readPostSaga(action) {
   try {
-    const response = yield call(postAPI.read, action.payload);
+    const response = yield call(postAPI.readPost, action.payload);
     console.log(response);
     yield put({
       type: READ_POST_SUCCESS,

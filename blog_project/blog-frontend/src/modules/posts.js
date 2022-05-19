@@ -7,11 +7,11 @@ const LIST_POSTS_FAILURE = "posts/LIST_POSTS_FAILURE";
 
 export const listPost = ({ tag, username, page }) => ({
   type: LIST_POSTS,
-  payload: { tag, username, page },
+  payload: { page, username, tag },
 });
 function* listPostsSaga(action) {
   try {
-    const response = yield call(postAPI.listPosts, action.payload);
+    const response = yield call(postAPI.listQueryPosts, action.payload);
     yield put({
       type: LIST_POSTS_SUCCESS,
       payload: response.data,
