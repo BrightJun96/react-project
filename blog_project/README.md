@@ -2,7 +2,7 @@
 
 ## **Watch project**
 
-[https://jevsblogproject.herokuapp.com/](https://jevsblogproject.herokuapp.com/)
+-  https://fancy-jevblog.herokuapp.com/
 
 ## **Concept**
 
