@@ -1,8 +1,8 @@
-# [blog project](https://jevsblogproject.herokuapp.com/)
+# [blog project](https://fancy-jevblog.herokuapp.com/)
 
 ## **Watch project**
 
-[https://jevsblogproject.herokuapp.com/](https://jevsblogproject.herokuapp.com/)
+-  https://fancy-jevblog.herokuapp.com/
 
 ## **Concept**
 
