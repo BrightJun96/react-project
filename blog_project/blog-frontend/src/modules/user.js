@@ -27,11 +27,7 @@ export const logout = createAction(LOGOUT);
 const checkSaga = createRequestSaga(CHECK, authAPI.check);
 
 function checkFailureSaga() {
-  try {
-    localStorage.removeItem("user");
-  } catch (e) {
-    console.log("localStorage is not working");
-  }
+  localStorage.removeItem("user");
 }
 
 function* logoutSaga() {
@@ -71,5 +67,11 @@ const user = handleActions(
   },
   initialState
 );
+
+//seletor
+export const userSelector = ({ user }) => ({
+  user: user.user,
+  error: user.checkError,
+});
 
 export default user;

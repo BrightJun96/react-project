@@ -12,23 +12,21 @@ import { composeWithDevTools } from "redux-devtools-extension";
 import createSagaMiddleware from "redux-saga";
 import { check, tempSetUser } from "./modules/user";
 import thunk from "redux-thunk";
-const sagaMiddleware = createSagaMiddleware();
+const saga = createSagaMiddleware();
 const store = createStore(
   rootReducer,
-  composeWithDevTools(applyMiddleware(sagaMiddleware, thunk))
+  composeWithDevTools(applyMiddleware(saga, thunk))
 );
 
 function loadUser() {
-  try {
-    const user = localStorage.getItem("user");
-    if (!user) return;
+  const user = localStorage.getItem("user");
+  if (!user) return;
 
-    store.dispatch(tempSetUser(JSON.parse(user)));
-    store.dispatch(check());
-  } catch (e) {}
+  store.dispatch(tempSetUser(JSON.parse(user))); // localStroage로 부터 얻어온 값을 user값으로 사용하여 새로고침시에도 상태값을 유지한다.
+  store.dispatch(check());
 }
 
-sagaMiddleware.run(rootSaga);
+saga.run(rootSaga);
 
 loadUser();
 ReactDOM.render(

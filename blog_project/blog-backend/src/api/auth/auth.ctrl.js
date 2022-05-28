@@ -76,7 +76,9 @@ export const login = async (ctx) => {
     //  잘못된 비밀번호면 에러 처리
     const valid = await user.checkPassword(password);
     if (!valid) {
-      ctx.status = 401;
+      // username과 password를 다르게 하기 위해 status code를 변경
+      // 444는 내가 임의로 만든 status code
+      ctx.status = 444;
       return;
     }
 

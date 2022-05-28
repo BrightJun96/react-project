@@ -3,7 +3,7 @@ import { takeLatest } from "redux-saga/effects";
 import createRequestSaga, {
   createRequestActionTypes,
 } from "../../lib/createRequestSaga";
-import * as authAPI from "./../../lib/api/auth";
+import * as authAPI from "../../lib/api/auth";
 
 const [REGISTER, REGISTER_SUCCESS, REGISTER_FAILURE] =
   createRequestActionTypes("auth/REGISTER");
@@ -33,12 +33,12 @@ export function* authSaga() {
 // 5개의 input state를 관리해줘야함. 그러기 위해 객체로서 정리
 const initialState = {};
 
-export const authAuthSelector = ({ authAuthReducer }) => ({
-  auth: authAuthReducer.auth,
-  authError: authAuthReducer.authError,
+export const authSelector = ({ authReducer }) => ({
+  auth: authReducer.auth,
+  authError: authReducer.authError,
 });
 
-const authAuthReducer = handleActions(
+const authReducer = handleActions(
   {
     [REGISTER_SUCCESS]: (state, { payload: auth }) => ({
       ...state,
@@ -62,4 +62,4 @@ const authAuthReducer = handleActions(
   initialState
 );
 
-export default authAuthReducer;
+export default authReducer;

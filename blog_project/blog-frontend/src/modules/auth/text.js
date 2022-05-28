@@ -11,9 +11,10 @@ export const changeField = createAction(
   ({ form, key, value }) => ({ form, key, value })
 );
 
+/*errorText를 전역적으로 사용하는 이유 : login form과 register form에서 둘 다 사용하고 있기 때문에*/
 export const changeErrorText = createAction(CHANGE_ERRORTEXT, (text) => text);
 
-export const initializeForm = createAction(INITIALIZE_FORM, (form) => form);
+export const initializeForm = createAction(INITIALIZE_FORM);
 
 const initialState = {
   errorText: "",
@@ -25,16 +26,7 @@ const initialState = {
   login: { username: "", password: "" },
 };
 
-export const authLoginTextSelector = ({ authTextReducer }) => ({
-  form: authTextReducer.login,
-  errorText: authTextReducer.errorText,
-});
-
-export const authRegisterTextSelector = ({ authTextReducer }) => ({
-  form: authTextReducer.register,
-  errorText: authTextReducer.errorText,
-});
-const authTextReducer = handleActions(
+const textReducer = handleActions(
   {
     [CHANGE_FIELD]: (state, { payload: { form, key, value } }) =>
       produce(state, (draft) => {
@@ -46,18 +38,21 @@ const authTextReducer = handleActions(
         // key => "username" or  "password" or "passwordConfirm"
         draft[form][key] = value;
       }),
-    [INITIALIZE_FORM]: (state, { payload: form }) => ({
-      ...state,
-      [form]: initialState[form], // "register" or "login"관련 input만 초기화해준다.
-      authError: null,
-    }),
+    [INITIALIZE_FORM]: (state) => {
+      state = initialState;
+    },
 
-    [CHANGE_ERRORTEXT]: (state, { payload: text }) => ({
-      ...state,
-      errorText: text,
-    }),
+    [CHANGE_ERRORTEXT]: (state, { payload: text }) =>
+      produce(state, (draft) => {
+        draft.errorText = text;
+      }),
   },
   initialState
 );
+export const textSelector = ({ textReducer }) => ({
+  loginText: textReducer.login,
+  registerText: textReducer.register,
+  errorText: textReducer.errorText,
+});
 
-export default authTextReducer;
+export default textReducer;

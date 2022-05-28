@@ -23,6 +23,7 @@ const AuthForm = ({ type, form, onChange, onSubmit, error, errorText }) => {
           placeholder="아이디"
           value={form.username}
           onChange={onChange}
+          required
         />
         <StyledInput
           autoComplete="new-password"
@@ -31,6 +32,7 @@ const AuthForm = ({ type, form, onChange, onSubmit, error, errorText }) => {
           type="password"
           value={form.password}
           onChange={onChange}
+          required
         />
         {type === "register" && (
           <StyledInput
@@ -40,6 +42,7 @@ const AuthForm = ({ type, form, onChange, onSubmit, error, errorText }) => {
             type="password"
             value={form.passwordConfirm}
             onChange={onChange}
+            required
           />
         )}
         {errorText && <ErrorMessage>{errorText}</ErrorMessage>}

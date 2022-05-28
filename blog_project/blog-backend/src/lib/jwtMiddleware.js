@@ -8,6 +8,7 @@ const jwtMiddleware = async (ctx, next) => {
     const decoded = jwt.verify(token, process.env.JWT_SECRET); // 토큰을 JWT 비밀키로 검증
     ctx.state.user = {
       // 로그인 유저의 token을 state에 저장한뒤 check API에서 사용할 것임.
+      // 쿠키에 토큰을 담아 해당 회원이 서버로부터 인증받은 회원인지 확인한다.
       _id: decoded._id,
       username: decoded.username,
     };

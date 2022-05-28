@@ -5,12 +5,12 @@ import user, { userSaga } from "./user";
 import write, { writeSaga } from "./write";
 import { postReducer, postSaga } from "./post";
 import { postsReducer, postsSaga } from "./posts";
-import authTextReducer from "./auth/authText";
-import authAuthReducer, { authSaga } from "./auth/authAuth";
+import textReducer from "./auth/text";
+import authReducer, { authSaga } from "./auth/auth";
 
 const rootReducer = combineReducers({
-  authAuthReducer,
-  authTextReducer,
+  authReducer,
+  textReducer,
   loading,
   user,
   write,
