@@ -1,65 +1,63 @@
-import { createAction, handleActions } from "redux-actions";
-import { takeLatest } from "redux-saga/effects";
-import createRequestSaga, {
-  createRequestActionTypes,
-} from "../../lib/createRequestSaga";
+import { handleActions } from "redux-actions";
 import * as authAPI from "../../lib/api/auth";
+import produce from "immer";
+
+import createThunk from "./../../lib/createThunk";
+import createActionTypes from "../../lib/createActionTypes";
 
 const [REGISTER, REGISTER_SUCCESS, REGISTER_FAILURE] =
-  createRequestActionTypes("auth/REGISTER");
+  createActionTypes("auth/REGISTER");
+const [LOGIN, LOGIN_SUCCESS, LOGIN_FAILURE] = createActionTypes("auth/LOGIN");
 
-const [LOGIN, LOGIN_SUCCESS, LOGIN_FAILURE] =
-  createRequestActionTypes("auth/LOGIN");
+// export const registerThunk =
+//   ({ username, password }) =>
+//   async (dispatch) => {
+//     try {
+//       const response = await authAPI.register({ username, password });
+//       dispatch({ type: REGISTER_SUCCESS, payload: response.data });
+//     } catch (e) {
+//       dispatch({ type: REGISTER_FAILURE, payload: e });
+//     }
+//     };
 
-export const register = createAction(REGISTER, ({ username, password }) => ({
-  username,
-  password,
-}));
+export const registerThunk = ({ username, password }) =>
+  createThunk(REGISTER, authAPI.register, { username, password });
 
-export const login = createAction(LOGIN, ({ username, password }) => ({
-  username,
-  password,
-}));
+export const loginThunk = ({ username, password }) =>
+  createThunk(LOGIN, authAPI.login, { username, password });
 
-// 사가 생성 for 비동기 요청
-const registerSaga = createRequestSaga(REGISTER, authAPI.register);
-const loginSaga = createRequestSaga(LOGIN, authAPI.login);
+const initialState = {
+  auth: null,
+  authError: null,
+};
 
-export function* authSaga() {
-  yield takeLatest(REGISTER, registerSaga);
-  yield takeLatest(LOGIN, loginSaga);
-}
-
-// 5개의 input state를 관리해줘야함. 그러기 위해 객체로서 정리
-const initialState = {};
+const authReducer = handleActions(
+  {
+    [REGISTER_SUCCESS]: (state, { payload: auth }) =>
+      produce(state, (draft) => {
+        draft.authError = null;
+        draft.auth = auth;
+      }),
+    [REGISTER_FAILURE]: (state, { payload: error }) =>
+      produce(state, (draft) => {
+        draft.authError = error;
+      }),
+    [LOGIN_SUCCESS]: (state, { payload: auth }) =>
+      produce(state, (draft) => {
+        draft.authError = null;
+        draft.auth = auth;
+      }),
+    [LOGIN_FAILURE]: (state, { payload: error }) =>
+      produce(state, (draft) => {
+        draft.authError = error;
+      }),
+  },
+  initialState
+);
 
 export const authSelector = ({ authReducer }) => ({
   auth: authReducer.auth,
   authError: authReducer.authError,
 });
-
-const authReducer = handleActions(
-  {
-    [REGISTER_SUCCESS]: (state, { payload: auth }) => ({
-      ...state,
-      authError: null,
-      auth,
-    }),
-    [REGISTER_FAILURE]: (state, { payload: error }) => ({
-      ...state,
-      authError: error,
-    }),
-    [LOGIN_SUCCESS]: (state, { payload: auth }) => ({
-      ...state,
-      authError: null,
-      auth,
-    }),
-    [LOGIN_FAILURE]: (state, { payload: error }) => ({
-      ...state,
-      authError: error,
-    }),
-  },
-  initialState
-);
 
 export default authReducer;

@@ -2,7 +2,7 @@ import React, { useEffect } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { useSelector } from "react-redux";
-import { readPost, unloadPost } from "../../modules/post";
+import { readThunk, unloadPost } from "../../modules/post";
 import PostViewer from "../../componenets/post/PostViewer";
 import { setOriginalPost } from "../../modules/write";
 import * as postAPI from "../../lib/api/post";
@@ -18,7 +18,7 @@ const PostViewerContainer = () => {
   }));
 
   useEffect(() => {
-    dispatch(readPost(postId));
+    dispatch(readThunk(postId));
     return () => dispatch(unloadPost());
   }, [dispatch, postId]);
 

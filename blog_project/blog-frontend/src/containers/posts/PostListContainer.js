@@ -5,7 +5,7 @@ import { useParams } from "react-router-dom";
 import { useLocation } from "react-router-dom";
 import qs from "qs";
 import PostList from "./../../componenets/posts/PostList";
-import { listPost } from "./../../modules/posts";
+import { getListThunk, listPost } from "./../../modules/posts";
 
 const PostListContainer = () => {
   const dispatch = useDispatch();
@@ -23,7 +23,7 @@ const PostListContainer = () => {
       ignoreQueryPrefix: true, // 앞에 ?를 제외하고 parsing해서 가져옴.
     });
 
-    dispatch(listPost({ page, username, tag }));
+    dispatch(getListThunk({ page, username, tag }));
   }, [dispatch, location.search, username]);
   return <PostList error={error} posts={posts} showWriteButton={user} />;
 };

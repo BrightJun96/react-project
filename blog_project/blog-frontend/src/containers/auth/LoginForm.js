@@ -1,7 +1,7 @@
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import AuthForm from "../../componenets/auth/AuthForm";
-import { check, userSelector } from "../../modules/user";
+import { check, checkThunk, userSelector } from "../../modules/user";
 import { useNavigate } from "react-router-dom";
 import {
   changeField,
@@ -10,7 +10,7 @@ import {
   textSelector,
 } from "../../modules/auth/text";
 
-import { authSelector, login } from "../../modules/auth/auth";
+import { authSelector, login, loginThunk } from "../../modules/auth/auth";
 
 const LoginForm = () => {
   const dispatch = useDispatch();
@@ -34,7 +34,7 @@ const LoginForm = () => {
     if ([username, password].includes("")) {
       dispatch(changeErrorText("빈 칸을 입력해주세요"));
     }
-    dispatch(login({ username, password }));
+    dispatch(loginThunk({ username, password }));
   };
 
   // 컴포넌트가 처음 렌더링될 때 init
@@ -46,18 +46,21 @@ const LoginForm = () => {
   /* 로그인 성공 및 실패시 처리*/
   useEffect(() => {
     if (auth) {
-      dispatch(check()); // check => server state에 담긴 로그인 정보와 비교
+      dispatch(checkThunk()); // check => server state에 담긴 로그인 정보와 비교
     }
 
     // 존재하지 않는 계정일 경우
     // 옵셔널 체이닝을 쓴 이유 : authError가 undefined이면 false를 반환하게 하고
     // &&연산자를 사용하면 코드가 길어지기 때문에 가독성을 위해 사용하였다.
     if (authError?.response.status === 400) {
+      // authError && authError.response.status === 400
+      dispatch(initializeForm("login"));
       dispatch(changeErrorText("존재하지 않는 계정입니다."));
     }
 
     // 비밀번호가 틀릴 경우
     if (authError?.response.status === 444) {
+      dispatch(initializeForm("login"));
       dispatch(changeErrorText("비밀번호가 틀립니다."));
     }
   }, [authError, auth, dispatch]);

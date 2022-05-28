@@ -1,33 +1,16 @@
 import { takeLatest, call, put } from "redux-saga/effects";
 import * as postAPI from "./../lib/api/post";
+import createActionTypes from "./../lib/createActionTypes";
+import createThunk from "./../lib/createThunk";
 
-const READ_POST = "post/READ_POST";
-const READ_POST_SUCCESS = "post/READ_POST_SUCCESS";
-const READ_POST_FAILURE = "post/READ_POST_FAILURE";
+const [READ_POST, READ_POST_SUCCESS, READ_POST_FAILURE] =
+  createActionTypes("post/READ_POST");
 
 const UNLOAD_POST = "post/UNLOAD_POST";
 
-export const readPost = (id) => ({ type: READ_POST, payload: id });
 export const unloadPost = () => ({ type: UNLOAD_POST });
 
-function* readPostSaga(action) {
-  try {
-    const response = yield call(postAPI.readPost, action.payload);
-    console.log(response);
-    yield put({
-      type: READ_POST_SUCCESS,
-      payload: response.data,
-      meta: response,
-    });
-  } catch (e) {
-    console.log(e);
-    yield put({ type: READ_POST_FAILURE, payload: e });
-  }
-}
-
-export function* postSaga() {
-  yield takeLatest(READ_POST, readPostSaga);
-}
+export const readThunk = (id) => createThunk(READ_POST, postAPI.readPost, id);
 
 const initialState = {
   post: null,

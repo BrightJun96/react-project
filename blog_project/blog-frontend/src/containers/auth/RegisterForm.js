@@ -2,14 +2,14 @@ import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import AuthForm from "../../componenets/auth/AuthForm";
-import { authSelector, register } from "../../modules/auth/auth";
+import { authSelector, registerThunk } from "../../modules/auth/auth";
 import {
   textSelector,
   changeField,
   initializeForm,
   changeErrorText,
 } from "../../modules/auth/text";
-import { check } from "../../modules/user";
+import { check, checkThunk } from "../../modules/user";
 
 const RegisterForm = () => {
   const dispatch = useDispatch();
@@ -46,7 +46,7 @@ const RegisterForm = () => {
       return;
     }
 
-    dispatch(register({ username, password }));
+    dispatch(registerThunk({ username, password }));
   };
 
   // 처음 페이지 mount됬을 때 init
@@ -62,7 +62,7 @@ const RegisterForm = () => {
       return;
     }
     if (auth) {
-      dispatch(check());
+      dispatch(checkThunk());
     }
   }, [auth, authError, dispatch]);
 

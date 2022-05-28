@@ -1,31 +1,12 @@
-import { takeLatest, call, put } from "redux-saga/effects";
 import * as postAPI from "../lib/api/post";
+import createActionTypes from "./../lib/createActionTypes";
+import createThunk from "./../lib/createThunk";
 
-const LIST_POSTS = "posts/LIST_POSTS";
-const LIST_POSTS_SUCCESS = "posts/LIST_POSTS_SUCCESS";
-const LIST_POSTS_FAILURE = "posts/LIST_POSTS_FAILURE";
+const [LIST_POSTS, LIST_POSTS_SUCCESS, LIST_POSTS_FAILURE] =
+  createActionTypes("posts/LIST_POSTS");
 
-export const listPost = ({ tag, username, page }) => ({
-  type: LIST_POSTS,
-  payload: { page, username, tag },
-});
-function* listPostsSaga(action) {
-  try {
-    const response = yield call(postAPI.listQueryPosts, action.payload);
-    yield put({
-      type: LIST_POSTS_SUCCESS,
-      payload: response.data,
-      meta: response,
-    });
-  } catch (e) {
-    console.log(e);
-    put({ type: LIST_POSTS_FAILURE, payload: e });
-  }
-}
-
-export function* postsSaga() {
-  yield takeLatest(LIST_POSTS, listPostsSaga);
-}
+export const getListThunk = ({ page, username, tag }) =>
+  createThunk(LIST_POSTS, postAPI.listQueryPosts, { page, username, tag });
 
 const initialState = {
   posts: null,

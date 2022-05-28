@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import WriteActionButton from "./../../componenets/write/WriteActionButton";
 import { useSelector, useDispatch } from "react-redux";
-import { onWrite, updatePost, initEntire } from "./../../modules/write";
+import { initEntire, writeThunk, updateThunk } from "./../../modules/write";
 import { useNavigate } from "react-router-dom";
 
 const WriteActionButtonContainer = () => {
@@ -20,11 +20,11 @@ const WriteActionButtonContainer = () => {
   const onPublish = () => {
     //originalPostId가 있으면 update
     if (originalPostId) {
-      dispatch(updatePost({ title, body, tags, id: originalPostId }));
+      dispatch(updateThunk({ title, body, tags, id: originalPostId }));
       return;
     }
     // 없으면 그냥 새로운 posting 쓰기
-    dispatch(onWrite({ title, body, tags }));
+    dispatch(writeThunk({ title, body, tags }));
   };
 
   const navigate = useNavigate();
