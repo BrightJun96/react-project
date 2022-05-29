@@ -4,6 +4,7 @@ import * as authAPI from "../lib/api/auth";
 import { handleActions } from "redux-actions";
 import createActionTypes from "../lib/createActionTypes";
 import createThunk from "../lib/createThunk";
+import produce from "immer";
 
 // 임시 로그인 상태
 const TEMP_SET_USER = "user/TEMP_SET_USER";
@@ -36,18 +37,24 @@ const initialState = {
 
 const user = handleActions(
   {
-    [TEMP_SET_USER]: (state, { payload: user }) => ({ ...state, user }),
-    [CHECK_SUCCESS]: (state, { payload: user }) => ({
-      ...state,
-      user, // server.state(ctx.state)에 담긴 user => 쿠키에 담긴 유저
-      checkError: null,
-    }),
-    [CHECK_FAILURE]: (state, { payload: error }) => ({
-      ...state,
-      user: null,
-      checkError: error,
-    }),
-    [LOGOUT]: (state) => ({ ...state, user: null }),
+    [TEMP_SET_USER]: (state, { payload: user }) =>
+      produce(state, (draft) => {
+        draft.user = user;
+      }),
+    [CHECK_SUCCESS]: (state, { payload: user }) =>
+      produce(state, (draft) => {
+        draft.user = user;
+        draft.checkError = null;
+      }),
+    [CHECK_FAILURE]: (state, { payload: error }) =>
+      produce(state, (draft) => {
+        draft.user = null;
+        draft.checkError = error;
+      }),
+    [LOGOUT]: (state) =>
+      produce(state, (draft) => {
+        draft.user = null;
+      }),
   },
   initialState
 );

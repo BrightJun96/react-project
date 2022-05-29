@@ -3,12 +3,10 @@ import { useSelector } from "react-redux";
 import { useParams, useLocation } from "react-router-dom";
 import qs from "qs";
 import Pagination from "../../componenets/posts/Pagination";
+import { postsSelector } from "../../modules/posts";
 
 const PaginationContainer = () => {
-  const { lastPage, posts } = useSelector(({ postsReducer }) => ({
-    lastPage: postsReducer.lastPage,
-    posts: postsReducer.posts,
-  }));
+  const { lastPage, posts } = useSelector(postsSelector);
   const { username } = useParams();
   const location = useLocation();
   if (!posts) {

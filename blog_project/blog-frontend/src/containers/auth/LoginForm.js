@@ -1,7 +1,7 @@
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import AuthForm from "../../componenets/auth/AuthForm";
-import { check, checkThunk, userSelector } from "../../modules/user";
+import { checkThunk, userSelector } from "../../modules/user";
 import { useNavigate } from "react-router-dom";
 import {
   changeField,
@@ -10,7 +10,7 @@ import {
   textSelector,
 } from "../../modules/auth/text";
 
-import { authSelector, login, loginThunk } from "../../modules/auth/auth";
+import { authSelector, loginThunk } from "../../modules/auth/auth";
 
 const LoginForm = () => {
   const dispatch = useDispatch();

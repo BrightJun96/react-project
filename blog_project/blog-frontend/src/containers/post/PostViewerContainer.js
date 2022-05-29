@@ -2,20 +2,18 @@ import React, { useEffect } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { useSelector } from "react-redux";
-import { readThunk, unloadPost } from "../../modules/post";
+import { postSelector, readThunk, unloadPost } from "../../modules/post";
 import PostViewer from "../../componenets/post/PostViewer";
 import { setOriginalPost } from "../../modules/write";
 import * as postAPI from "../../lib/api/post";
+import { userSelector } from "../../modules/user";
 const PostViewerContainer = () => {
   const params = useParams();
   const navigate = useNavigate();
   const { postId } = params;
   const dispatch = useDispatch();
-  const { post, error, user } = useSelector(({ postReducer, user }) => ({
-    post: postReducer.post,
-    error: postReducer.error,
-    user: user.user,
-  }));
+  const { post, error } = useSelector(postSelector);
+  const { user } = useSelector(userSelector);
 
   useEffect(() => {
     dispatch(readThunk(postId));
@@ -37,7 +35,7 @@ const PostViewerContainer = () => {
       console.log(e);
     }
   };
-
+  console.log(user);
   const ownPost = (user && user._id) === (post && post.user_id);
 
   return (

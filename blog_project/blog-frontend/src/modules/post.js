@@ -1,4 +1,5 @@
-import { takeLatest, call, put } from "redux-saga/effects";
+import produce from "immer";
+import { handleActions } from "redux-actions";
 import * as postAPI from "./../lib/api/post";
 import createActionTypes from "./../lib/createActionTypes";
 import createThunk from "./../lib/createThunk";
@@ -17,24 +18,22 @@ const initialState = {
   error: null,
 };
 
-export const postReducer = (state = initialState, action) => {
-  switch (action.type) {
-    case READ_POST_SUCCESS:
-      return {
-        ...state,
-        post: action.payload,
-      };
+export const postReducer = handleActions(
+  {
+    [READ_POST_SUCCESS]: (state, action) =>
+      produce(state, (draft) => {
+        draft.post = action.payload;
+      }),
+    [READ_POST_FAILURE]: (state, action) =>
+      produce(state, (draft) => {
+        draft.error = action.payload;
+      }),
+    [UNLOAD_POST]: (state) => (state = initialState),
+  },
+  initialState
+);
 
-    case READ_POST_FAILURE:
-      return {
-        ...state,
-        error: action.payload,
-      };
-
-    case UNLOAD_POST:
-      return initialState;
-
-    default:
-      return state;
-  }
-};
+export const postSelector = ({ postReducer }) => ({
+  post: postReducer.post,
+  error: postReducer.error,
+});

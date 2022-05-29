@@ -8,7 +8,7 @@ import {
 } from "./styledcomponent/styledPostViewer";
 import { Link } from "react-router-dom";
 import PostActionButtons from "./PostActionButtons";
-const PostViewer = ({ post, error, onEdit, onRemove, ownPost }) => {
+const PostViewer = ({ post, error, onEdit, onRemove }) => {
   if (error) {
     if (error.response && error.response.status === 404) {
       return <PostViewerBlock>존재하지 않은 포스트입니다.</PostViewerBlock>;

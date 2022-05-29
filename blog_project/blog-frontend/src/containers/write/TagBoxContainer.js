@@ -1,13 +1,15 @@
 import React, { useCallback } from "react";
 import TagBox from "./../../componenets/write/TagBox";
 import { useSelector, useDispatch } from "react-redux";
-import { changeTagText, changeTags, initText } from "./../../modules/write";
+import {
+  changeTagText,
+  changeTags,
+  initText,
+  writeSelector,
+} from "./../../modules/write";
 
 const TagBoxContainer = () => {
-  const { tagText, tags } = useSelector(({ write }) => ({
-    tagText: write.tagText,
-    tags: write.tags,
-  }));
+  const { tagText, tags } = useSelector(writeSelector);
 
   const dispatch = useDispatch();
 

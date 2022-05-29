@@ -1,3 +1,5 @@
+import produce from "immer";
+import { handleActions } from "redux-actions";
 import * as postAPI from "../lib/api/post";
 import createActionTypes from "./../lib/createActionTypes";
 import createThunk from "./../lib/createThunk";
@@ -14,17 +16,23 @@ const initialState = {
   lastPage: 1,
 };
 
-export const postsReducer = (state = initialState, action) => {
-  switch (action.type) {
-    case LIST_POSTS_SUCCESS:
-      return {
-        ...state,
-        posts: action.payload,
-        lastPage: parseInt(action.meta.headers["last-page"], 10),
-      };
-    case LIST_POSTS_FAILURE:
-      return { ...state, error: action.payload };
-    default:
-      return state;
-  }
-};
+export const postsReducer = handleActions(
+  {
+    [LIST_POSTS_SUCCESS]: (state, action) =>
+      produce(state, (draft) => {
+        draft.posts = action.payload;
+        draft.lastPage = parseInt(action.meta.headers["last-page"], 10);
+      }),
+    [LIST_POSTS_FAILURE]: (state, action) =>
+      produce(state, (draft) => {
+        draft.error = action.payload;
+      }),
+  },
+  initialState
+);
+
+export const postsSelector = ({ postsReducer }) => ({
+  posts: postsReducer.posts,
+  error: postsReducer.error,
+  lastPage: postsReducer.lastPage,
+});

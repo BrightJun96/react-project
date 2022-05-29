@@ -1,13 +1,10 @@
 import React, { useCallback } from "react";
 import Editor from "../../componenets/write/Editor";
 import { useSelector, useDispatch } from "react-redux";
-import { changeTitle, changeBody } from "../../modules/write";
+import { changeTitle, changeBody, writeSelector } from "../../modules/write";
 
 const EditorContainer = () => {
-  const { title, body } = useSelector(({ write }) => ({
-    title: write.title,
-    body: write.body,
-  }));
+  const { title, body } = useSelector(writeSelector);
 
   const dispatch = useDispatch();
 

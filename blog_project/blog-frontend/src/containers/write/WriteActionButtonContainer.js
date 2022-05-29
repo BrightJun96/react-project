@@ -1,27 +1,24 @@
 import React, { useEffect, useState } from "react";
 import WriteActionButton from "./../../componenets/write/WriteActionButton";
 import { useSelector, useDispatch } from "react-redux";
-import { initEntire, writeThunk, updateThunk } from "./../../modules/write";
+import {
+  initEntire,
+  writeThunk,
+  updateThunk,
+  writeSelector,
+} from "./../../modules/write";
 import { useNavigate } from "react-router-dom";
 
 const WriteActionButtonContainer = () => {
-  const { title, body, tags, error, response, originalPostId } = useSelector(
-    ({ write }) => ({
-      title: write.title,
-      body: write.body,
-      tags: write.tags,
-      error: write.error,
-      response: write.response,
-      originalPostId: write.originalPostId,
-    })
-  );
+  const { title, body, tags, error, response, originalPostId } =
+    useSelector(writeSelector);
 
   const dispatch = useDispatch();
   const onPublish = () => {
     //originalPostId가 있으면 update
+    console.log(originalPostId);
     if (originalPostId) {
-      dispatch(updateThunk({ title, body, tags, id: originalPostId }));
-      return;
+      dispatch(updateThunk({ id: originalPostId, title, body, tags }));
     }
     // 없으면 그냥 새로운 posting 쓰기
     dispatch(writeThunk({ title, body, tags }));

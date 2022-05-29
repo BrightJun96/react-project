@@ -7,15 +7,13 @@ import App from "./App";
 import { BrowserRouter } from "react-router-dom";
 import { Provider } from "react-redux";
 import { applyMiddleware, createStore } from "redux";
-import rootReducer, { rootSaga } from "./modules/index";
+import rootReducer from "./modules/index";
 import { composeWithDevTools } from "redux-devtools-extension";
-import createSagaMiddleware from "redux-saga";
-import { check, checkThunk, tempSetUser } from "./modules/user";
+import { checkThunk, tempSetUser } from "./modules/user";
 import thunk from "redux-thunk";
-const saga = createSagaMiddleware();
 const store = createStore(
   rootReducer,
-  composeWithDevTools(applyMiddleware(saga, thunk))
+  composeWithDevTools(applyMiddleware(thunk))
 );
 
 function loadUser() {
@@ -25,8 +23,6 @@ function loadUser() {
   store.dispatch(tempSetUser(JSON.parse(user))); // localStroage로 부터 얻어온 값을 user값으로 사용하여 새로고침시에도 상태값을 유지한다.
   store.dispatch(checkThunk());
 }
-
-saga.run(rootSaga);
 
 loadUser();
 ReactDOM.render(

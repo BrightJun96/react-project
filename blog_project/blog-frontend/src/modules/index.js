@@ -1,5 +1,4 @@
 import { combineReducers } from "redux";
-import { all } from "redux-saga/effects";
 import user from "./user";
 import write from "./write";
 import { postReducer } from "./post";
@@ -15,7 +14,5 @@ const rootReducer = combineReducers({
   postReducer,
   postsReducer,
 });
-export function* rootSaga() {
-  yield all([]);
-}
+
 export default rootReducer;

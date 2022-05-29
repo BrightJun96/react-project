@@ -1,5 +1,7 @@
 // write state 관리
 
+import produce from "immer";
+import { handleActions } from "redux-actions";
 import createThunk from "../lib/createThunk";
 import * as postAPI from "./../lib/api/post";
 import createActionTypes from "./../lib/createActionTypes";
@@ -31,8 +33,8 @@ export const setOriginalPost = (post) => ({
   payload: post,
 });
 
-export const updateThunk = ({ title, body, tags, id }) =>
-  createThunk(UPDATE_POST, postAPI.updatePost, { title, body, tags, id });
+export const updateThunk = ({ id, title, body, tags }) =>
+  createThunk(UPDATE_POST, postAPI.updatePost, { id, title, body, tags });
 
 export const changeTagText = (text) => ({
   type: CHANGE_TAGTEXT,
@@ -59,59 +61,64 @@ const initialState = {
   originalPostId: "",
 };
 
-const write = (state = initialState, action) => {
-  switch (action.type) {
-    case CHANGE_TAGTEXT:
-      return { ...state, tagText: action.payload };
-    case CHANGE_TAGS:
-      return { ...state, tags: action.payload };
+const write = handleActions(
+  {
+    [CHANGE_TAGTEXT]: (state, action) =>
+      produce(state, (draft) => {
+        draft.tagText = action.payload;
+      }),
+    [CHANGE_TAGS]: (state, action) =>
+      produce(state, (draft) => {
+        draft.tags = action.payload;
+      }),
+    [CHANGE_TITLE]: (state, action) =>
+      produce(state, (draft) => {
+        draft.title = action.payload;
+      }),
+    [CHANGE_BODY]: (state, action) =>
+      produce(state, (draft) => {
+        draft.body = action.payload;
+      }),
+    [INIT_TAGTEXT]: (state, action) =>
+      produce(state, (draft) => {
+        draft.tagText = action.payload;
+      }),
+    [INIT_ENTIRE]: (state) => (state = initialState),
+    [WRITE_SUCCESS]: (state, action) =>
+      produce(state, (draft) => {
+        draft.response = action.payload;
+      }),
 
-    case CHANGE_TITLE:
-      return { ...state, title: action.payload };
-    case CHANGE_BODY:
-      return { ...state, body: action.payload };
-
-    case INIT_TAGTEXT:
-      return { ...state, tagText: "" };
-
-    case INIT_ENTIRE:
-      return initialState;
-
-    case WRITE_FAILURE:
-      return {
-        ...state,
-        error: action.payload,
-      };
-
-    case WRITE_SUCCESS:
-      return {
-        ...state,
-        response: action.payload,
-      };
-
-    case SET_ORIGINAL_POST:
-      return {
-        ...state,
-        title: action.payload.title,
-        body: action.payload.body,
-        tags: action.payload.tags,
-        originalPostId: action.payload._id,
-      };
-
-    case UPDATE_POST_SUCCESS:
-      return {
-        ...state,
-        post: action.payload,
-      };
-
-    case UPDATE_POST_FAILURE:
-      return {
-        ...state,
-        postError: action.payload,
-      };
-    default:
-      return state;
-  }
-};
-
+    [WRITE_FAILURE]: (state, action) =>
+      produce(state, (draft) => {
+        draft.error = action.payload;
+      }),
+    [SET_ORIGINAL_POST]: (state, action) =>
+      produce(state, (draft) => {
+        draft.title = action.payload.title;
+        draft.body = action.payload.body;
+        draft.tags = action.payload.tags;
+        draft.original = action.payload._id;
+      }),
+    [UPDATE_POST_SUCCESS]: (state, action) =>
+      produce(state, (draft) => {
+        draft.post = action.payload;
+      }),
+    [UPDATE_POST_FAILURE]: (state, action) =>
+      produce(state, (draft) => {
+        draft.postError = action.payload;
+      }),
+  },
+  initialState
+);
 export default write;
+
+export const writeSelector = ({ write }) => ({
+  title: write.title,
+  body: write.body,
+  tagText: write.tagText,
+  tags: write.tags,
+  error: write.error,
+  response: write.response,
+  originalPostId: write.originalPostId,
+});

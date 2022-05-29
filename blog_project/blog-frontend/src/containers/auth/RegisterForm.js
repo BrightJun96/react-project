@@ -9,13 +9,11 @@ import {
   initializeForm,
   changeErrorText,
 } from "../../modules/auth/text";
-import { check, checkThunk } from "../../modules/user";
+import { checkThunk, userSelector } from "../../modules/user";
 
 const RegisterForm = () => {
   const dispatch = useDispatch();
-  const { user } = useSelector(({ user }) => ({
-    user: user.user,
-  }));
+  const { user } = useSelector(userSelector);
 
   const { auth, authError } = useSelector(authSelector);
 
