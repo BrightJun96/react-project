@@ -129,11 +129,13 @@ export const list = async (ctx) => {
   const { tag, username } = ctx.query;
   //tag,username값이 유효하면 객체 안에 넣고 , 그렇지 않으면 넣지 않음.
   const query = {
+    // 구조 분해
     ...(username ? { 'user.username': username } : {}), // undefined는 mongoose에서 데이터 조회를 할 수 없게함.
     ...(tag ? { tags: tag } : {}),
   };
 
   try {
+    //query로 보낸 조건에 맞는 포스트를 찾아준다.
     const posts = await Post.find(query)
       .sort({ _id: -1 })
       .limit(10)
