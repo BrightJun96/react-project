@@ -9,9 +9,12 @@ import { Link } from "react-router-dom";
 
 const buildLink = ({ username, tag, page }) => {
   const query = qs.stringify({ tag, page });
+  console.log(query);
+  // 쿼리만 적절히 입력해주면 서버에서 쿼리대로 페이지 포스팅을 내림차순으로 나열해준다.
   return username ? `/@${username}?${query}` : `/?${query}`;
 };
 
+// lastPage 포스팅 나열될때 일정갯수이 넘어가면 바뀌도록 서버 API 설정
 const Pagination = ({ page, lastPage, username, tag }) => {
   return (
     <PaginationBlock>

@@ -98,15 +98,15 @@ const write = handleActions(
         draft.title = action.payload.title;
         draft.body = action.payload.body;
         draft.tags = action.payload.tags;
-        draft.original = action.payload._id;
+        draft.originalPostId = action.payload._id;
       }),
     [UPDATE_POST_SUCCESS]: (state, action) =>
       produce(state, (draft) => {
-        draft.post = action.payload;
+        draft.response = action.payload;
       }),
     [UPDATE_POST_FAILURE]: (state, action) =>
       produce(state, (draft) => {
-        draft.postError = action.payload;
+        draft.error = action.payload;
       }),
   },
   initialState
