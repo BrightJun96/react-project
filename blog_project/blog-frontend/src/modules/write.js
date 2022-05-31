@@ -95,9 +95,6 @@ const write = handleActions(
       }),
     [SET_ORIGINAL_POST]: (state, action) =>
       produce(state, (draft) => {
-        draft.title = action.payload.title;
-        draft.body = action.payload.body;
-        draft.tags = action.payload.tags;
         draft.originalPostId = action.payload._id;
       }),
     [UPDATE_POST_SUCCESS]: (state, action) =>

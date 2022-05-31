@@ -6,6 +6,7 @@ import {
   writeThunk,
   updateThunk,
   writeSelector,
+  setOriginalPost,
 } from "./../../modules/write";
 import { useNavigate } from "react-router-dom";
 
@@ -19,9 +20,11 @@ const WriteActionButtonContainer = () => {
     console.log(originalPostId);
     if (originalPostId) {
       dispatch(updateThunk({ id: originalPostId, title, body, tags }));
+      dispatch(setOriginalPost(response._id));
     }
     // 없으면 그냥 새로운 posting 쓰기
     dispatch(writeThunk({ title, body, tags }));
+    dispatch(setOriginalPost(response._id));
   };
 
   const navigate = useNavigate();
