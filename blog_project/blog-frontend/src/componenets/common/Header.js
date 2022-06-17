@@ -48,6 +48,7 @@ const Header = ({ user, onLogout }) => {
           <Link to="/" className="logo">
             Jevelog
           </Link>
+          {/* 검증된 유저가 있으면 로그인 상태가 유지되도록  */}
           {user ? (
             <div className="right">
               <UserInfo>{user.username}</UserInfo>

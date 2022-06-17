@@ -31,11 +31,13 @@ const RegisterForm = () => {
 
     const { username, password, passwordConfirm } = registerText;
 
+    /*     input tag에 required 속성을 입력해서 해결해줄 수 있는 기능  */
+
     // input 3개 모두 비어있을 때
-    if ([username, password, passwordConfirm].includes("")) {
-      dispatch(changeErrorText("빈 칸을 모두 입력하세요."));
-      return;
-    }
+    // if ([username, password, passwordConfirm].includes("")) {
+    //   dispatch(changeErrorText("빈 칸을 모두 입력하세요."));
+    //   return;
+    // }
 
     // 비밀번호와 비밀번호확인이 같지않을 때
     if (password !== passwordConfirm) {

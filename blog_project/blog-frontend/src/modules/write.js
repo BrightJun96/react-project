@@ -12,7 +12,6 @@ import createActionTypes from "./../lib/createActionTypes";
 
 const CHANGE_TAGTEXT = "write/CHANGE_TEXT";
 const CHANGE_TAGS = "write/CHANGE_TAGS";
-const INIT_TAGTEXT = "write/INIT_TEXT";
 
 const CHANGE_TITLE = "write/CHANGE_TITLE";
 const CHANGE_BODY = "write/CHANGE_BODY";
@@ -47,8 +46,6 @@ export const changeTitle = (text) => ({ type: CHANGE_TITLE, payload: text });
 
 export const changeBody = (text) => ({ type: CHANGE_BODY, payload: text });
 
-export const initText = () => ({ type: INIT_TAGTEXT });
-
 export const initEntire = () => ({ type: INIT_ENTIRE });
 
 const initialState = {
@@ -79,10 +76,7 @@ const write = handleActions(
       produce(state, (draft) => {
         draft.body = action.payload;
       }),
-    [INIT_TAGTEXT]: (state, action) =>
-      produce(state, (draft) => {
-        draft.tagText = action.payload;
-      }),
+
     [INIT_ENTIRE]: (state) => (state = initialState),
     [WRITE_SUCCESS]: (state, action) =>
       produce(state, (draft) => {

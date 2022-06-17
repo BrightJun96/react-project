@@ -31,24 +31,27 @@ const LoginForm = () => {
   const onSubmit = (e) => {
     e.preventDefault();
     const { username, password } = loginText;
-    if ([username, password].includes("")) {
-      dispatch(changeErrorText("빈 칸을 입력해주세요"));
-    }
+    /* input tag에 required 속성을 입력해서 해결해줄 수 있는 기능  */
+    // if ([username, password].includes("")) {
+    //   dispatch(changeErrorText("빈 칸을 입력해주세요"));
+    // }
     dispatch(loginThunk({ username, password }));
   };
 
   // 컴포넌트가 처음 렌더링될 때 init
   useEffect(() => {
     dispatch(initializeForm());
-    dispatch(changeErrorText(""));
   }, [dispatch]);
 
   /* 로그인 성공 및 실패시 처리*/
+  // 로그인시 서버에서 토큰을 생성해주고 해당 유저가 서버에서 검증됬는지 확인
+
   useEffect(() => {
     if (auth) {
       dispatch(checkThunk()); // check => server state에 담긴 로그인 정보와 비교
     }
 
+    /* 에러 텍스트 처리를 서버 status를 이용하여 처리 */
     // 존재하지 않는 계정일 경우
     // 옵셔널 체이닝을 쓴 이유 : authError가 undefined이면 false를 반환하게 하고
     // &&연산자를 사용하면 코드가 길어지기 때문에 가독성을 위해 사용하였다.
@@ -67,6 +70,7 @@ const LoginForm = () => {
 
   /* 로그인 성공한뒤 확인된 유저가 있다면 메인페이지로 이동 */
   useEffect(() => {
+    console.log(user);
     if (user) {
       navigate("/");
       localStorage.setItem("user", JSON.stringify(user));

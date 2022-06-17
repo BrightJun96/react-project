@@ -49,13 +49,17 @@ const PostList = ({ posts, error, showWriteButton }) => {
 
   return (
     <PostListBlock>
-      {showWriteButton && (
-        <WritePostButtonWrapper>
-          <Link to="write">
-            <Button violet>새 글 작성하기</Button>
-          </Link>
-        </WritePostButtonWrapper>
-      )}
+      <div>
+        {/* 포스팅 필터링 인풋 기능 구현 예정 */}
+        <input type="text" placeholder="원하시는 포스팅을 입력하세요." />
+        {showWriteButton && (
+          <WritePostButtonWrapper>
+            <Link to="write">
+              <Button violet>새 글 작성하기</Button>
+            </Link>
+          </WritePostButtonWrapper>
+        )}
+      </div>
       {posts && (
         <div>
           {posts.map((post) => (

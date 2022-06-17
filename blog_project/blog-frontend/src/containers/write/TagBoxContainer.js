@@ -4,7 +4,6 @@ import { useSelector, useDispatch } from "react-redux";
 import {
   changeTagText,
   changeTags,
-  initText,
   writeSelector,
 } from "./../../modules/write";
 
@@ -33,7 +32,7 @@ const TagBoxContainer = () => {
       if (tags.includes(`${tagText}`)) return;
       const newTag = tags.concat(`${tagText}`);
       dispatch(changeTags(newTag));
-      dispatch(initText());
+      dispatch(changeTagText(""));
     },
     [tagText, tags, dispatch]
   );

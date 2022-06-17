@@ -2,21 +2,11 @@
 
 ## **Watch project**
 
--  https://fancy-jevblog.herokuapp.com/
+- https://fancy-jevblog.herokuapp.com/
 
 ## **Concept**
 
-- 로그인 및 회원가입 기능과 블로그 포스팅 기능을 구현하였다.
-- 포스팅 작성/조회/수정/삭제를 할 수 있다.
-
-## **Core Stack**
-
-- **react**
-- **node.js**
-- **koa**
-- **mongoDB**
-- 프론트엔드 측에서는 **react**를 사용하였고 백엔드는 **node.js,koa**를 사용하였다.
-- 데이터베이스는 **mongoDB**를 사용하였다.
+- 로그인 및 회원가입 기능과 블로그 포스팅 기능(CRUD)을 구현
 
 ### **Front-end Tech**
 
@@ -24,28 +14,28 @@
 - react-router-dom(version6)
 - axios
 - React-quill(text-editor library)
-- immer(for immutable)
+- immer
 - redux
 - redux-actions
 - redux-saga
 - redux-thunk
-- styeld-components(for styling)
+- styeld-components
 
 ### **Back-end Tech**
 
-- koa
+- express & koa
 - koa-router
-- koa-static (for taking static file from front-end build)
+- koa-static
 - koa-bodyparser
 - mongoose
 - jsonwebtoken
-- bacrypt(for secure password)
+- bcrypt
 - dotenv
 - qs
-- Joi(for validation)
+- Joi
 - nodemon
-- esm(for ES6 import/export)
-- sanitize-html(for html filtering)
+- esm
+- sanitize-html
 
 # Folder Structure
 
@@ -92,6 +82,9 @@
 
 # Description
 
+- 스타일링을 Styled-Components로 하였는데 이는 presentational 컴포넌트에서 스타일 컴포넌트를 사용하지않고  
+  따로 styles라는 디렉터리를 생성하여 스타일링 파일을 구분하였다.
+
 - 포스팅 작성은 회원가입을 한뒤 **로그인을 해야 작성**할 수 있다.
 
 - 로그인과 회원가입은 비슷한 구조를 가지고 있어 **같은 컴포넌트를 사용하고 차이가 있는 부분은 props를 사용**해 변화를 주었다.
@@ -108,7 +101,7 @@
 
 - 포스팅은 로그인을 하지않아도 볼 수 있지만 **포스팅 작성은 로그인을 한 유저만 작성**할 수 있다.
 
-- **비동기 처리**를 위하여 주로 **redux-saga**를 사용하였다.
+- **비동기 처리**를 위하여 **redux-thunk**를 사용하였다.
 
 - Text-editor 기능을 사용하기 위해 **React-quill library**를 사용하였다.
 
@@ -117,37 +110,42 @@
 
 - **koa-static**을 이용하여 **서버에서 프론트측 정적 파일을 사용**할 수 있도록 하였다.
 
-# Deploy
+- 프론트에서 로그인 버튼을 누르면 서버측에서 아이디와 비밀번호를 데이터베이스에서 확인한 뒤 검증하고 토큰을 만들어준다.  
+  그 뒤 서버측에서는 해당 토큰을 가지고 있는 유저가 맞는지 확인한다.
 
-- heroku
+# Exprience
 
-# Development
+### 간단한 비동기 처리는 saga보단 thunk
 
-1. Clone the repository(or download through the top's Code Button)
+리덕스 미들웨어를 사용할 시 간단한 비동기 처리시에는 redux-thunk를 사용하는 것이 더 낫다.  
+ saga는 초기 설계 코드가 복잡할 뿐만 아니라 길어진다.
+때문에 간단한 비동기 처리를 할 시에는 코드 설계가 비교적 간편한 thunk를 사용하는 것이 낫다는 것을 경험했다.
 
-```
-git clone https://github.com/RaulB-masai/react-image-compressor.git
-cd react-image-compressor
-```
+### 디자인 패턴
 
-2. Install npm dependecies
+components디렉터리에 모든 로직을 구성하는 것보다 각 역할에 맞게 디렉터리를 구성하여 개발하는 것이 유지보수측면과 효율성이 더 좋다는 것을 경험했다.  
+ 컴포넌트를 컨테이너 컴포넌트와 프레젠테이셔널 컴포넌트로 구분하여 비즈니스 로직을 구현(Controller 역할)하는 컴포넌트는 컨테이너 컴포넌트로  
+ View의 역할은 프레젠테이셔널 컴포넌트로 구분하여서 역할을 구분하였다.  
+ state와 관련된 로직은 modules라는 디렉터리로 구분하고 api를 불러오는 로직은 api 디렉터리로 구분하였다.
 
-```
-npm install
-```
+### 백엔드 프레임워크 express or koa?
 
-3. Run the app locally  
-   Client local server : http://localhost:3000  
-   Server local server : http://localhost:4000
+koa는 async/await문법을 지원해서 비동기처리할 때 좀 더 편리하게 할 수 있다.  
+koa는 기본으로 설계된 내장 미들웨어가 적지만 커스터마이징이 express보다 자유롭다.
 
-**client**
+express 기본적으로 내장되어있는 미들웨어가 많다.  
+koa의 경우에는 라우터,템플릿 등과 같은 기능을 별도로 라이브러리를 설치하여 사용하여야한다.  
+때문에 필요한 부분만 부분적으로 설치해서 가볍게 사용하고 싶다면 koa를 사용하고 편하게 전체적인 미들웨어를 골라서 사용하려면 express를 사용하면 되겠다.
 
-```
-npm start
-```
+express가 사용자가 더 많으며 관련 정보량이 더 많아 구글링하여 정보를 찾기가 더 쉽다는 장점도 있다.
+하지만 크게 다르지않고 둘 다 비슷한 특성이기 때문에 취향대로 사용하면 될 것 같다.  
+둘 다 비슷하여 뭐가 더 좋다라고 할 것이 없었다.
 
-**server**
+### 회원인증 로직 JWT와 COOKIE
 
-```
-npm run start:dev
-```
+로그인 혹은 회원가입한 유저가 서버로부터 검증받은 유저인지 확인하기 위해서  
+로그인이나 회원가입을 하게 되면 서버에서 토큰을 생성하여 쿠키에 저장해주는데  
+이 때 서버에서는 jwt 미들웨어 로직을 통해 토큰값을 조회하고 토큰에 담긴 유저 정보를 서버 state에 저장한다.
+
+서버 state에는 토큰으로 조회한 해당 유저의 정보가 담겨져있고  
+프론트단의 check API는 이를 서버로부터 조회하여 해당 유저에 대한 정보를 응닶값으로 보내준다.

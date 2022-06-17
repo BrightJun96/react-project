@@ -35,7 +35,6 @@ const authReducer = handleActions(
   {
     [REGISTER_SUCCESS]: (state, { payload: auth }) =>
       produce(state, (draft) => {
-        draft.authError = null;
         draft.auth = auth;
       }),
     [REGISTER_FAILURE]: (state, { payload: error }) =>
@@ -44,7 +43,6 @@ const authReducer = handleActions(
       }),
     [LOGIN_SUCCESS]: (state, { payload: auth }) =>
       produce(state, (draft) => {
-        draft.authError = null;
         draft.auth = auth;
       }),
     [LOGIN_FAILURE]: (state, { payload: error }) =>

@@ -1,13 +1,8 @@
 import React from "react";
-import AuthTemplate from "../componenets/auth/AuthTemplate";
 import RegisterForm from "../containers/auth/RegisterForm";
 
 const RegisterPage = () => {
-  return (
-    <AuthTemplate>
-      <RegisterForm />
-    </AuthTemplate>
-  );
+  return <RegisterForm />;
 };
 
 export default RegisterPage;
