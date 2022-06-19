@@ -7,8 +7,8 @@ import createThunk from "./../lib/createThunk";
 const [LIST_POSTS, LIST_POSTS_SUCCESS, LIST_POSTS_FAILURE] =
   createActionTypes("posts/LIST_POSTS");
 
-export const getListThunk = ({ page, username, tag }) =>
-  createThunk(LIST_POSTS, postAPI.listQueryPosts, { page, username, tag });
+export const getListThunk = () =>
+  createThunk(LIST_POSTS, postAPI.listQueryPosts);
 
 const initialState = {
   posts: null,

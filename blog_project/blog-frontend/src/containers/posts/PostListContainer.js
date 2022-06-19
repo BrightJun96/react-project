@@ -12,23 +12,24 @@ const PostListContainer = () => {
   const { posts, error } = useSelector(postsSelector);
   const { user } = useSelector(userSelector);
 
-  const location = useLocation(); //location.search
+  const location = useLocation(); //location.search로 query조회
   const { username } = useParams();
-
-  // params가 없으면 할당이 안될 것이고
+  const { tag } = qs.parse(location.search, {
+    ignoreQueryPrefix: true, // 앞에 ?를 제외하고 parsing해서 가져옴.
+  });
 
   useEffect(() => {
-    //location.search = ?tag=react&page=1&username=jev96
-    const { tag, page } = qs.parse(location.search, {
-      ignoreQueryPrefix: true, // 앞에 ?를 제외하고 parsing해서 가져옴.
-    });
-
-    dispatch(getListThunk({ page, username, tag }));
-    console.log("tag :", tag);
-    console.log("page :", page);
-    console.log("username:", username);
+    dispatch(getListThunk());
   }, [dispatch, location.search, username]);
-  return <PostList error={error} posts={posts} showWriteButton={user} />;
+  return (
+    <PostList
+      error={error}
+      posts={posts}
+      user={user}
+      tag={tag}
+      username={username}
+    />
+  );
 };
 
 export default PostListContainer;

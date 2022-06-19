@@ -117,33 +117,12 @@ GET /api/posts
 FrontEnd <PostListPage/> path='/'
 */
 export const list = async (ctx) => {
-  // query는 문자열이기 때문에 숫자로 변환해 주어야 한다.
-  // 값이 주어지지 않았다면 1을 기본으로 사용한다.
-  const page = parseInt(ctx.query.page || '1', 10);
-
-  if (page < 1) {
-    ctx.status = 400;
-    return;
-  }
-
-  const { tag, username } = ctx.query;
-  //tag,username값이 유효하면 객체 안에 넣고 , 그렇지 않으면 넣지 않음.
-  const query = {
-    // 구조 분해
-    ...(username ? { 'user.username': username } : {}), // undefined는 mongoose에서 데이터 조회를 할 수 없게함.
-    ...(tag ? { tags: tag } : {}),
-  };
-
   try {
-    //query로 보낸 조건에 맞는 포스트를 찾아준다.
-    const posts = await Post.find(query)
-      .sort({ _id: -1 })
-      .limit(10)
-      .skip((page - 1) * 10)
+    const posts = await Post.find()
+      .sort({ _id: -1 }) // 최신 포스팅부터 불러오게 하기 위해
       .lean()
       .exec();
-    const postCount = await Post.countDocuments(query).exec();
-    ctx.set('Last-Page', Math.ceil(postCount / 10));
+
     ctx.body = posts.map((post) => ({
       ...post,
       body: removeHtmlAndShorten(post.body),

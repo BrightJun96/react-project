@@ -1,14 +1,8 @@
 import client from "./client";
-import qs from "qs";
 
-// GET 전체게시물 조회 및 query parameters를 이용한 특정 게시물 조회
-// 객체 프로퍼티의 순서는 상관없음.
-export const listQueryPosts = ({ page, username, tag }) => {
-  const queryString = qs.stringify({ page, username, tag });
-  // 문자열화 하여 보내줌.
-  return client.get(`/api/posts?${queryString}`);
-
-  //  api/posts?page=1&username=jev96&tag=react 이런식으로 보내지는거임.
+// GET 전체게시물 조회
+export const listQueryPosts = () => {
+  return client.get("/api/posts");
 };
 
 // GET ID를 이용한 특정 게시물 조회

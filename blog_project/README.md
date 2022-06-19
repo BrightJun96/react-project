@@ -8,7 +8,7 @@
 
 - 로그인 및 회원가입 기능과 블로그 포스팅 기능(CRUD)을 구현
 
-### **Front-end Tech**
+## Tech
 
 - react(CRA)
 - react-router-dom(version6)
@@ -21,25 +21,7 @@
 - redux-thunk
 - styeld-components
 
-### **Back-end Tech**
-
-- express & koa
-- koa-router
-- koa-static
-- koa-bodyparser
-- mongoose
-- jsonwebtoken
-- bcrypt
-- dotenv
-- qs
-- Joi
-- nodemon
-- esm
-- sanitize-html
-
-# Folder Structure
-
-## **Front-end**
+## Folder Structure
 
 - **pages**  
   전체적으로 5개의 페이지가 있으며 페이지는 다음과 같다.
@@ -149,3 +131,20 @@ express가 사용자가 더 많으며 관련 정보량이 더 많아 구글링�
 
 서버 state에는 토큰으로 조회한 해당 유저의 정보가 담겨져있고  
 프론트단의 check API는 이를 서버로부터 조회하여 해당 유저에 대한 정보를 응닶값으로 보내준다.
+
+### 전체적인 개발 흐름
+
+프론트엔드, 백엔드, 데이터베이스을 설계해봄으로써 전체적인 개발 흐름을 알게 되었고 프론트엔드와 백엔드의 cors를 해결하기 위해서  
+proxy나 백엔드에서 access-control-allow-origin에 프론트엔드 url을 허용해주어여하는 등 해결방법을 알게 되었다.
+
+또한 프론트단에서 여러 서버와 통신하기위해서는 호출할 각 API서버마다 axios.client를 생성하는 것이 체계적으로 역할을 분류하기 적절하다고 생각하였다.
+
+### 포스팅 필터링(from backend to frontend)
+
+포스팅 리스트들을 필터링해줄 때 username,tag별로 필터링해주는데 기존에는 백엔드단에서 query를 이용하여 서버로 요청을 보냈다.
+
+프론트단에서 username과 location객체의 search라는 것을 파싱하여 tagname에 대한 쿼리를 서버단으로 보내주어 필터링된 데이터를 응답받았다.
+
+하지만 굳이 서버에 요청하는 것보다 프론트단에서 데이터를 필터링하는 것이 데이터를 보여주는 것이 인터렉션이 더 빠를 것이라고 생각되어 프론트단에서 포스팅 리스트를 필터링해주었다.
+
+결과적으로 포스팅리스트를 필터링할 때마다 서버로 요청을 보내지않아도 되어 백엔드단의 부담을 줄일 수 있었고 프론트단에서 처리하니 더 빠른 인터렉션을 구현할 수 있었다.

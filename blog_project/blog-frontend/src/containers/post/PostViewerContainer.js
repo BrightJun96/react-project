@@ -35,9 +35,12 @@ const PostViewerContainer = () => {
       console.log(e);
     }
   };
-  console.log(user);
-  const ownPost = (user && user._id) === (post && post.user_id);
 
+  /* 포스팅을 작성한 유저가 로그인한 유저와 동일한지 확인하는 로직 */
+  const ownPost = user?._id === post?.user._id; //  const ownPost = (user&&user._id) === (post&&post.user._id)
+  // undefined이나 null은 false로 동적타입변환된다.
+
+  console.log(ownPost);
   return (
     <PostViewer
       post={post}
