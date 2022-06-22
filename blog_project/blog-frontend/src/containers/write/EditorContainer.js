@@ -11,7 +11,6 @@ const EditorContainer = () => {
   // 처음 한번만 함수 생성
   const onChangeTitle = useCallback(
     (e) => {
-      console.log(e.target.value);
       dispatch(changeTitle(e.target.value));
     },
     [dispatch]
@@ -20,7 +19,6 @@ const EditorContainer = () => {
   // 처음 한번만 함수 생성
   const onChangeBody = useCallback(
     (e) => {
-      console.log(e);
       dispatch(changeBody(e));
     },
     [dispatch]

@@ -1,7 +1,7 @@
 import client from "./client";
 
 // GET 전체게시물 조회
-export const listQueryPosts = () => {
+export const listPost = () => {
   return client.get("/api/posts");
 };
 

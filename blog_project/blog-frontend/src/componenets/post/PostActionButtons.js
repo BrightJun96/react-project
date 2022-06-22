@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import AskRemoveModal from "./AskRemoveModal";
+import Modal from "./Modal";
 import {
   ActionButton,
   PostActionButtonBlock,
@@ -8,22 +8,18 @@ import {
 const PostActionButtons = ({ onEdit, onRemove }) => {
   const [modal, setModal] = useState(false);
 
-  const onRemoveClick = () => setModal(true);
+  const appearModal = () => setModal(true);
 
   const onCancel = () => setModal(false);
-  const onConfirm = () => {
-    setModal(false);
+  const ondelete = () => {
     onRemove();
+    setModal(false);
   };
   return (
     <PostActionButtonBlock>
       <ActionButton onClick={onEdit}>수정</ActionButton>
-      <ActionButton onClick={onRemoveClick}>삭제</ActionButton>
-      <AskRemoveModal
-        visible={modal}
-        onConfirm={onConfirm}
-        onCancel={onCancel}
-      />
+      <ActionButton onClick={appearModal}>삭제</ActionButton>
+      <Modal visible={modal} ondelete={ondelete} onCancel={onCancel} />
     </PostActionButtonBlock>
   );
 };

@@ -18,8 +18,9 @@ const MemoizedTag = memo(Tag);
 const Tags = ({ tags, onRemoveTag }) => {
   return (
     <TagList>
-      {tags.map((tag, index) => (
-        <MemoizedTag key={index} tag={tag} onRemoveTag={onRemoveTag} />
+      {tags.map((tag) => (
+        // tag는 겹치지 않도록 추가되게 로직이 구성되있으므로 키값으로 설정해도 된다.
+        <MemoizedTag key={tag} tag={tag} onRemoveTag={onRemoveTag} />
       ))}
     </TagList>
   );

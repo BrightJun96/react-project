@@ -14,6 +14,7 @@ const PostListContainer = () => {
 
   const location = useLocation(); //location.search로 query조회
   const { username } = useParams();
+  /* qs => query값을 편하게 가져오기 위한 라이브러리 */
   const { tag } = qs.parse(location.search, {
     ignoreQueryPrefix: true, // 앞에 ?를 제외하고 parsing해서 가져옴.
   });

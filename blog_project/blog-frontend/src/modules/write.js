@@ -89,7 +89,7 @@ const write = handleActions(
       }),
     [SET_ORIGINAL_POST]: (state, action) =>
       produce(state, (draft) => {
-        draft.originalPostId = action.payload._id;
+        draft.originalPostId = action.payload;
       }),
     [UPDATE_POST_SUCCESS]: (state, action) =>
       produce(state, (draft) => {

@@ -6,47 +6,46 @@ import {
   writeThunk,
   updateThunk,
   writeSelector,
-  setOriginalPost,
 } from "./../../modules/write";
 import { useNavigate } from "react-router-dom";
 
 const WriteActionButtonContainer = () => {
+  const navigate = useNavigate();
+  const [errorText, setErrorText] = useState("");
+
   const { title, body, tags, error, response, originalPostId } =
     useSelector(writeSelector);
-
+  console.log(response);
   const dispatch = useDispatch();
   const onPublish = () => {
     //originalPostId가 있으면 update
-    console.log(originalPostId);
     if (originalPostId) {
+      // 포스팅 아이디로 데이터베이스에서 해당 포스팅 조회
       dispatch(updateThunk({ id: originalPostId, title, body, tags }));
-      dispatch(setOriginalPost(response._id));
     }
     // 없으면 그냥 새로운 posting 쓰기
-    dispatch(writeThunk({ title, body, tags }));
-    dispatch(setOriginalPost(response._id));
+    else {
+      dispatch(writeThunk({ title, body, tags }));
+    }
   };
 
-  const navigate = useNavigate();
-
   const onCancel = () => {
-    const cancel = window.confirm("정말 취소하시겠습니까?");
+    const cancel = window.confirm("정말 취소하시겠습니까?"); // 확인 = true 취소 = false
 
-    if (cancel) navigate(-1); // 이전 페이지로
+    if (cancel) {
+      navigate(-1);
+      dispatch(initEntire());
+    } // 이전 페이지로
   };
 
   useEffect(() => {
     const { _id, user } = response;
+    // 포스팅을 작성하거나 업데이트하면 해당 포스팅의 주소로 라우팅
     if (user) {
-      console.log("writepage");
-
       navigate(`/@${user.username}/${_id}`);
-      // 여기서 response state를 공백값으로 만들어줘야하나?
       dispatch(initEntire());
     }
   }, [navigate, response, dispatch]);
-
-  const [errorText, setErrorText] = useState("");
 
   useEffect(() => {
     if (error?.response.status === 400) {

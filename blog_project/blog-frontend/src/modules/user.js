@@ -20,8 +20,6 @@ export const tempSetUser = createAction(TEMP_SET_USER, (user) => user);
 export const check = createAction(CHECK);
 export const logout = createAction(LOGOUT);
 
-// const checkSaga = createRequestSaga(CHECK, authAPI.check);
-
 export const checkThunk = () => createThunk(CHECK, authAPI.check);
 
 export const logoutThunk = () => async (dispatch) => {

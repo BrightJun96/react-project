@@ -41,10 +41,8 @@ const TagBoxContainer = () => {
     (e) => {
       const clickedText = e.target.textContent;
       const filteringTag = tags.filter((tag) => {
-        console.log(clickedText);
-        console.log(tag);
         return `#${tag}` !== clickedText;
-      }); // 내가 클릭한 태그를
+      });
       dispatch(changeTags(filteringTag));
     },
     [tags, dispatch]
