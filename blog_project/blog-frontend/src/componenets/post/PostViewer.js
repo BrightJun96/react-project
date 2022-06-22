@@ -8,6 +8,7 @@ import {
 } from "./styledcomponent/styledPostViewer";
 import { Link } from "react-router-dom";
 import PostActionButtons from "./PostActionButtons";
+import Responsive from "../common/Responsive";
 const PostViewer = ({ post, error, onEdit, onRemove, ownPost }) => {
   if (error) {
     if (error.response?.status === 404) {
@@ -21,28 +22,34 @@ const PostViewer = ({ post, error, onEdit, onRemove, ownPost }) => {
   }
   const { title, body, user, date, tags } = post;
   return (
-    <PostViewerBlock>
-      <PostHead>
-        <h1>{title}</h1>
-        <SubInfo>
-          <span>
-            <b>
-              <Link to={`/@${user.username}`}>{user.username}</Link>
-            </b>
-          </span>
-          <span>{new Date(date).toLocaleDateString()} </span>
-        </SubInfo>
-        <Tags>
-          {tags?.map((tag) => (
-            <div className="tag" key={tag}>
-              {`#${tag}`}
-            </div>
-          ))}
-        </Tags>
-      </PostHead>
-      {ownPost && <PostActionButtons onEdit={onEdit} onRemove={onRemove} />}
-      <PostContent dangerouslySetInnerHTML={{ __html: body }} />
-    </PostViewerBlock>
+    <Responsive>
+      <PostViewerBlock>
+        <PostHead>
+          <h1>{title}</h1>
+          <SubInfo>
+            <span>
+              <b>
+                <Link to={`/@${user.username}`}>{user.username}</Link>
+              </b>
+            </span>
+            <span>{new Date(date).toLocaleDateString()} </span>
+          </SubInfo>
+          <Tags>
+            {tags?.map((tag) => (
+              <div className="tag" key={tag}>
+                {`#${tag}`}
+              </div>
+            ))}
+          </Tags>
+        </PostHead>
+        {ownPost && <PostActionButtons onEdit={onEdit} onRemove={onRemove} />}
+        <PostContent dangerouslySetInnerHTML={{ __html: body }} />
+        {/* {
+      리액트에서 innerHTML을 사용하기 위한 대체 방법
+      전달하고자 하는 값을 __html 프로퍼티의 value값으로 할당해주면 된다.
+      } */}
+      </PostViewerBlock>
+    </Responsive>
   );
 };
 export default PostViewer;

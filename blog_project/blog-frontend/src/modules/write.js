@@ -12,9 +12,9 @@ import createActionTypes from "./../lib/createActionTypes";
 
 const CHANGE_TAGTEXT = "write/CHANGE_TEXT";
 const CHANGE_TAGS = "write/CHANGE_TAGS";
-
 const CHANGE_TITLE = "write/CHANGE_TITLE";
 const CHANGE_BODY = "write/CHANGE_BODY";
+const CHANGE_FIELD = "write/CHANGE_FIELD";
 
 const INIT_ENTIRE = "write/INIT_ENTIRE";
 
@@ -23,6 +23,12 @@ const [UPDATE_POST, UPDATE_POST_SUCCESS, UPDATE_POST_FAILURE] =
   createActionTypes("write/UPDATE_POST");
 
 const SET_ORIGINAL_POST = "write/SET_ORIGINAL_POST";
+
+export const changeWriteField = ({ key, value }) => ({
+  type: CHANGE_FIELD,
+  payload: { key, value },
+  // dispatch(changeWriteField({key: "title" , value}))
+});
 
 export const writeThunk = ({ title, body, tags }) =>
   createThunk(WRITE, postAPI.writePost, { title, body, tags });
@@ -56,10 +62,26 @@ const initialState = {
   error: undefined,
   response: "",
   originalPostId: "",
+  field: {
+    title: "",
+    body: "",
+    tagText: "",
+  },
 };
 
 const write = handleActions(
   {
+    [CHANGE_FIELD]: (state, { payload: { key, value } }) =>
+      produce(state, (draft) => {
+        if (!key) {
+          // key를 입력하지 않으면 field 전체값을 변경
+          draft["field"] = value;
+        }
+
+        draft["field"][key] = value;
+
+        //draft["field"] = value
+      }),
     [CHANGE_TAGTEXT]: (state, action) =>
       produce(state, (draft) => {
         draft.tagText = action.payload;
@@ -76,8 +98,8 @@ const write = handleActions(
       produce(state, (draft) => {
         draft.body = action.payload;
       }),
-
     [INIT_ENTIRE]: (state) => (state = initialState),
+    /*--------- */
     [WRITE_SUCCESS]: (state, action) =>
       produce(state, (draft) => {
         draft.response = action.payload;

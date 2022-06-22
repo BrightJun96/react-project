@@ -20,6 +20,7 @@ const WriteActionButtonContainer = () => {
   const onPublish = () => {
     //originalPostId가 있으면 update
     if (originalPostId) {
+      // PostViewerContainer 컴포넌트에서 설정
       // 포스팅 아이디로 데이터베이스에서 해당 포스팅 조회
       dispatch(updateThunk({ id: originalPostId, title, body, tags }));
     }

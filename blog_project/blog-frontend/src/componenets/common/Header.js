@@ -13,7 +13,7 @@ const HeaderBlock = styled.div`
 `;
 
 // Responsive 컴포넌트의 속성에 스타일을 추가해서 새로운 컴포넌트 생성
-const Wrapper = styled(Responsive)`
+const Wrapper = styled.div`
   height: 4rem;
   display: flex;
   align-items: center;
@@ -44,22 +44,24 @@ const Header = ({ user, onLogout }) => {
   return (
     <>
       <HeaderBlock>
-        <Wrapper>
-          <Link to="/" className="logo">
-            Jevelog
-          </Link>
-          {/* 검증된 유저가 있으면 로그인 상태가 유지되도록  */}
-          {user ? (
-            <div className="right">
-              <UserInfo>{user.username}</UserInfo>
-              <Button onClick={onLogout}>로그아웃</Button>
-            </div>
-          ) : (
-            <Link to="/login" className="right">
-              <Button>로그인</Button>
+        <Responsive>
+          <Wrapper>
+            <Link to="/" className="logo">
+              Jevelog
             </Link>
-          )}
-        </Wrapper>
+            {/* 검증된 유저가 있으면 로그인 상태가 유지되도록  */}
+            {user ? (
+              <div className="right">
+                <UserInfo>{user.username}</UserInfo>
+                <Button onClick={onLogout}>로그아웃</Button>
+              </div>
+            ) : (
+              <Link to="/login" className="right">
+                <Button>로그인</Button>
+              </Link>
+            )}
+          </Wrapper>
+        </Responsive>
       </HeaderBlock>
       <Spacer />
     </>

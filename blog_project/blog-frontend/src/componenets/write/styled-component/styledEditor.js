@@ -1,10 +1,8 @@
 import styled from "styled-components";
 
-import Responsive from "../../common/Responsive";
-
 import palette from "../../../lib/styles/palette";
 
-export const EditorBlock = styled(Responsive)`
+export const EditorBlock = styled.div`
   // 너비를 Responsive 에게 상속받는다.
   padding: 5rem 0;
 `;

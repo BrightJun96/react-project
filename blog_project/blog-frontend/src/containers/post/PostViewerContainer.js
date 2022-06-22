@@ -32,10 +32,16 @@ const PostViewerContainer = () => {
   const onEdit = () => {
     /* 기존 포스팅을 가져와야함. */
 
-    dispatch(setOriginalPost(post?._id));
+    dispatch(setOriginalPost(post?._id)); // write 페이지로 넘어갈 때 original 아이디를 넘겨준다.
+    // 이 original 아이디는 write페이지에서 작성하는 포스팅이 업데이트할 포스팅인지 새로작성할 포스팅인지 구별해준다.
     dispatch(changeTags(post?.tags));
     dispatch(changeTitle(post?.title));
     dispatch(changeBody(post?.body));
+
+    /*
+dispatch(changeWriteField({title : post?.title,body :post?.body ....}))
+*/
+
     navigate("/write");
   };
 

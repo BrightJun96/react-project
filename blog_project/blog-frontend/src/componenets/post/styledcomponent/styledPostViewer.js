@@ -3,7 +3,7 @@ import styled from "styled-components";
 import Responsive from "../../common/Responsive";
 import palette from "../../../lib/styles/palette";
 
-export const PostViewerBlock = styled(Responsive)`
+export const PostViewerBlock = styled.div`
   margin-top: 4rem;
 `;
 
