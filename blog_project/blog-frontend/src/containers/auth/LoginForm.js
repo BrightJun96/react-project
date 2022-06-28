@@ -73,7 +73,6 @@ const LoginForm = () => {
     console.log(user);
     if (user) {
       navigate("/");
-      localStorage.setItem("user", JSON.stringify(user));
     }
   }, [user, navigate]);
 

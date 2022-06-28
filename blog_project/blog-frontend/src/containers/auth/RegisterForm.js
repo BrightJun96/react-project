@@ -72,8 +72,6 @@ const RegisterForm = () => {
   useEffect(() => {
     if (user) {
       navigate("/");
-
-      localStorage.setItem("user", JSON.stringify(user));
     }
   }, [user, navigate]);
 

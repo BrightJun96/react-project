@@ -6,9 +6,6 @@ import createActionTypes from "../lib/createActionTypes";
 import createThunk from "../lib/createThunk";
 import produce from "immer";
 
-// 임시 로그인 상태
-const TEMP_SET_USER = "user/TEMP_SET_USER";
-
 // 로그아웃
 const LOGOUT = "user/LOGOUT";
 
@@ -16,7 +13,6 @@ const LOGOUT = "user/LOGOUT";
 const [CHECK, CHECK_SUCCESS, CHECK_FAILURE] = createActionTypes("user/CHECK");
 
 // 액션생성함수
-export const tempSetUser = createAction(TEMP_SET_USER, (user) => user);
 export const check = createAction(CHECK);
 export const logout = createAction(LOGOUT);
 
@@ -24,7 +20,6 @@ export const checkThunk = () => createThunk(CHECK, authAPI.check);
 
 export const logoutThunk = () => async (dispatch) => {
   authAPI.logout();
-  localStorage.removeItem("user");
   dispatch(logout());
 };
 
@@ -35,10 +30,6 @@ const initialState = {
 
 const user = handleActions(
   {
-    [TEMP_SET_USER]: (state, { payload: user }) =>
-      produce(state, (draft) => {
-        draft.user = user;
-      }),
     [CHECK_SUCCESS]: (state, { payload: user }) =>
       produce(state, (draft) => {
         draft.user = user;
