@@ -7,6 +7,7 @@ import Button from "./../common/Button";
 import { Link } from "react-router-dom";
 
 import PostItem from "./PostItem";
+import Loading from "../common/Loading";
 
 const PostList = ({ posts, error, user, tag, username }) => {
   if (error) {
@@ -16,6 +17,10 @@ const PostList = ({ posts, error, user, tag, username }) => {
         <p>{error}</p>
       </PostListBlock>
     );
+  }
+
+  if (!posts) {
+    return <Loading />;
   }
 
   return (

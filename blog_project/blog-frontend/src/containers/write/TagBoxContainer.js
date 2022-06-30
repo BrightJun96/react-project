@@ -1,21 +1,20 @@
 import React, { useCallback } from "react";
 import TagBox from "./../../componenets/write/TagBox";
 import { useSelector, useDispatch } from "react-redux";
-import {
-  changeTagText,
-  changeTags,
-  writeSelector,
-} from "./../../modules/write";
+import { writeSelector, changeWriteField } from "./../../modules/write";
 
 const TagBoxContainer = () => {
-  const { tagText, tags } = useSelector(writeSelector);
+  const { field } = useSelector(writeSelector);
+
+  const { tagText, tags } = field;
 
   const dispatch = useDispatch();
 
   // tagTextChange
   const tagTextChange = useCallback(
     (e) => {
-      dispatch(changeTagText(e.target.value));
+      const { name, value } = e.target;
+      dispatch(changeWriteField({ key: name, value }));
     },
     [dispatch]
   );
@@ -31,8 +30,8 @@ const TagBoxContainer = () => {
       // 이미 존재하는 것이면 추가안함.
       if (tags.includes(`${tagText}`)) return;
       const newTag = tags.concat(`${tagText}`);
-      dispatch(changeTags(newTag));
-      dispatch(changeTagText(""));
+      dispatch(changeWriteField({ key: "tags", value: newTag }));
+      dispatch(changeWriteField({ key: "tagText", value: "" }));
     },
     [tagText, tags, dispatch]
   );
@@ -43,18 +42,18 @@ const TagBoxContainer = () => {
       const filteringTag = tags.filter((tag) => {
         return `#${tag}` !== clickedText;
       });
-      dispatch(changeTags(filteringTag));
+      dispatch(changeWriteField({ key: "tags", value: filteringTag }));
     },
     [tags, dispatch]
   );
 
   return (
     <TagBox
-      tagText={tagText}
       tags={tags}
       tagTextChange={tagTextChange}
       onAddTag={onAddTag}
       onRemoveTag={onRemoveTag}
+      tagText={tagText}
     />
   );
 };

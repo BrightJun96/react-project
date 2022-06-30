@@ -10,10 +10,6 @@ import createActionTypes from "./../lib/createActionTypes";
 // 하나는 태그 input state이고
 // 하나는 tag들이 들어간 state임.
 
-const CHANGE_TAGTEXT = "write/CHANGE_TEXT";
-const CHANGE_TAGS = "write/CHANGE_TAGS";
-const CHANGE_TITLE = "write/CHANGE_TITLE";
-const CHANGE_BODY = "write/CHANGE_BODY";
 const CHANGE_FIELD = "write/CHANGE_FIELD";
 
 const INIT_ENTIRE = "write/INIT_ENTIRE";
@@ -41,31 +37,17 @@ export const setOriginalPost = (post) => ({
 export const updateThunk = ({ id, title, body, tags }) =>
   createThunk(UPDATE_POST, postAPI.updatePost, { id, title, body, tags });
 
-export const changeTagText = (text) => ({
-  type: CHANGE_TAGTEXT,
-  payload: text,
-});
-
-export const changeTags = (tags) => ({ type: CHANGE_TAGS, payload: tags });
-
-export const changeTitle = (text) => ({ type: CHANGE_TITLE, payload: text });
-
-export const changeBody = (text) => ({ type: CHANGE_BODY, payload: text });
-
 export const initEntire = () => ({ type: INIT_ENTIRE });
 
 const initialState = {
-  tagText: "",
-  tags: [],
-  title: "",
-  body: "",
-  error: undefined,
-  response: "",
+  error: null,
+  response: null,
   originalPostId: "",
   field: {
     title: "",
     body: "",
     tagText: "",
+    tags: [],
   },
 };
 
@@ -75,29 +57,12 @@ const write = handleActions(
       produce(state, (draft) => {
         if (!key) {
           // key를 입력하지 않으면 field 전체값을 변경
-          draft["field"] = value;
+          draft.field = value;
         }
 
-        draft["field"][key] = value;
+        draft.field[key] = value;
+      }),
 
-        //draft["field"] = value
-      }),
-    [CHANGE_TAGTEXT]: (state, action) =>
-      produce(state, (draft) => {
-        draft.tagText = action.payload;
-      }),
-    [CHANGE_TAGS]: (state, action) =>
-      produce(state, (draft) => {
-        draft.tags = action.payload;
-      }),
-    [CHANGE_TITLE]: (state, action) =>
-      produce(state, (draft) => {
-        draft.title = action.payload;
-      }),
-    [CHANGE_BODY]: (state, action) =>
-      produce(state, (draft) => {
-        draft.body = action.payload;
-      }),
     [INIT_ENTIRE]: (state) => (state = initialState),
     /*--------- */
     [WRITE_SUCCESS]: (state, action) =>
@@ -134,4 +99,5 @@ export const writeSelector = ({ write }) => ({
   error: write.error,
   response: write.response,
   originalPostId: write.originalPostId,
+  field: write.field,
 });

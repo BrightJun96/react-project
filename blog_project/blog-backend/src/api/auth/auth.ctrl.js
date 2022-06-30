@@ -1,5 +1,5 @@
-import User from '../../models/user';
-import Joi from 'joi';
+import User from "../../models/user";
+import Joi from "joi";
 /*
 회원가입
 POST /api/auth/register
@@ -41,7 +41,7 @@ export const register = async (ctx) => {
 
     //회원가입 토큰 발급하여 cookie에 등록
     const token = user.generateToken();
-    ctx.cookies.set('access_token', token, {
+    ctx.cookies.set("access_token", token, {
       maxAge: 1000 * 60 * 60 * 24 * 7,
       httpOnly: true,
     });
@@ -86,7 +86,7 @@ export const login = async (ctx) => {
 
     const token = user.generateToken();
 
-    ctx.cookies.set('access_token', token, {
+    ctx.cookies.set("access_token", token, {
       maxAge: 1000 * 60 * 60 * 24 * 7,
       httpOnly: true,
     });
@@ -109,6 +109,6 @@ export const check = async (ctx) => {
 export const logout = async (ctx) => {
   // 로그아웃
 
-  ctx.cookies.set('access_token'); // cookie에 이름만 짓고 token은 할당안함.
+  ctx.cookies.set("access_token"); // cookie에 이름만 짓고 token은 할당안함.
   ctx.status = 204;
 };

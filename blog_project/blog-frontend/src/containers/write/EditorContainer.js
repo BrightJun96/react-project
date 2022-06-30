@@ -1,35 +1,38 @@
-import React, { useCallback } from "react";
+import React, { useEffect } from "react";
 import Editor from "../../componenets/write/Editor";
 import { useSelector, useDispatch } from "react-redux";
-import { changeTitle, changeBody, writeSelector } from "../../modules/write";
+import {
+  writeSelector,
+  changeWriteField,
+  initEntire,
+} from "../../modules/write";
 
 const EditorContainer = () => {
-  const { title, body } = useSelector(writeSelector);
+  const { title, body, field } = useSelector(writeSelector);
 
   const dispatch = useDispatch();
 
-  // 처음 한번만 함수 생성
-  const onChangeTitle = useCallback(
-    (e) => {
-      dispatch(changeTitle(e.target.value));
-    },
-    [dispatch]
-  );
+  const onChangeField = (e) => {
+    console.log(e);
+    if (typeof e === "string") {
+      dispatch(changeWriteField({ key: "body", value: e }));
+    } else {
+      const { name, value } = e.target;
+      dispatch(changeWriteField({ key: name, value }));
+    }
+  };
 
-  // 처음 한번만 함수 생성
-  const onChangeBody = useCallback(
-    (e) => {
-      dispatch(changeBody(e));
-    },
-    [dispatch]
-  );
+  // 컴포넌트가 사라질 때 전체 상태값 비워주기
+  useEffect(() => {
+    return () => dispatch(initEntire());
+  }, []);
 
   return (
     <Editor
+      field={field}
       title={title}
       body={body}
-      onChangeTitle={onChangeTitle}
-      onChangeBody={onChangeBody}
+      onChangeField={onChangeField}
     />
   );
 };

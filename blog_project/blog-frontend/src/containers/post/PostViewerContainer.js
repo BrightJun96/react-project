@@ -4,12 +4,7 @@ import { useDispatch } from "react-redux";
 import { useSelector } from "react-redux";
 import { postSelector, readThunk, unloadPost } from "../../modules/post";
 import PostViewer from "../../componenets/post/PostViewer";
-import {
-  changeBody,
-  changeTags,
-  changeTitle,
-  setOriginalPost,
-} from "../../modules/write";
+import { changeWriteField, setOriginalPost } from "../../modules/write";
 import * as postAPI from "../../lib/api/post";
 import { userSelector } from "../../modules/user";
 const PostViewerContainer = () => {
@@ -27,16 +22,16 @@ const PostViewerContainer = () => {
     // 컴포넌트가 사라질 때 post state를 초기화해줌.
     // cleanup 함수를 해주지 않으면 다른 포스팅을 조회할 때 전 포스팅을 잠시 나타나게 된다.
     // 따라서 해당 컴포넌트가 사라질 때 state값을 초기화해준다.
-  }, [dispatch, postId]);
+  }, []);
 
   const onEdit = () => {
     /* 기존 포스팅을 가져와야함. */
 
     dispatch(setOriginalPost(post?._id)); // write 페이지로 넘어갈 때 original 아이디를 넘겨준다.
     // 이 original 아이디는 write페이지에서 작성하는 포스팅이 업데이트할 포스팅인지 새로작성할 포스팅인지 구별해준다.
-    dispatch(changeTags(post?.tags));
-    dispatch(changeTitle(post?.title));
-    dispatch(changeBody(post?.body));
+    dispatch(changeWriteField({ key: "tags", value: post?.tags }));
+    dispatch(changeWriteField({ key: "title", value: post?.title }));
+    dispatch(changeWriteField({ key: "body", value: post?.body }));
 
     /*
 dispatch(changeWriteField({title : post?.title,body :post?.body ....}))

@@ -11,7 +11,6 @@ const WriteActionButton = ({
   errorText,
   originalPostId,
 }) => {
-  console.log(errorText);
   return (
     <WriteActionButtonBlock>
       <StyledButton violet onClick={onPublish}>

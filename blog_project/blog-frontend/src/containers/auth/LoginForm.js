@@ -48,7 +48,7 @@ const LoginForm = () => {
 
   useEffect(() => {
     if (auth) {
-      dispatch(checkThunk()); // check => server state에 담긴 로그인 정보와 비교
+      dispatch(checkThunk()); // 서버 state에 유저가 담겨있는지 확인
     }
 
     /* 에러 텍스트 처리를 서버 status를 이용하여 처리 */
@@ -57,13 +57,13 @@ const LoginForm = () => {
     // &&연산자를 사용하면 코드가 길어지기 때문에 가독성을 위해 사용하였다.
     if (authError?.response.status === 400) {
       // authError && authError.response.status === 400
-      dispatch(initializeForm("login"));
+      dispatch(initializeForm());
       dispatch(changeErrorText("존재하지 않는 계정입니다."));
     }
 
     // 비밀번호가 틀릴 경우
     if (authError?.response.status === 444) {
-      dispatch(initializeForm("login"));
+      dispatch(initializeForm());
       dispatch(changeErrorText("비밀번호가 틀립니다."));
     }
   }, [authError, auth, dispatch]);

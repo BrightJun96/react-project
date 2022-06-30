@@ -15,6 +15,7 @@ const store = createStore(
 );
 
 store.dispatch(checkThunk()); // 서버에 있는 유저 가져와줌.
+
 ReactDOM.render(
   <React.StrictMode>
     <Provider store={store}>

@@ -13,9 +13,10 @@ const WriteActionButtonContainer = () => {
   const navigate = useNavigate();
   const [errorText, setErrorText] = useState("");
 
-  const { title, body, tags, error, response, originalPostId } =
-    useSelector(writeSelector);
-  console.log(response);
+  const { field, error, response, originalPostId } = useSelector(writeSelector);
+
+  const { title, body, tags } = field;
+
   const dispatch = useDispatch();
   const onPublish = () => {
     //originalPostId가 있으면 update
@@ -29,21 +30,18 @@ const WriteActionButtonContainer = () => {
       dispatch(writeThunk({ title, body, tags }));
     }
   };
-
   const onCancel = () => {
     const cancel = window.confirm("정말 취소하시겠습니까?"); // 확인 = true 취소 = false
 
-    if (cancel) {
+    if (Boolean(cancel)) {
       navigate(-1);
-      dispatch(initEntire());
     } // 이전 페이지로
   };
 
   useEffect(() => {
-    const { _id, user } = response;
     // 포스팅을 작성하거나 업데이트하면 해당 포스팅의 주소로 라우팅
-    if (user) {
-      navigate(`/@${user.username}/${_id}`);
+    if (Boolean(response)) {
+      navigate(`/@${response.user.username}/${response._id}`);
       dispatch(initEntire());
     }
   }, [navigate, response, dispatch]);

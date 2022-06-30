@@ -28,7 +28,7 @@ const Tags = ({ tags, onRemoveTag }) => {
 
 const MemoizedTags = memo(Tags);
 
-const TagBox = ({ tagText, tags, tagTextChange, onAddTag, onRemoveTag }) => {
+const TagBox = ({ tags, tagTextChange, onAddTag, onRemoveTag, tagText }) => {
   return (
     <TagBoxBlock>
       <h4>태그</h4>
@@ -37,6 +37,7 @@ const TagBox = ({ tagText, tags, tagTextChange, onAddTag, onRemoveTag }) => {
           placeholder="태그를 입력하세요"
           value={tagText}
           onChange={tagTextChange}
+          name="tagText"
         />
         <button>추가</button>
       </TagForm>

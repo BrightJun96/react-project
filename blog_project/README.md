@@ -16,8 +16,6 @@
 - React-quill(text-editor library)
 - immer
 - redux
-- redux-actions
-- redux-saga
 - redux-thunk
 - styeld-components
 
@@ -78,8 +76,6 @@
 - 여러 상태값이 필요하며 이를 각 페이지 및 컴포넌트별로 구분하기 위하여 **redux로 상태관리**를 하였다.
 
 - 로그인 및 회원가입에 대한 **validation 및 Error Message**를 백엔드와 프론트에서 둘 다 구현하였다.
-
-- 서버로 새로 요청(새로고침)을 하여도 로그인 상태를 유지하기 위해 로그인 상태값을 클라이언트측에서 **localStorage**에 담았다.
 
 - 포스팅은 로그인을 하지않아도 볼 수 있지만 **포스팅 작성은 로그인을 한 유저만 작성**할 수 있다.
 
