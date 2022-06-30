@@ -1,15 +1,11 @@
 import styled from "styled-components";
-import Responsive from "./../../common/Responsive";
 import palette from "./../../../lib/styles/palette";
 
-export const PostListBlock = styled(Responsive)`
-  margin-top: 3rem;
-`;
-
 export const WritePostButtonWrapper = styled.div`
+  margin-top: 2rem;
   display: flex;
   justify-content: flex-end;
-  margin-bottom: 3rem;
+  margin-bottom: 2rem;
 `;
 export const PostItemBlock = styled.div`
   padding-top: 3rem;

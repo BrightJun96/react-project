@@ -9,7 +9,7 @@ import {
 import { Link } from "react-router-dom";
 import PostActionButtons from "./PostActionButtons";
 import Responsive from "../common/Responsive";
-import Loading from "../common/Loading";
+import SkeltonPostViewer from "./styledcomponent/SkeltonPostViewer";
 const PostViewer = ({ post, error, onEdit, onRemove, ownPost }) => {
   if (error) {
     if (error.response?.status === 404) {
@@ -19,7 +19,7 @@ const PostViewer = ({ post, error, onEdit, onRemove, ownPost }) => {
   }
 
   if (!post) {
-    return <Loading />;
+    return <SkeltonPostViewer />;
   }
   const { title, body, user, date, tags } = post;
   return (

@@ -1,30 +1,28 @@
 import React from "react";
-import {
-  PostListBlock,
-  WritePostButtonWrapper,
-} from "./styledcomponent/styledPostList";
+import { WritePostButtonWrapper } from "./styledcomponent/styledPostList";
 import Button from "./../common/Button";
 import { Link } from "react-router-dom";
 
 import PostItem from "./PostItem";
-import Loading from "../common/Loading";
+import SkeltonPostList from "./styledcomponent/SkeltonPostList";
+import Responsive from "../common/Responsive";
 
 const PostList = ({ posts, error, user, tag, username }) => {
   if (error) {
     return (
-      <PostListBlock>
+      <Responsive>
         <h1>에러가 발생했습니다.</h1>
         <p>{error}</p>
-      </PostListBlock>
+      </Responsive>
     );
   }
 
   if (!posts) {
-    return <Loading />;
+    return <SkeltonPostList />;
   }
 
   return (
-    <PostListBlock>
+    <Responsive>
       <div>
         {/* 포스팅 필터링 인풋 기능 구현 예정 */}
         {/* <input type="text" placeholder="원하시는 포스팅을 입력하세요." /> */}
@@ -56,7 +54,7 @@ const PostList = ({ posts, error, user, tag, username }) => {
             ))}
         </div>
       }
-    </PostListBlock>
+    </Responsive>
   );
 };
 
