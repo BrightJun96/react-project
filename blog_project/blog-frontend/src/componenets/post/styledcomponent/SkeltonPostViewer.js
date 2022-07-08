@@ -1,67 +1,71 @@
 import React from "react";
 import Responsive from "../../common/Responsive";
-import { PostHead, PostViewerBlock, SubInfo } from "./styledPostViewer";
-import styled from "styled-components";
+import { PostHead } from "./styledPostViewer";
+import styled, { css } from "styled-components";
+
+const commonProperty = css`
+  background-color: lightgray;
+  border-radius: 5px;
+`;
+
+const SkeltonPostViewerContainer = styled.div`
+  margin-top: 4rem;
+
+  .common {
+    background-color: lightgray;
+    border-radius: 0.5rem;
+  }
+  .post-body {
+    width: 100%;
+    height: 250px;
+  }
+`;
+const SkeltonPostHead = styled(PostHead)`
+  .post-title {
+    width: 100%;
+    height: 72px;
+  }
+
+  .post-tagList {
+    display: flex;
+    margin-top: 0.5rem;
+
+    .post-tag {
+      width: 40px;
+      height: 1rem;
+      margin-right: 0.5rem;
+    }
+  }
+`;
+
+const SkeltonSubInfo = styled.div`
+  display: flex;
+  margin-top: 1rem;
+  div {
+    width: 80px;
+    height: 1rem;
+    margin-right: 1rem;
+  }
+`;
 
 const SkeltonPostViewer = () => {
-  const SkeltonPostViewerBlock = styled(PostViewerBlock)`
-    .post-body {
-      width: 100%;
-      height: 250px;
-      background-color: lightgray;
-      border-radius: 5px;
-    }
-  `;
-
-  const SkeltonPostHead = styled(PostHead)`
-    .post-title {
-      width: 100%;
-      background-color: lightgray;
-      height: 72px;
-      border-radius: 5px;
-    }
-
-    .post-tagList {
-      display: flex;
-      margin-top: 0.5rem;
-      .post-tag {
-        width: 40px;
-        height: 16px;
-        margin-right: 0.5rem;
-        background-color: lightgray;
-        border-radius: 5px;
-      }
-    }
-  `;
-
-  const SkeltonSubInfo = styled(SubInfo)`
-    display: flex;
-    div {
-      background-color: lightgray;
-      width: 80px;
-      height: 16px;
-      border-radius: 5px;
-      margin-right: 1rem;
-    }
-  `;
-
   return (
     <Responsive>
-      <SkeltonPostViewerBlock>
+      <SkeltonPostViewerContainer>
         <SkeltonPostHead>
-          <div className="post-title"></div>
+          <div className="post-title common"></div>
           <SkeltonSubInfo>
-            <div className="post-subInfo"></div>
-            <div className="post-subInfo"></div>
+            <div className="post-subInfo common"></div>
+            <div className="post-subInfo common"></div>
           </SkeltonSubInfo>
           <div className="post-tagList">
-            <div className="post-tag"></div>
-            <div className="post-tag"></div>
-            <div className="post-tag"></div>
+            <div className="post-tag common"></div>
+            <div className="post-tag common"></div>
+            <div className="post-tag common"></div>
           </div>
         </SkeltonPostHead>
-        <div className="post-body"></div>
-      </SkeltonPostViewerBlock>
+        <div className="post-body common"></div>
+      </SkeltonPostViewerContainer>
     </Responsive>
   );
 };

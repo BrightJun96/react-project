@@ -9,6 +9,8 @@ import rootReducer from "./modules/index";
 import { composeWithDevTools } from "redux-devtools-extension";
 import thunk from "redux-thunk";
 import { checkThunk } from "./modules/user";
+import "react-loading-skeleton/dist/skeleton.css";
+
 const store = createStore(
   rootReducer,
   composeWithDevTools(applyMiddleware(thunk))

@@ -1,4 +1,4 @@
-import mongoose from 'mongoose';
+import mongoose from "mongoose";
 
 const { Schema } = mongoose;
 
@@ -14,8 +14,9 @@ const PostSchema = new Schema({
     _id: mongoose.Types.ObjectId,
     username: String,
   },
+  like: Number,
 });
 
-const Post = mongoose.model('Post', PostSchema);
+const Post = mongoose.model("Post", PostSchema);
 
 export default Post;

@@ -47,7 +47,7 @@ const Header = ({ user, onLogout }) => {
         <Responsive>
           <Wrapper>
             <Link to="/" className="logo">
-              Jevelog
+              Jelog
             </Link>
             {/* 검증된 유저가 있으면 로그인 상태가 유지되도록  */}
             {user ? (

@@ -1,4 +1,4 @@
-import Router from 'koa-router';
+import Router from "koa-router";
 import {
   list,
   write,
@@ -7,20 +7,17 @@ import {
   update,
   checkOwnPost,
   getPostById,
-} from './posts.ctrl';
-import checkLoggedIn from '../../lib/checkLoggedIn';
+  postLikeUpdate,
+} from "./posts.ctrl";
+import checkLoggedIn from "../../lib/checkLoggedIn";
 const posts = new Router();
 
-posts.get('/', list);
-posts.post('/', checkLoggedIn, write);
+posts.get("/", list);
+posts.post("/", checkLoggedIn, write);
 
-// !!!!!!!!오타주의!!!!!!!!!!!!!!!!!!
-const post = new Router();
-
-post.get('/', read);
-post.delete('/', checkLoggedIn, checkOwnPost, remove);
-post.patch('/', checkLoggedIn, checkOwnPost, update);
-
-posts.use('/:id', getPostById, post.routes());
+posts.get("/:id", getPostById, read);
+posts.delete("/:id", getPostById, checkLoggedIn, checkOwnPost, remove);
+posts.patch("/:id", getPostById, checkLoggedIn, checkOwnPost, update);
+posts.patch("/:id/like", getPostById, postLikeUpdate);
 
 export default posts;

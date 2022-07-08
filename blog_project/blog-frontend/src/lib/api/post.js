@@ -18,3 +18,6 @@ export const updatePost = ({ id, title, body, tags }) =>
 
 // DELETE게시물 삭제
 export const removePost = (id) => client.delete(`/api/posts/${id}`);
+
+export const postLike = ({ id, likeCount }) =>
+  client.patch(`/api/posts/${id}/like`, { likeCount });

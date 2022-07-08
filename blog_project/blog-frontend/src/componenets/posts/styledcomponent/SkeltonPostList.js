@@ -1,17 +1,20 @@
 import React from "react";
 import styled from "styled-components";
-import { PostItemBlock, SubInfo } from "./styledPostList";
+import { PostItemBlock } from "./styledPostList";
 import Responsive from "./../../common/Responsive";
+import Skeleton from "react-loading-skeleton";
 const SkeltonPostContainer = styled.div`
   margin-top: 96px;
 `;
 
 const SkeltonPostItemBlock = styled(PostItemBlock)`
-  .post-title {
-    height: 2rem;
-    width: 100%;
+  .common {
     background-color: lightgray;
-    border-radius: 5px;
+    border-radius: 0.5rem;
+  }
+  .post-title {
+    height: 32px;
+    width: 100%;
   }
   .post-tagList {
     margin-top: 0.5rem;
@@ -20,8 +23,6 @@ const SkeltonPostItemBlock = styled(PostItemBlock)`
       width: 40px;
       height: 16px;
       margin-right: 0.5rem;
-      background-color: lightgray;
-      border-radius: 5px;
     }
   }
 
@@ -29,17 +30,14 @@ const SkeltonPostItemBlock = styled(PostItemBlock)`
     margin-top: 0.5rem;
     width: 100%;
     height: 40px;
-    background-color: lightgray;
-    border-radius: 5px;
   }
 `;
 
-const SkeltonSubInfo = styled(SubInfo)`
+const SkeltonSubInfo = styled.div`
   display: flex;
+  margin-top: 1rem;
   .post-subInfo {
     margin-right: 0.5rem;
-    background-color: lightgray;
-    border-radius: 5px;
     width: 80px;
     height: 16px;
   }
@@ -48,18 +46,17 @@ const SkeltonSubInfo = styled(SubInfo)`
 const SkeltonPostItem = () => {
   return (
     <SkeltonPostItemBlock>
-      <div className="post-title"></div>
+      <div className="post-title common"></div>
       <SkeltonSubInfo>
-        <div className="post-subInfo"></div>
-        <div className="post-subInfo"></div>
+        <div className="post-subInfo common"></div>
+        <div className="post-subInfo common"></div>
       </SkeltonSubInfo>
       <div className="post-tagList">
-        <div className="post-tag"></div>
-        <div className="post-tag"></div>
-        <div className="post-tag"></div>
+        <div className="post-tag common"></div>
+        <div className="post-tag common"></div>
+        <div className="post-tag common"></div>
       </div>
-
-      <div className="post-body"></div>
+      <div className="post-body common"></div>
     </SkeltonPostItemBlock>
   );
 };
@@ -68,6 +65,9 @@ const SkeltonPostList = () => {
   return (
     <Responsive>
       <SkeltonPostContainer>
+        <SkeltonPostItem />
+        <SkeltonPostItem />
+        <SkeltonPostItem />
         <SkeltonPostItem />
         <SkeltonPostItem />
         <SkeltonPostItem />

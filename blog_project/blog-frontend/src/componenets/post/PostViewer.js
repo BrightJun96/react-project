@@ -10,6 +10,7 @@ import { Link } from "react-router-dom";
 import PostActionButtons from "./PostActionButtons";
 import Responsive from "../common/Responsive";
 import SkeltonPostViewer from "./styledcomponent/SkeltonPostViewer";
+import Like from "./Like";
 const PostViewer = ({ post, error, onEdit, onRemove, ownPost }) => {
   if (error) {
     if (error.response?.status === 404) {
@@ -42,6 +43,7 @@ const PostViewer = ({ post, error, onEdit, onRemove, ownPost }) => {
               </div>
             ))}
           </Tags>
+          <Like />
         </PostHead>
         {ownPost && <PostActionButtons onEdit={onEdit} onRemove={onRemove} />}
         <PostContent dangerouslySetInnerHTML={{ __html: body }} />

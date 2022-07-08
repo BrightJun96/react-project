@@ -1,32 +1,32 @@
-import Post from '../../models/post';
-import mongoose from 'mongoose';
-import Joi from 'joi';
-import sanitizeHtml from 'sanitize-html';
+import Post from "../../models/post";
+import mongoose from "mongoose";
+import Joi from "joi";
+import sanitizeHtml from "sanitize-html";
 
 const { ObjectId } = mongoose.Types;
 
 const sanitizeOption = {
   allowedTags: [
-    'h1',
-    'h2',
-    'b',
-    'i',
-    'u',
-    's',
-    'p',
-    'ul',
-    'li',
-    'ol',
-    'blockquote',
-    'a',
-    'img',
+    "h1",
+    "h2",
+    "b",
+    "i",
+    "u",
+    "s",
+    "p",
+    "ul",
+    "li",
+    "ol",
+    "blockquote",
+    "a",
+    "img",
   ],
   allowedAttributes: {
-    a: ['href', 'name', 'target'],
-    img: ['src'],
-    li: ['class'],
+    a: ["href", "name", "target"],
+    img: ["src"],
+    li: ["class"],
   },
-  allowedSchemes: ['data', 'http'],
+  allowedSchemes: ["data", "http"],
 };
 
 const removeHtmlAndShorten = (body) => {
@@ -37,10 +37,9 @@ const removeHtmlAndShorten = (body) => {
 };
 
 // Posting Id로 해당 포스팅 찾게 해주는 미들웨어
-// 이 미들웨어가 적용되지 않은건 아닌지 확인.
 export const getPostById = async (ctx, next) => {
   const { id } = ctx.params;
-
+  console.log(id);
   if (!ObjectId.isValid(id)) {
     ctx.status = 400; //Bad Request
     return;
@@ -100,6 +99,7 @@ export const write = async (ctx) => {
     body: sanitizeHtml(body, sanitizeOption),
     tags,
     user: ctx.state.user,
+    like: 0,
   }); // 인스턴스
   try {
     await post.save();
@@ -189,5 +189,21 @@ export const update = async (ctx) => {
     ctx.body = post;
   } catch (e) {
     ctx.throw(500, e);
+  }
+};
+
+export const postLikeUpdate = async (ctx) => {
+  const { id } = ctx.params;
+  const { likeCount } = ctx.request.body;
+
+  try {
+    const post = await Post.findByIdAndUpdate(
+      id,
+      { like: likeCount },
+      { new: true }
+    ).exec();
+    ctx.body = post;
+  } catch (e) {
+    console.log(e);
   }
 };
