@@ -5,14 +5,13 @@ export const WritePostButtonWrapper = styled.div`
   margin-top: 2rem;
   display: flex;
   justify-content: flex-end;
-  margin-bottom: 2rem;
 `;
 export const PostItemBlock = styled.div`
   padding-top: 3rem;
   padding-bottom: 3rem;
-  &:first-child {
+  /* &:first-child {
     padding-top: 0;
-  }
+  } */
   & + & {
     border-top: 1px solid ${palette.gray[2]};
   }
