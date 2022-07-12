@@ -47,6 +47,7 @@ const PostViewer = ({ post, error, onEdit, onRemove, ownPost }) => {
         </PostHead>
         {ownPost && <PostActionButtons onEdit={onEdit} onRemove={onRemove} />}
         <PostContent dangerouslySetInnerHTML={{ __html: body }} />
+        <div className="bottom-space" style={{ height: "50px" }}></div>
         {/* {
       리액트에서 innerHTML을 사용하기 위한 대체 방법
       전달하고자 하는 값을 __html 프로퍼티의 value값으로 할당해주면 된다.

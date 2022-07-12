@@ -1,21 +1,84 @@
-import React from "react";
+import React, { Suspense } from "react";
 import { Route, Routes } from "react-router-dom";
-import LoginPage from "./pages/LoginPage";
-import PostListPage from "./pages/PostListPage";
-import PostPage from "./pages/PostPage";
-import RegisterPage from "./pages/RegisterPage";
-import WritePage from "./pages/WritePage";
+import SkeltonPostViewer from "./componenets/post/styledcomponent/SkeltonPostViewer";
+import SkeltonPostList from "./componenets/posts/styledcomponent/SkeltonPostList";
+import CircularProgress from "@mui/material/CircularProgress";
+import styled from "styled-components";
 
 const App = () => {
+  const PostListPage = React.lazy(() => import("./pages/PostListPage"));
+  const RegisterPage = React.lazy(() => import("./pages/RegisterPage"));
+  const LoginPage = React.lazy(() => import("./pages/LoginPage"));
+  const WritePage = React.lazy(() => import("./pages/WritePage"));
+  const PostPage = React.lazy(() => import("./pages/PostPage"));
+
+  const StyledLoadingWrapper = styled.div`
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  `;
+  const Loading = () => {
+    return (
+      <StyledLoadingWrapper>
+        <CircularProgress />
+      </StyledLoadingWrapper>
+    );
+  };
+
   return (
     <div>
       <Routes>
-        <Route path="/" element={<PostListPage />} />
-        <Route path="/register" element={<RegisterPage />} />
-        <Route path="/login" element={<LoginPage />} />
-        <Route path="/write" element={<WritePage />} />
-        <Route path="/@:username" element={<PostListPage />} />
-        <Route path="/@:username/:postId" element={<PostPage />} />
+        <Route
+          path="/"
+          element={
+            <Suspense fallback={<SkeltonPostList />}>
+              <PostListPage />
+            </Suspense>
+          }
+        />
+
+        <Route
+          path="/register"
+          element={
+            <Suspense fallback={<Loading />}>
+              <RegisterPage />
+            </Suspense>
+          }
+        />
+        <Route
+          path="/login"
+          element={
+            <Suspense fallback={<Loading />}>
+              <LoginPage />
+            </Suspense>
+          }
+        />
+        <Route
+          path="/write"
+          element={
+            <Suspense fallback={<Loading />}>
+              <WritePage />
+            </Suspense>
+          }
+        />
+        <Route
+          path="/@:username"
+          element={
+            <Suspense fallback={<SkeltonPostList />}>
+              <PostListPage />
+            </Suspense>
+          }
+        />
+        <Route
+          path="/@:username/:postId"
+          element={
+            <Suspense fallback={<SkeltonPostViewer />}>
+              <PostPage />
+            </Suspense>
+          }
+        />
       </Routes>
     </div>
   );
