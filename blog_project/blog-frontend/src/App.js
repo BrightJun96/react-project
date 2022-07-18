@@ -4,6 +4,7 @@ import SkeltonPostViewer from "./componenets/post/styledcomponent/SkeltonPostVie
 import SkeltonPostList from "./componenets/posts/styledcomponent/SkeltonPostList";
 import CircularProgress from "@mui/material/CircularProgress";
 import styled from "styled-components";
+import Test from "./Test";
 
 const App = () => {
   const PostListPage = React.lazy(() => import("./pages/PostListPage"));
@@ -79,6 +80,7 @@ const App = () => {
             </Suspense>
           }
         />
+        <Route path="/test" element={<Test />} />
       </Routes>
     </div>
   );

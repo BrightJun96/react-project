@@ -36,7 +36,6 @@ const PostViewerContainer = () => {
     /*
 dispatch(changeWriteField({title : post?.title,body :post?.body ....}))
 */
-
     navigate("/write");
   };
 

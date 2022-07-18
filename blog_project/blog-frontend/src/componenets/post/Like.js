@@ -1,9 +1,8 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { AiOutlineLike, AiFillLike } from "react-icons/ai";
 import { useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
 import styled from "styled-components";
-import { listPost, postLike } from "../../lib/api/post";
 import { postSelector } from "../../modules/post";
 import { userSelector } from "../../modules/user";
 
@@ -82,13 +81,12 @@ const Like = () => {
 
   // postLike({ id: postId, likeCount: post.like + Number(like.activated) });
 
-  console.log(user);
   return (
     <LikeContainer>
       <button onClick={activateLike} disabled={!Boolean(user)}>
         {like.activated ? <AiFillLike /> : <AiOutlineLike />}
       </button>
-      <span>{post.like + Number(like.activated)}</span>
+      <span>{Number(like.activated)}</span>
     </LikeContainer>
   );
 };

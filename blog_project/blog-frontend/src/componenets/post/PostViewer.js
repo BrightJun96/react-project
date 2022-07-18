@@ -22,6 +22,7 @@ const PostViewer = ({ post, error, onEdit, onRemove, ownPost }) => {
   if (!post) {
     return <SkeltonPostViewer />;
   }
+  console.log(post);
   const { title, body, user, date, tags } = post;
   return (
     <Responsive>

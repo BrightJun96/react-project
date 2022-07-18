@@ -20,7 +20,6 @@ const PostListContainer = () => {
     ignoreQueryPrefix: true, // 앞에 ?를 제외하고 parsing해서 객체로 가져와줌.
   });
   //console.log("render"); // 총 2번 리렌더링 처음 check에서 한번 getListThunk에서 한번
-
   useEffect(() => {
     //  응닶값을 배열로써 응답을 받는데 배열은 객체로써 내부 프로퍼티 값이 같더라도 다른 참조값을 갖고 있기때문에 useSelector가 이를 인지하여 다른값으로 인식한다.
     // 때문에 이전 state와 이후 state가 다르면 리렌더링이 되기 때문에 무한리렌더링이 발생한다.
