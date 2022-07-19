@@ -8,15 +8,12 @@ import { applyMiddleware, createStore } from "redux";
 import rootReducer from "./modules/index";
 import { composeWithDevTools } from "redux-devtools-extension";
 import thunk from "redux-thunk";
-import { checkThunk } from "./modules/user";
 import "react-loading-skeleton/dist/skeleton.css";
 
 const store = createStore(
   rootReducer,
   composeWithDevTools(applyMiddleware(thunk))
 );
-
-store.dispatch(checkThunk()); // 서버에 있는 유저 가져와줌.
 
 ReactDOM.render(
   <React.StrictMode>

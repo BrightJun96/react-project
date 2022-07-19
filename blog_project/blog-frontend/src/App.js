@@ -1,12 +1,20 @@
-import React, { Suspense } from "react";
+import React, { Suspense, useEffect } from "react";
 import { Route, Routes } from "react-router-dom";
 import SkeltonPostViewer from "./componenets/post/styledcomponent/SkeltonPostViewer";
 import SkeltonPostList from "./componenets/posts/styledcomponent/SkeltonPostList";
 import CircularProgress from "@mui/material/CircularProgress";
 import styled from "styled-components";
 import Test from "./Test";
+import { useDispatch } from "react-redux";
+import { checkThunk } from "./modules/user";
 
 const App = () => {
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    dispatch(checkThunk());
+  }, []);
+
   const PostListPage = React.lazy(() => import("./pages/PostListPage"));
   const RegisterPage = React.lazy(() => import("./pages/RegisterPage"));
   const LoginPage = React.lazy(() => import("./pages/LoginPage"));
