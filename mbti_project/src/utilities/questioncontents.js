@@ -1,6 +1,6 @@
 const contents = [
   {
-    img: "/questionImage/one.jpg",
+    img: "https://mbti-img-bucket.s3.ap-northeast-2.amazonaws.com/one.jpg",
     number: 1,
     question: `집으로 가는 길, 우연히 한 남성이 다가와 10만 원을 걸고 '딱지치기' 게임을 제안한다. 나의 반응은?`,
     answer1: "10만원 이면 완전 땡큐지' 바로 게임에 응한다.",
@@ -8,7 +8,7 @@ const contents = [
     type: "e",
   },
   {
-    img: "./questionImage/two.jpg",
+    img: "https://mbti-img-bucket.s3.ap-northeast-2.amazonaws.com/two.jpg",
     number: 2,
     question:
       "딱지치기 게임 이후, 오징어 게임 참가를 제안받았다. 명함부터 수상한데...과연 나라면?",
@@ -17,7 +17,7 @@ const contents = [
     type: "e",
   },
   {
-    img: "./questionImage/three.jpg",
+    img: "https://mbti-img-bucket.s3.ap-northeast-2.amazonaws.com/three.jpg",
     number: 3,
     question:
       "드디어 오징어 게임 start! 첫 번째 게임, '무궁화 꽃이 피었습니다'가 시작됐다. 나의 게임 스타일은?",
@@ -26,7 +26,7 @@ const contents = [
     type: "s",
   },
   {
-    img: "./questionImage/four.jpg",
+    img: "https://mbti-img-bucket.s3.ap-northeast-2.amazonaws.com/four.jpg",
     number: 4,
     question: "두 번째 게임, 달고나 게임이 시작됐다. 나의 뽑기 방법은?",
     answer1: "정성스럽게 혀로 핥아가며 모양을 뽑는다.",
@@ -34,7 +34,7 @@ const contents = [
     type: "t",
   },
   {
-    img: "./questionImage/five.jpg",
+    img: "https://mbti-img-bucket.s3.ap-northeast-2.amazonaws.com/five.jpg",
     number: 5,
     question:
       "게임에서 유리하기 위해선 내 편을 만들어야 한다! 나만의 어필 방법은?",
@@ -44,7 +44,7 @@ const contents = [
     type: "j",
   },
   {
-    img: "./questionImage/six.jpg",
+    img: "https://mbti-img-bucket.s3.ap-northeast-2.amazonaws.com/six.jpg",
     number: 6,
     question:
       "세 번째 게임, 암전이 되고 비명소리와 함께 사람들이 하나 둘 쓰러져나간다. 이때 나의 행동은?",
@@ -53,7 +53,7 @@ const contents = [
     type: "e",
   },
   {
-    img: "./questionImage/seven.jpg",
+    img: "https://mbti-img-bucket.s3.ap-northeast-2.amazonaws.com/seven.jpg",
     number: 7,
     question:
       "네 번째 게임, 줄다리기 게임이 시작됐다.어떤 사람들과 팀을 이룰까?",
@@ -62,7 +62,7 @@ const contents = [
     type: "j",
   },
   {
-    img: "./questionImage/eight.jpg",
+    img: "https://mbti-img-bucket.s3.ap-northeast-2.amazonaws.com/eight.jpg",
     number: 8,
     question:
       "다섯 번째 게임, 구슬치기 게임이 시작됐다.이기기 위한 나만의 전략은?",
@@ -71,7 +71,7 @@ const contents = [
     type: "t",
   },
   {
-    img: "./questionImage/nine.jpg",
+    img: "https://mbti-img-bucket.s3.ap-northeast-2.amazonaws.com/nine.jpg",
     number: 9,
     question: "다음 게임 시작 전, 선착순으로 게임 순서를 정한다면 나의 선택은?",
     answer1: "제일 처음은 뭔가 불안한걸..중간 또는 뒷 순서를 선택한다.",
@@ -79,7 +79,7 @@ const contents = [
     type: "s",
   },
   {
-    img: "./questionImage/ten.jpg",
+    img: "https://mbti-img-bucket.s3.ap-northeast-2.amazonaws.com/ten.jpg",
     number: 10,
     question:
       "여섯 번째 게임, 다리 건너기 게임이 시작됐다. 그런데 갑자기 앞사람이 멈추어버렸다. 다음 나의 행동은?",
@@ -88,7 +88,7 @@ const contents = [
     type: "s",
   },
   {
-    img: "./questionImage/eleven.jpg",
+    img: "https://mbti-img-bucket.s3.ap-northeast-2.amazonaws.com/eleven.jpg",
     number: 11,
     question:
       "드디어 모든 게임에서 승리하고 최종 우승자가 되었다. 상금 456억을 어떻게 쓸까?",
@@ -99,7 +99,7 @@ const contents = [
     type: "t",
   },
   {
-    img: "./questionImage/twelve.jpg",
+    img: "https://mbti-img-bucket.s3.ap-northeast-2.amazonaws.com/twelve.jpg",
     number: 12,
     question:
       "게임은 잊혀지고 평범한 하루를 보내던 어느 날, 다시 제안받게 되는 오징어 게임,과연 나의 선택은?",

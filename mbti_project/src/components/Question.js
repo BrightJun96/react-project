@@ -17,7 +17,7 @@ const Question = ({ count, selectAnswer }) => {
     <div className="questionContainer">
       <h3>{contents[count].number}</h3>
       <p className="title">{contents[count].question}</p>
-      <div
+      {/* <div
         className="img-box"
         style={{
           width: "350px",
@@ -28,7 +28,8 @@ const Question = ({ count, selectAnswer }) => {
           backgroundPosition: "center",
           backgroundSize: "cover",
         }}
-      />
+      /> */}
+      <img src={contents[count].img} alt="img" width={330} height={270} />
       <Button onClick={() => selectAnswer(1, contents[count].type)}>
         {contents[count].answer1}
       </Button>
